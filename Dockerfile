@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # Build the application
-RUN go build -o main .
+RUN go build
 
 # Expose port 8080
 EXPOSE 8080
