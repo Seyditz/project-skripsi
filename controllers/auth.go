@@ -57,11 +57,21 @@ func MahasiswaLogin(c *gin.Context) {
 		return
 	}
 
+	mahasiswaDataResponse := models.MahasiswaDataResponse{
+		Id:       mahasiswa.Id,
+		Name:     mahasiswa.Name,
+		NIM:      mahasiswa.NIM,
+		Email:    mahasiswa.Email,
+		Prodi:    mahasiswa.Prodi,
+		Angkatan: mahasiswa.Angkatan,
+		SKS:      mahasiswa.SKS,
+	}
+
 	token, err := utils.GenerateJWT(mahasiswa.Email)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": token})
+	c.JSON(http.StatusOK, gin.H{"token": token, "data": mahasiswaDataResponse})
 }
