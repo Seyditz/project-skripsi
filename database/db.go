@@ -9,7 +9,7 @@ import (
 var DB *gorm.DB
 
 func Connect() {
-	dsn := "postgres://postgres:123456@localhost:5432/sijudul-1"
+	dsn := "postgres://crotdan:0GBMVxbNz9Wl@ep-floral-dream-a2znj19n.eu-central-1.pg.koyeb.app/koyebdb"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
