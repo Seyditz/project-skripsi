@@ -16,5 +16,6 @@ func Connect() {
 	}
 
 	db.AutoMigrate(&models.Admin{})
+	db.AutoMigrate(&models.Mahasiswa{})
 	DB = db
 }

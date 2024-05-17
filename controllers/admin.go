@@ -49,12 +49,6 @@ func CreateAdmin(c *gin.Context) {
 		return
 	}
 
-	// Create the admin in the database
-	if result := database.DB.Create(&admin); result.Error != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
-		return
-	}
-
 	// Encrypt the password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(admin.Password), bcrypt.DefaultCost)
 	if err != nil {
@@ -62,6 +56,12 @@ func CreateAdmin(c *gin.Context) {
 		return
 	}
 	admin.Password = string(hashedPassword)
+
+	// Create the admin in the database
+	if result := database.DB.Create(&admin); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		return
+	}
 
 	c.JSON(200, gin.H{"result": &admin})
 }

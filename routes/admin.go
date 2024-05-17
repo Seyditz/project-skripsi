@@ -12,4 +12,5 @@ func AdminRoutes(r *gin.Engine) {
 	adminRoutes.POST("/", controllers.CreateAdmin)
 	adminRoutes.DELETE("/:id", controllers.DeleteAdmin)
 	adminRoutes.PUT("/:id", controllers.UpdateAdmin)
+	adminRoutes.POST("/login", controllers.AdminLogin)
 }

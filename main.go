@@ -27,6 +27,7 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"message": "Hello"})
 	})
 	routes.AdminRoutes(r)
+	routes.MahasiswaRoutes(r)
 
 	port := os.Getenv("PORT")
 
