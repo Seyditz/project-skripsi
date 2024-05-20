@@ -174,3 +174,7 @@ func GetPengajuanByMahasiswaID(c *gin.Context) {
 
 	c.JSON(200, gin.H{"result": pengajuan})
 }
+
+func SimiliartityTest(c *gin.Context) {
+
+}

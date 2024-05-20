@@ -7,6 +7,7 @@ import (
 
 	"github.com/Seyditz/project-skripsi/database"
 	"github.com/Seyditz/project-skripsi/routes"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -36,6 +37,7 @@ func main() {
 	database.Connect()
 
 	r := gin.Default()
+	r.Use(cors.Default())
 
 	// r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 

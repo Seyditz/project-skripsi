@@ -13,4 +13,5 @@ type Pengajuan struct {
 	DosPem1          string `json:"dospem1"`
 	DosPem2          string `json:"dospem2"`
 	StatusAcc        string `json:"status_acc"`
+	RejectedNote     string `json:"rejected_note"`
 }
