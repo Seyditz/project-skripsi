@@ -25,7 +25,6 @@ import (
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
 // @host localhost:8080
-
 func main() {
 	//Load the .env file
 	err := godotenv.Load("config.env")
