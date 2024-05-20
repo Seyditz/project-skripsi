@@ -28,6 +28,7 @@ func main() {
 	})
 	routes.AdminRoutes(r)
 	routes.MahasiswaRoutes(r)
+	routes.PengajuanRoutes(r)
 
 	port := os.Getenv("PORT")
 
