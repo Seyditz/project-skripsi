@@ -29,7 +29,7 @@ func AdminLogin(c *gin.Context) {
 		return
 	}
 
-	token, err := utils.GenerateJWT(admin.Email)
+	token, err := utils.GenerateJWT(admin.Email, "admin")
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
 		return
@@ -67,7 +67,7 @@ func MahasiswaLogin(c *gin.Context) {
 		SKS:      mahasiswa.SKS,
 	}
 
-	token, err := utils.GenerateJWT(mahasiswa.Email)
+	token, err := utils.GenerateJWT(mahasiswa.Email, "mahasiswa")
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
 		return

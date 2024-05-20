@@ -11,15 +11,17 @@ var jwtKey = []byte("kjashdjkashjksadhjkadksajhaskdkjdsah")
 type Claims struct {
 	Username string `json:"username"`
 	jwt.StandardClaims
+	Role string
 }
 
-func GenerateJWT(username string) (string, error) {
+func GenerateJWT(username string, role string) (string, error) {
 	expirationTime := time.Now().Add(24 * time.Hour)
 	claims := &Claims{
 		Username: username,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 		},
+		Role: role,
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := token.SignedString(jwtKey)
