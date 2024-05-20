@@ -11,9 +11,22 @@ import (
 
 func GetAllAdmin(c *gin.Context) {
 	admins := []models.Admin{}
-	result := database.DB.Find(&admins)
 	// database.DB.Find(&admins)
 
+	db := database.DB
+
+	name := c.Query("name")
+	email := c.Query("email")
+
+	// Build the query conditionally based on the parameters
+	if name != "" {
+		db = db.Where("name ILIKE ?", "%"+name+"%")
+	}
+	if email != "" {
+		db = db.Where("email ILIKE ?", "%"+email+"%")
+	}
+
+	result := db.Find(&admins)
 	if result.Error != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all admins", "error": result.Error})
 		return

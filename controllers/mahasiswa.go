@@ -11,8 +11,15 @@ import (
 
 func GetAllMahasiswa(c *gin.Context) {
 	mahasiswas := []models.Mahasiswa{}
-	result := database.DB.Find(&mahasiswas)
+	db := database.DB
 
+	name := c.Query("name")
+
+	if name != "" {
+		db = db.Where("name ILIKE ?", "%"+name+"%")
+	}
+
+	result := db.Find(&mahasiswas)
 	if result.Error != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all mahasiswas", "error": result.Error})
 		return
