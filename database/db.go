@@ -15,8 +15,9 @@ func Connect() {
 		panic(err)
 	}
 
-	db.AutoMigrate(&models.Admin{})
-	db.AutoMigrate(&models.Mahasiswa{})
+	// db.AutoMigrate(&models.Admin{})
+	db.AutoMigrate(&models.Dosen{})
+	// db.AutoMigrate(&models.Mahasiswa{})
 	db.AutoMigrate(&models.Pengajuan{})
 	DB = db
 }

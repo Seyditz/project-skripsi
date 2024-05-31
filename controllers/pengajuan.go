@@ -12,7 +12,8 @@ import (
 // GetAllPengajuan retrieves all Pengajuan records from the database
 func GetAllPengajuan(c *gin.Context) {
 	pengajuans := []models.Pengajuan{}
-	result := database.DB.Find(&pengajuans)
+	// result := database.DB.Find(&pengajuans)
+	result := database.DB.Preload("DosPem1", models.DosenSafePreloadFunction).Preload("DosPem2", models.DosenSafePreloadFunction).Find(&pengajuans)
 
 	if result.Error != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all pengajuans", "error": result.Error})
@@ -24,36 +25,48 @@ func GetAllPengajuan(c *gin.Context) {
 
 // CreatePengajuan creates a new Pengajuan record in the database
 func CreatePengajuan(c *gin.Context) {
-	var pengajuan models.Pengajuan
+	var input models.PengajuanCreateRequest
 
-	if err := c.ShouldBindJSON(&pengajuan); err != nil {
+	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
 		return
 	}
 
-	if pengajuan.Peminatan == "" {
+	if input.Peminatan == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "peminatan is required"})
 		return
 	}
-	if pengajuan.Judul == "" {
+	if input.Judul == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "judul is required"})
 		return
 	}
-	if pengajuan.TempatPenelitian == "" {
+	if input.TempatPenelitian == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "tempat penelitian is required"})
 		return
 	}
-	if pengajuan.RumusanMasalah == "" {
+	if input.RumusanMasalah == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "rumusan masalah is required"})
 		return
 	}
-	if pengajuan.DosPem1 == "" {
+	if input.DosPem1Id == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "dospem1 is required"})
 		return
 	}
-	if pengajuan.DosPem2 == "" {
+	if input.DosPem2Id == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "dospem2 is required"})
 		return
+	}
+
+	pengajuan := models.Pengajuan{
+		MahasiswaId:      input.MahasiswaId,
+		Peminatan:        input.Peminatan,
+		Judul:            input.Judul,
+		TempatPenelitian: input.TempatPenelitian,
+		RumusanMasalah:   input.RumusanMasalah,
+		DosPem1Id:        input.DosPem1Id,
+		DosPem2Id:        input.DosPem2Id,
+		StatusAcc:        input.StatusAcc,
+		RejectedNote:     input.RejectedNote,
 	}
 
 	// Create the pengajuan in the database
@@ -68,6 +81,7 @@ func CreatePengajuan(c *gin.Context) {
 // UpdatePengajuan updates an existing Pengajuan record in the database
 func UpdatePengajuan(c *gin.Context) {
 	var pengajuan models.Pengajuan
+	pengajuanID := c.Param("id")
 
 	if err := c.ShouldBindJSON(&pengajuan); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
@@ -76,7 +90,7 @@ func UpdatePengajuan(c *gin.Context) {
 
 	// Check if the Pengajuan exists
 	var existingPengajuan models.Pengajuan
-	if result := database.DB.First(&existingPengajuan, pengajuan.Id); result.RowsAffected == 0 {
+	if result := database.DB.First(&existingPengajuan, pengajuanID); result.RowsAffected == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Pengajuan not found"})
 		return
 	}
@@ -98,11 +112,11 @@ func UpdatePengajuan(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "rumusan masalah is required"})
 		return
 	}
-	if pengajuan.DosPem1 == "" {
+	if pengajuan.DosPem1Id == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "dospem1 is required"})
 		return
 	}
-	if pengajuan.DosPem2 == "" {
+	if pengajuan.DosPem2Id == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "dospem2 is required"})
 		return
 	}
@@ -144,7 +158,7 @@ func GetPengajuanByID(c *gin.Context) {
 
 	// Find the Pengajuan by ID
 	var pengajuan models.Pengajuan
-	if result := database.DB.First(&pengajuan, pengajuanID); result.RowsAffected == 0 {
+	if result := database.DB.Preload("DosPem1", models.DosenSafePreloadFunction).Preload("DosPem2", models.DosenSafePreloadFunction).First(&pengajuan, pengajuanID); result.RowsAffected == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Pengajuan not found"})
 		return
 	}

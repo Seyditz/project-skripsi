@@ -44,6 +44,7 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"message": "Hello"})
 	})
 	routes.AdminRoutes(r)
+	routes.DosenRoutes(r)
 	routes.MahasiswaRoutes(r)
 	routes.PengajuanRoutes(r)
 
