@@ -14,6 +14,8 @@ type Dosen struct {
 	Email          string `json:"email"`
 	Password       string `json:"password"`
 	Prodi          string `json:"prodi"`
+	Jabatan        string `json:"jabatan"`
+	Kepakaran      string `json:"kepakaran"`
 	Kapasitas      int    `json:"kapasitas"`
 	TotalMahasiswa int    `json:"total_mahasiswa"`
 }

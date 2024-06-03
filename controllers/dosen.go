@@ -77,6 +77,7 @@ func CreateDosen(c *gin.Context) {
 // UpdateDosen updates an existing dosen in the database
 func UpdateDosen(c *gin.Context) {
 	var dosen models.Dosen
+	dosenID := c.Param("id")
 
 	// Bind the JSON body to the dosen struct
 	if err := c.ShouldBindJSON(&dosen); err != nil {
@@ -86,7 +87,7 @@ func UpdateDosen(c *gin.Context) {
 
 	// Check if the email field is provided and if it's different from the current dosen's email
 	var existingDosen models.Dosen
-	if result := database.DB.Where("email = ?", dosen.Email).First(&existingDosen); result.RowsAffected == 0 {
+	if result := database.DB.First(&existingDosen, dosenID); result.RowsAffected == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Dosen not found"})
 		return
 	}
