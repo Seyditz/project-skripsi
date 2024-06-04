@@ -1,0 +1,9 @@
+basePath: /
+host: projectskripsi-fvwdncsc.b4a.run
+info:
+  contact: {}
+  description: An API for Sijudul App using Gin
+  title: Sijudul API
+  version: "1.0"
+paths: {}
+swagger: "2.0"

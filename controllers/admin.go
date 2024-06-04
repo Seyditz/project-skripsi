@@ -7,8 +7,16 @@ import (
 	"github.com/Seyditz/project-skripsi/models"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
+	_ "gorm.io/gorm"
 )
 
+// CreateTags godoc
+// @Summary Get All Admin
+// @Description Get All Admins
+// @Produce application/json
+// @Tags tags
+// @Success 200 {object} []models.Admin{}
+// @Router /admin [get]
 func GetAllAdmin(c *gin.Context) {
 	admins := []models.Admin{}
 	// database.DB.Find(&admins)

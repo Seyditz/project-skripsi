@@ -12,8 +12,16 @@ import (
 // GetAllPengajuan retrieves all Pengajuan records from the database
 func GetAllPengajuan(c *gin.Context) {
 	pengajuans := []models.Pengajuan{}
+	judul := c.Query("judul")
+
 	// result := database.DB.Find(&pengajuans)
-	result := database.DB.Preload("DosPem1", models.DosenSafePreloadFunction).Preload("DosPem2", models.DosenSafePreloadFunction).Find(&pengajuans)
+	query := database.DB.Preload("DosPem1", models.DosenSafePreloadFunction).Preload("DosPem2", models.DosenSafePreloadFunction)
+
+	if judul != "" {
+		query = query.Where("judul ILIKE ?", "%"+judul+"%")
+	}
+
+	result := query.Find(&pengajuans)
 
 	if result.Error != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all pengajuans", "error": result.Error})

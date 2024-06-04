@@ -18,4 +18,5 @@ type Dosen struct {
 	Kepakaran      string `json:"kepakaran"`
 	Kapasitas      int    `json:"kapasitas"`
 	TotalMahasiswa int    `json:"total_mahasiswa"`
+	Image          string `json:"image"`
 }

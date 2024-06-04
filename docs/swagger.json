@@ -1,0 +1,12 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "An API for Sijudul App using Gin",
+        "title": "Sijudul API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "projectskripsi-fvwdncsc.b4a.run",
+    "basePath": "/",
+    "paths": {}
+}

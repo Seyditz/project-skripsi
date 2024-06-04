@@ -12,6 +12,7 @@ type Mahasiswa struct {
 	Prodi    string `json:"prodi"`
 	Angkatan int    `json:"angkatan"`
 	SKS      int    `json:"sks"`
+	Image    string `json:"image"`
 }
 
 type MahasiswaDataResponse struct {
@@ -22,4 +23,5 @@ type MahasiswaDataResponse struct {
 	Prodi    string `json:"prodi"`
 	Angkatan int    `json:"angkatan"`
 	SKS      int    `json:"sks"`
+	Image    string `json:"image"`
 }
