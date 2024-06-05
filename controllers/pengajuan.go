@@ -15,7 +15,7 @@ func GetAllPengajuan(c *gin.Context) {
 	judul := c.Query("judul")
 
 	// result := database.DB.Find(&pengajuans)
-	query := database.DB.Preload("DosPem1", models.DosenSafePreloadFunction).Preload("DosPem2", models.DosenSafePreloadFunction)
+	query := database.DB.Preload("DosPem1", models.DosenSafePreloadFunction).Preload("DosPem2", models.DosenSafePreloadFunction).Preload("Mahasiswa", models.MahasiswaSafePreloadFunction)
 
 	if judul != "" {
 		query = query.Where("judul ILIKE ?", "%"+judul+"%")
@@ -166,7 +166,7 @@ func GetPengajuanByID(c *gin.Context) {
 
 	// Find the Pengajuan by ID
 	var pengajuan models.Pengajuan
-	if result := database.DB.Preload("DosPem1", models.DosenSafePreloadFunction).Preload("DosPem2", models.DosenSafePreloadFunction).First(&pengajuan, pengajuanID); result.RowsAffected == 0 {
+	if result := database.DB.Preload("DosPem1", models.DosenSafePreloadFunction).Preload("DosPem2", models.DosenSafePreloadFunction).Preload("Mahasiswa", models.MahasiswaSafePreloadFunction).First(&pengajuan, pengajuanID); result.RowsAffected == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Pengajuan not found"})
 		return
 	}

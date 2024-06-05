@@ -2,6 +2,10 @@ package models
 
 import "gorm.io/gorm"
 
+var MahasiswaSafePreloadFunction = func(db *gorm.DB) *gorm.DB {
+	return db.Select("id, name, email, nim, prodi, angkatan, sks, image")
+}
+
 type Mahasiswa struct {
 	gorm.Model
 	Id       int    `json:"id" gorm:"primary_key"`
