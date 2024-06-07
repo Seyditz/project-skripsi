@@ -32,3 +32,7 @@ type PengajuanCreateRequest struct {
 	StatusAcc        string `json:"status_acc"`
 	RejectedNote     string `json:"rejected_note"`
 }
+
+type SimilarityRequest struct {
+	Judul string `json:"judul"`
+}

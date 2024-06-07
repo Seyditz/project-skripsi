@@ -197,6 +197,77 @@ func GetPengajuanByMahasiswaID(c *gin.Context) {
 	c.JSON(200, gin.H{"result": pengajuan})
 }
 
-func SimiliartityTest(c *gin.Context) {
+func levenshteinDistance(s, t string) int {
+	m := len(s)
+	n := len(t)
+	d := make([][]int, m+1)
+	for i := range d {
+		d[i] = make([]int, n+1)
+	}
 
+	for i := 0; i <= m; i++ {
+		d[i][0] = i
+	}
+	for j := 0; j <= n; j++ {
+		d[0][j] = j
+	}
+
+	for j := 1; j <= n; j++ {
+		for i := 1; i <= m; i++ {
+			cost := 0
+			if s[i-1] != t[j-1] {
+				cost = 1
+			}
+			d[i][j] = min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+cost)
+		}
+	}
+	return d[m][n]
+}
+
+func min(a, b, c int) int {
+	if a < b && a < c {
+		return a
+	} else if b < c {
+		return b
+	}
+	return c
+}
+
+func similarityPercentage(s, t string) float64 {
+	distance := levenshteinDistance(s, t)
+	maxLength := len(s)
+	if len(t) > maxLength {
+		maxLength = len(t)
+	}
+	return 100.0 - (float64(distance) / float64(maxLength) * 100.0)
+}
+
+func SimiliartityTest(c *gin.Context) {
+	var pengajuans []models.Pengajuan
+	database.DB.Preload("Mahasiswa").Preload("DosPem1").Preload("DosPem2").Find(&pengajuans)
+
+	var req models.SimilarityRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
+		return
+	}
+	judul := req.Judul
+	if judul == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "judul is required"})
+		return
+	}
+
+	for _, pengajuan := range pengajuans {
+		similarity := similarityPercentage(judul, pengajuan.Judul)
+		if similarity > 60.0 {
+			c.JSON(http.StatusOK, gin.H{
+				"message":    "Similar title found",
+				"similar":    pengajuan.Judul,
+				"similarity": similarity,
+			})
+			return
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "No similar title found with similarity > 60%"})
 }
