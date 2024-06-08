@@ -15,11 +15,11 @@ import (
 // @Description Get All Admins
 // @Produce application/json
 // @Tags tags
-// @Success 200 {object} []models.Admin{}
+// @Success 200 {object} []models.AdminListResponse{}
 // @Router /admin [get]
 func GetAllAdmin(c *gin.Context) {
-	admins := []models.Admin{}
-	// database.DB.Find(&admins)
+	// admins := []models.Admin{}
+	admins := []models.AdminListResponse{}
 
 	db := database.DB
 
@@ -34,7 +34,8 @@ func GetAllAdmin(c *gin.Context) {
 		db = db.Where("email ILIKE ?", "%"+email+"%")
 	}
 
-	result := db.Find(&admins)
+	// result := db.Find(&admins)
+	result := db.Model(&[]models.Admin{}).Find(&admins)
 	if result.Error != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all admins", "error": result.Error})
 		return

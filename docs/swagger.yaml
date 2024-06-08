@@ -1,9 +1,37 @@
 basePath: /
+definitions:
+  models.AdminListResponse:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
 host: projectskripsi-fvwdncsc.b4a.run
 info:
   contact: {}
   description: An API for Sijudul App using Gin
   title: Sijudul API
   version: "1.0"
-paths: {}
+paths:
+  /admin:
+    get:
+      description: Get All Admins
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.AdminListResponse'
+            type: array
+      summary: Get All Admin
+      tags:
+      - tags
+schemes:
+- https
+- http
 swagger: "2.0"

@@ -22,6 +22,7 @@ import (
 
 // @host projectskripsi-fvwdncsc.b4a.run
 // @BasePath /
+// @schemes https http
 func main() {
 	//Load the .env file
 	err := godotenv.Load("config.env")
