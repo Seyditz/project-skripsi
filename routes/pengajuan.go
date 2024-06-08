@@ -11,7 +11,7 @@ func PengajuanRoutes(r *gin.Engine) {
 	pengajuanRoutes.GET("/:id", controllers.GetPengajuanByID)
 	pengajuanRoutes.GET("/mahasiswa/:id", controllers.GetPengajuanByMahasiswaID)
 	pengajuanRoutes.POST("/", controllers.CreatePengajuan)
-	pengajuanRoutes.POST("/similiarity-test", controllers.SimiliartityTest)
+	pengajuanRoutes.POST("/similarity-test", controllers.SimilartityTest)
 	pengajuanRoutes.DELETE("/:id", controllers.DeletePengajuan)
 	pengajuanRoutes.PUT("/:id", controllers.UpdatePengajuan)
 }

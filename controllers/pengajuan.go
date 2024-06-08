@@ -3,14 +3,22 @@ package controllers
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/Seyditz/project-skripsi/database"
 	"github.com/Seyditz/project-skripsi/models"
 	"github.com/gin-gonic/gin"
 )
 
-// GetAllPengajuan retrieves all Pengajuan records from the database
+// CreateTags godoc
+// @Summary Get All Pengajuan
+// @Description Get All Pengajuan
+// @Produce application/json
+// @Tags Pengajuan
+// @Success 200 {object} []models.Pengajuan{}
+// @Router /pengajuan [get]
 func GetAllPengajuan(c *gin.Context) {
+	// pengajuans := []models.PengajuanDataResponse{}
 	pengajuans := []models.Pengajuan{}
 	judul := c.Query("judul")
 
@@ -21,6 +29,7 @@ func GetAllPengajuan(c *gin.Context) {
 		query = query.Where("judul ILIKE ?", "%"+judul+"%")
 	}
 
+	// result := query.Model(&models.Pengajuan{}).Find(&pengajuans)
 	result := query.Find(&pengajuans)
 
 	if result.Error != nil {
@@ -86,12 +95,20 @@ func CreatePengajuan(c *gin.Context) {
 	c.JSON(200, gin.H{"result": &pengajuan})
 }
 
-// UpdatePengajuan updates an existing Pengajuan record in the database
+// CreateTags godoc
+// @Summary Update Pengajuan
+// @Description Update Pengajuan
+// @Produce application/json
+// @Param request body models.PengajuanUpdateRequest true "Raw Request Body"
+// @Param id path int true "Pengajuan ID"
+// @Tags Pengajuan
+// @Success 200 {object} models.Pengajuan{}
+// @Router /pengajuan/{id} [put]
 func UpdatePengajuan(c *gin.Context) {
-	var pengajuan models.Pengajuan
+	var input models.Pengajuan
 	pengajuanID := c.Param("id")
 
-	if err := c.ShouldBindJSON(&pengajuan); err != nil {
+	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
 		return
 	}
@@ -104,33 +121,39 @@ func UpdatePengajuan(c *gin.Context) {
 	}
 
 	// Validate required fields
-	if pengajuan.Peminatan == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "peminatan is required"})
-		return
+	if input.Peminatan == "" {
+		input.Peminatan = existingPengajuan.Peminatan
 	}
-	if pengajuan.Judul == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "judul is required"})
-		return
+	if input.Judul == "" {
+		input.Judul = existingPengajuan.Judul
 	}
-	if pengajuan.TempatPenelitian == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "tempat penelitian is required"})
-		return
+	if input.TempatPenelitian == "" {
+		input.TempatPenelitian = existingPengajuan.TempatPenelitian
 	}
-	if pengajuan.RumusanMasalah == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "rumusan masalah is required"})
-		return
+	if input.RumusanMasalah == "" {
+		input.RumusanMasalah = existingPengajuan.RumusanMasalah
 	}
-	if pengajuan.DosPem1Id == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "dospem1 is required"})
-		return
+	if input.DosPem1Id == 0 {
+		input.DosPem1Id = existingPengajuan.DosPem1Id
 	}
-	if pengajuan.DosPem2Id == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "dospem2 is required"})
-		return
+	if input.DosPem2Id == 0 {
+		input.DosPem2Id = existingPengajuan.DosPem2Id
 	}
 
+	pengajuan := models.Pengajuan{
+		MahasiswaId:      input.MahasiswaId,
+		Peminatan:        input.Peminatan,
+		Judul:            input.Judul,
+		TempatPenelitian: input.TempatPenelitian,
+		RumusanMasalah:   input.RumusanMasalah,
+		DosPem1Id:        input.DosPem1Id,
+		DosPem2Id:        input.DosPem2Id,
+		StatusAcc:        input.StatusAcc,
+		RejectedNote:     input.RejectedNote,
+		UpdatedAt:        time.Now(),
+	}
 	// Update the Pengajuan in the database
-	if result := database.DB.Model(&existingPengajuan).Updates(pengajuan); result.Error != nil {
+	if result := database.DB.Model(&existingPengajuan).Updates(&pengajuan); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 		return
 	}
@@ -138,7 +161,14 @@ func UpdatePengajuan(c *gin.Context) {
 	c.JSON(200, gin.H{"result": &pengajuan})
 }
 
-// DeletePengajuan deletes an existing Pengajuan record from the database
+// CreateTags godoc
+// @Summary Delete Pengajuan
+// @Description Delete Pengajuan
+// @Produce application/json
+// @Param id path int true "Pengajuan ID"
+// @Tags Pengajuan
+// @Success 200
+// @Router /pengajuan/{id} [delete]
 func DeletePengajuan(c *gin.Context) {
 	// Get the Pengajuan ID from the URL parameters
 	pengajuanID := c.Param("id")
@@ -159,7 +189,14 @@ func DeletePengajuan(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "Pengajuan deleted successfully"})
 }
 
-// GetPengajuanByID retrieves a Pengajuan record by ID from the database
+// CreateTags godoc
+// @Summary Get Pengajuan By ID
+// @Description Get Pengajuan By ID
+// @Produce application/json
+// @Param id path int true "Pengajuan ID"
+// @Tags Pengajuan
+// @Success 200 {object} models.Pengajuan{}
+// @Router /pengajuan/{id} [get]
 func GetPengajuanByID(c *gin.Context) {
 	// Get the Pengajuan ID from the URL parameters
 	pengajuanID := c.Param("id")
@@ -174,7 +211,14 @@ func GetPengajuanByID(c *gin.Context) {
 	c.JSON(200, gin.H{"result": &pengajuan})
 }
 
-// Get Pengajuan By Mahasiswa ID
+// CreateTags godoc
+// @Summary Get Pengajuan By Mahasiswa ID
+// @Description Get Pengajuan By Mahasiswa ID
+// @Produce application/json
+// @Param id path int true "Mahasiswa ID"
+// @Tags Pengajuan
+// @Success 200 {object} models.Pengajuan{}
+// @Router /pengajuan/mahasiswa/{id} [get]
 func GetPengajuanByMahasiswaID(c *gin.Context) {
 	// Get the Mahasiswa ID from the URL parameters
 	mahasiswaID := c.Param("id")
@@ -242,7 +286,15 @@ func similarityPercentage(s, t string) float64 {
 	return 100.0 - (float64(distance) / float64(maxLength) * 100.0)
 }
 
-func SimiliartityTest(c *gin.Context) {
+// CreateTags godoc
+// @Summary Similiarity Test Pengajuan
+// @Description Similiarity Test Pengajuan
+// @Produce application/json
+// @Param request body models.SimilarityRequest true "Raw Request Body"
+// @Tags Pengajuan
+// @Success 200 {object} interface{}
+// @Router /pengajuan/similarity-test [post]
+func SimilartityTest(c *gin.Context) {
 	var pengajuans []models.Pengajuan
 	database.DB.Preload("Mahasiswa").Preload("DosPem1").Preload("DosPem2").Find(&pengajuans)
 

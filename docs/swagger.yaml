@@ -1,12 +1,298 @@
 basePath: /
 definitions:
-  models.AdminListResponse:
+  models.Admin:
     properties:
+      createdAt:
+        type: string
       email:
         type: string
       id:
         type: integer
       name:
+        type: string
+      password:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.AdminCreateRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  models.AdminDataResponse:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.AdminUpdateRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  models.Dosen:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      image:
+        type: string
+      jabatan:
+        type: string
+      kapasitas:
+        type: integer
+      kepakaran:
+        type: string
+      name:
+        type: string
+      nidn:
+        type: string
+      password:
+        type: string
+      prodi:
+        type: string
+      total_mahasiswa:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  models.DosenCreateRequest:
+    properties:
+      email:
+        type: string
+      image:
+        type: string
+      jabatan:
+        type: string
+      kapasitas:
+        type: integer
+      kepakaran:
+        type: string
+      name:
+        type: string
+      nidn:
+        type: string
+      password:
+        type: string
+      prodi:
+        type: string
+      total_mahasiswa:
+        type: integer
+    type: object
+  models.DosenDataResponse:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      image:
+        type: string
+      jabatan:
+        type: string
+      kapasitas:
+        type: integer
+      kepakaran:
+        type: string
+      name:
+        type: string
+      nidn:
+        type: string
+      prodi:
+        type: string
+      total_mahasiswa:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  models.DosenUpdateRequest:
+    properties:
+      email:
+        type: string
+      image:
+        type: string
+      jabatan:
+        type: string
+      kapasitas:
+        type: integer
+      kepakaran:
+        type: string
+      name:
+        type: string
+      nidn:
+        type: string
+      password:
+        type: string
+      prodi:
+        type: string
+      total_mahasiswa:
+        type: integer
+    type: object
+  models.Mahasiswa:
+    properties:
+      angkatan:
+        type: integer
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      image:
+        type: string
+      name:
+        type: string
+      nim:
+        type: string
+      password:
+        type: string
+      prodi:
+        type: string
+      sks:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  models.MahasiswaCreateRequest:
+    properties:
+      angkatan:
+        type: integer
+      email:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      nim:
+        type: string
+      password:
+        type: string
+      prodi:
+        type: string
+      sks:
+        type: integer
+    type: object
+  models.MahasiswaDataResponse:
+    properties:
+      angkatan:
+        type: integer
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      image:
+        type: string
+      name:
+        type: string
+      nim:
+        type: string
+      prodi:
+        type: string
+      sks:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  models.MahasiswaUpdateRequest:
+    properties:
+      angkatan:
+        type: integer
+      email:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      nim:
+        type: string
+      password:
+        type: string
+      prodi:
+        type: string
+      sks:
+        type: integer
+    type: object
+  models.Pengajuan:
+    properties:
+      createdAt:
+        type: string
+      dospem1:
+        $ref: '#/definitions/models.Dosen'
+      dospem1_id:
+        type: integer
+      dospem2:
+        $ref: '#/definitions/models.Dosen'
+      dospem2_id:
+        type: integer
+      id:
+        type: integer
+      judul:
+        type: string
+      mahasiswa:
+        $ref: '#/definitions/models.Mahasiswa'
+      mahasiswa_id:
+        type: integer
+      peminatan:
+        type: string
+      rejected_note:
+        type: string
+      rumusan_masalah:
+        type: string
+      status_acc:
+        type: string
+      tempat_penelitian:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.PengajuanUpdateRequest:
+    properties:
+      dospem1_id:
+        type: integer
+      dospem2_id:
+        type: integer
+      id:
+        type: integer
+      judul:
+        type: string
+      mahasiswa_id:
+        type: integer
+      peminatan:
+        type: string
+      rejected_note:
+        type: string
+      rumusan_masalah:
+        type: string
+      status_acc:
+        type: string
+      tempat_penelitian:
+        type: string
+    type: object
+  models.SimilarityRequest:
+    properties:
+      judul:
         type: string
     type: object
 host: projectskripsi-fvwdncsc.b4a.run
@@ -26,11 +312,398 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/models.AdminListResponse'
+              $ref: '#/definitions/models.AdminDataResponse'
             type: array
       summary: Get All Admin
       tags:
-      - tags
+      - Admin
+    post:
+      description: Create Admins
+      parameters:
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.AdminCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Admin'
+      summary: Create Admin
+      tags:
+      - Admin
+  /admin/{id}:
+    delete:
+      description: Delete Admins
+      parameters:
+      - description: Admin ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete Admin
+      tags:
+      - Admin
+    get:
+      description: Get Admin By ID
+      parameters:
+      - description: Admin ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AdminDataResponse'
+      summary: Get Admin By ID
+      tags:
+      - Admin
+    put:
+      description: Update Admins
+      parameters:
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.AdminUpdateRequest'
+      - description: Admin ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Admin'
+      summary: Update Admin
+      tags:
+      - Admin
+  /dosen:
+    get:
+      description: Get All Dosens
+      parameters:
+      - description: name
+        in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.DosenDataResponse'
+            type: array
+      summary: Get All Dosen
+      tags:
+      - Dosen
+    post:
+      description: Create Dosen
+      parameters:
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.DosenCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Dosen'
+      summary: Create Dosen
+      tags:
+      - Dosen
+  /dosen/{id}:
+    delete:
+      description: Delete Dosen
+      parameters:
+      - description: Dosen ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete Dosen
+      tags:
+      - Dosen
+    get:
+      description: Get Dosen By ID
+      parameters:
+      - description: Dosen ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DosenDataResponse'
+      summary: Get Dosen By ID
+      tags:
+      - Dosen
+    put:
+      description: Update Dosen
+      parameters:
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.DosenUpdateRequest'
+      - description: Dosen ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Dosen'
+      summary: Update Dosen
+      tags:
+      - Dosen
+  /mahasiswa:
+    get:
+      description: Get All Mahasiswa
+      parameters:
+      - description: name
+        in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.MahasiswaDataResponse'
+            type: array
+      summary: Get All Mahasiswa
+      tags:
+      - Mahasiswa
+    post:
+      description: Create Mahasiswa
+      parameters:
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.MahasiswaCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Mahasiswa'
+      summary: Create Mahasiswa
+      tags:
+      - Mahasiswa
+  /mahasiswa/{id}:
+    delete:
+      description: Delete Mahasiswa
+      parameters:
+      - description: Mahasiswa ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete Mahasiswa
+      tags:
+      - Mahasiswa
+    get:
+      description: Get Mahasiswa By ID
+      parameters:
+      - description: Mahasiswa ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MahasiswaDataResponse'
+      summary: Get Mahasiswa By ID
+      tags:
+      - Mahasiswa
+    put:
+      description: Update Mahasiswa
+      parameters:
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.MahasiswaUpdateRequest'
+      - description: Mahasiswa ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Mahasiswa'
+      summary: Update Mahasiswa
+      tags:
+      - Mahasiswa
+  /pengajuan:
+    get:
+      description: Get All Pengajuan
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Pengajuan'
+            type: array
+      summary: Get All Pengajuan
+      tags:
+      - Pengajuan
+  /pengajuan/{id}:
+    delete:
+      description: Delete Pengajuan
+      parameters:
+      - description: Pengajuan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete Pengajuan
+      tags:
+      - Pengajuan
+    get:
+      description: Get Pengajuan By ID
+      parameters:
+      - description: Pengajuan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Pengajuan'
+      summary: Get Pengajuan By ID
+      tags:
+      - Pengajuan
+    put:
+      description: Update Pengajuan
+      parameters:
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.PengajuanUpdateRequest'
+      - description: Pengajuan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Pengajuan'
+      summary: Update Pengajuan
+      tags:
+      - Pengajuan
+  /pengajuan/mahasiswa/{id}:
+    get:
+      description: Get Pengajuan By Mahasiswa ID
+      parameters:
+      - description: Mahasiswa ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Pengajuan'
+      summary: Get Pengajuan By Mahasiswa ID
+      tags:
+      - Pengajuan
+  /pengajuan/similarity-test:
+    post:
+      description: Similiarity Test Pengajuan
+      parameters:
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.SimilarityRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+      summary: Similiarity Test Pengajuan
+      tags:
+      - Pengajuan
 schemes:
 - https
 - http

@@ -2,6 +2,8 @@ package controllers
 
 import (
 	"net/http"
+	"strconv"
+	"time"
 
 	"github.com/Seyditz/project-skripsi/database"
 	"github.com/Seyditz/project-skripsi/models"
@@ -9,7 +11,14 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// GetAllDosens retrieves all dosens from the database
+// CreateTags godoc
+// @Summary Get All Dosen
+// @Description Get All Dosens
+// @Produce application/json
+// @Tags Dosen
+// @Param name query string false "name"
+// @Success 200 {object} []models.DosenDataResponse{}
+// @Router /dosen [get]
 func GetAllDosens(c *gin.Context) {
 	dosens := []models.Dosen{}
 	db := database.DB
@@ -29,41 +38,79 @@ func GetAllDosens(c *gin.Context) {
 	c.JSON(200, gin.H{"result": &dosens})
 }
 
-// CreateDosen creates a new dosen in the database
+// CreateTags godoc
+// @Summary Create Dosen
+// @Description Create Dosen
+// @Produce application/json
+// @Param request body models.DosenCreateRequest true "Raw Request Body"
+// @Tags Dosen
+// @Success 200 {object} models.Dosen{}
+// @Router /dosen [post]
 func CreateDosen(c *gin.Context) {
-	var dosen models.Dosen
+	var input models.DosenCreateRequest
 
-	if err := c.ShouldBindJSON(&dosen); err != nil {
+	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
 		return
 	}
 
 	var existingDosen models.Dosen
-	if result := database.DB.Where("email = ?", dosen.Email).First(&existingDosen); result.RowsAffected > 0 {
+	if result := database.DB.Where("email = ?", input.Email).First(&existingDosen); result.RowsAffected > 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "email already exists"})
 		return
 	}
 
-	if dosen.Name == "" {
+	if input.Name == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "name is required"})
 		return
 	}
-	if dosen.Email == "" {
+	if input.Email == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "email is required"})
 		return
 	}
-	if dosen.Password == "" {
+	if input.Nidn == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "nidn is required"})
+		return
+	}
+	if input.Password == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "password is required"})
+		return
+	}
+	if input.Prodi == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "prodi is required"})
+		return
+	}
+	if input.Jabatan == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "jabatan is required"})
+		return
+	}
+	if input.Kepakaran == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "kepakaran is required"})
+		return
+	}
+	if input.Kapasitas == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "kapasitas is required"})
 		return
 	}
 
 	// Encrypt the password
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(dosen.Password), bcrypt.DefaultCost)
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to encrypt password"})
 		return
 	}
-	dosen.Password = string(hashedPassword)
+	input.Password = string(hashedPassword)
+
+	dosen := models.Dosen{
+		Name:      input.Name,
+		Nidn:      input.Nidn,
+		Email:     input.Email,
+		Password:  input.Password,
+		Prodi:     input.Prodi,
+		Jabatan:   input.Jabatan,
+		Kepakaran: input.Kepakaran,
+		Kapasitas: input.Kapasitas,
+	}
 
 	// Create the dosen in the database
 	if result := database.DB.Create(&dosen); result.Error != nil {
@@ -74,13 +121,21 @@ func CreateDosen(c *gin.Context) {
 	c.JSON(200, gin.H{"result": &dosen})
 }
 
-// UpdateDosen updates an existing dosen in the database
+// CreateTags godoc
+// @Summary Update Dosen
+// @Description Update Dosen
+// @Produce application/json
+// @Param request body models.DosenUpdateRequest true "Raw Request Body"
+// @Param id path int true "Dosen ID"
+// @Tags Dosen
+// @Success 200 {object} models.Dosen{}
+// @Router /dosen/{id} [put]
 func UpdateDosen(c *gin.Context) {
-	var dosen models.Dosen
-	dosenID := c.Param("id")
+	var input models.Dosen
+	dosenID, _ := strconv.Atoi(c.Param("id"))
 
 	// Bind the JSON body to the dosen struct
-	if err := c.ShouldBindJSON(&dosen); err != nil {
+	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
 		return
 	}
@@ -93,35 +148,60 @@ func UpdateDosen(c *gin.Context) {
 	}
 
 	// Check if email already exists for another dosen
-	if existingDosen.Id != dosen.Id {
+	if existingDosen.Id != dosenID {
 		var emailCheck models.Dosen
-		if result := database.DB.Where("email = ?", dosen.Email).First(&emailCheck); result.RowsAffected > 0 {
+		if result := database.DB.Where("email = ?", input.Email).First(&emailCheck); result.RowsAffected > 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "email already exists"})
 			return
 		}
 	}
 
 	// Validate required fields
-	if dosen.Name == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "name is required"})
-		return
+	if input.Name == "" {
+		input.Name = existingDosen.Name
 	}
-	if dosen.Email == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "email is required"})
-		return
+	if input.Email == "" {
+		input.Email = existingDosen.Email
+	}
+	if input.Nidn == "" {
+		input.Nidn = existingDosen.Nidn
+	}
+	if input.Prodi == "" {
+		input.Prodi = existingDosen.Prodi
+	}
+	if input.Jabatan == "" {
+		input.Jabatan = existingDosen.Jabatan
+	}
+	if input.Kepakaran == "" {
+		input.Kepakaran = existingDosen.Kepakaran
+	}
+	if input.Kapasitas == 0 {
+		input.Kapasitas = existingDosen.Kapasitas
 	}
 
 	// If password is provided, encrypt it
-	if dosen.Password != "" {
-		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(dosen.Password), bcrypt.DefaultCost)
+	if input.Password != "" {
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to encrypt password"})
 			return
 		}
-		dosen.Password = string(hashedPassword)
+		input.Password = string(hashedPassword)
 	} else {
 		// If password is not provided, keep the existing one
-		dosen.Password = existingDosen.Password
+		input.Password = existingDosen.Password
+	}
+
+	dosen := models.Dosen{
+		Name:      input.Name,
+		Nidn:      input.Nidn,
+		Email:     input.Email,
+		Password:  input.Password,
+		Prodi:     input.Prodi,
+		Jabatan:   input.Jabatan,
+		Kepakaran: input.Kepakaran,
+		Kapasitas: input.Kapasitas,
+		UpdatedAt: time.Now(),
 	}
 
 	// Update the dosen in the database
@@ -133,7 +213,14 @@ func UpdateDosen(c *gin.Context) {
 	c.JSON(200, gin.H{"result": &dosen})
 }
 
-// DeleteDosen deletes an existing dosen from the database
+// CreateTags godoc
+// @Summary Delete Dosen
+// @Description Delete Dosen
+// @Produce application/json
+// @Param id path int true "Dosen ID"
+// @Tags Dosen
+// @Success 200
+// @Router /dosen/{id} [delete]
 func DeleteDosen(c *gin.Context) {
 	// Get the dosen ID from the URL parameters
 	dosenID := c.Param("id")
@@ -154,7 +241,14 @@ func DeleteDosen(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "Dosen deleted successfully"})
 }
 
-// GetDosenByID retrieves a dosen by its ID from the database
+// CreateTags godoc
+// @Summary Get Dosen By ID
+// @Description Get Dosen By ID
+// @Produce application/json
+// @Param id path int true "Dosen ID"
+// @Tags Dosen
+// @Success 200 {object} models.DosenDataResponse{}
+// @Router /dosen/{id} [get]
 func GetDosenByID(c *gin.Context) {
 	// Get the dosen ID from the URL parameters
 	dosenID := c.Param("id")

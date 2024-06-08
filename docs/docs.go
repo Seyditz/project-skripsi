@@ -22,7 +22,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "tags"
+                    "Admin"
                 ],
                 "summary": "Get All Admin",
                 "responses": {
@@ -31,18 +31,609 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.AdminListResponse"
+                                "$ref": "#/definitions/models.AdminDataResponse"
                             }
                         }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create Admins",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Create Admin",
+                "parameters": [
+                    {
+                        "description": "Raw Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.AdminCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Admin"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/{id}": {
+            "get": {
+                "description": "Get Admin By ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get Admin By ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Admin ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.AdminDataResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update Admins",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Update Admin",
+                "parameters": [
+                    {
+                        "description": "Raw Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.AdminUpdateRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Admin ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Admin"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Admins",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Delete Admin",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Admin ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/dosen": {
+            "get": {
+                "description": "Get All Dosens",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dosen"
+                ],
+                "summary": "Get All Dosen",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.DosenDataResponse"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create Dosen",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dosen"
+                ],
+                "summary": "Create Dosen",
+                "parameters": [
+                    {
+                        "description": "Raw Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.DosenCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Dosen"
+                        }
+                    }
+                }
+            }
+        },
+        "/dosen/{id}": {
+            "get": {
+                "description": "Get Dosen By ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dosen"
+                ],
+                "summary": "Get Dosen By ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Dosen ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DosenDataResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update Dosen",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dosen"
+                ],
+                "summary": "Update Dosen",
+                "parameters": [
+                    {
+                        "description": "Raw Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.DosenUpdateRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Dosen ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Dosen"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Dosen",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dosen"
+                ],
+                "summary": "Delete Dosen",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Dosen ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/mahasiswa": {
+            "get": {
+                "description": "Get All Mahasiswa",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mahasiswa"
+                ],
+                "summary": "Get All Mahasiswa",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.MahasiswaDataResponse"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create Mahasiswa",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mahasiswa"
+                ],
+                "summary": "Create Mahasiswa",
+                "parameters": [
+                    {
+                        "description": "Raw Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.MahasiswaCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Mahasiswa"
+                        }
+                    }
+                }
+            }
+        },
+        "/mahasiswa/{id}": {
+            "get": {
+                "description": "Get Mahasiswa By ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mahasiswa"
+                ],
+                "summary": "Get Mahasiswa By ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Mahasiswa ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.MahasiswaDataResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update Mahasiswa",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mahasiswa"
+                ],
+                "summary": "Update Mahasiswa",
+                "parameters": [
+                    {
+                        "description": "Raw Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.MahasiswaUpdateRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Mahasiswa ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Mahasiswa"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Mahasiswa",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mahasiswa"
+                ],
+                "summary": "Delete Mahasiswa",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Mahasiswa ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/pengajuan": {
+            "get": {
+                "description": "Get All Pengajuan",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pengajuan"
+                ],
+                "summary": "Get All Pengajuan",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Pengajuan"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pengajuan/mahasiswa/{id}": {
+            "get": {
+                "description": "Get Pengajuan By Mahasiswa ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pengajuan"
+                ],
+                "summary": "Get Pengajuan By Mahasiswa ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Mahasiswa ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Pengajuan"
+                        }
+                    }
+                }
+            }
+        },
+        "/pengajuan/similarity-test": {
+            "post": {
+                "description": "Similiarity Test Pengajuan",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pengajuan"
+                ],
+                "summary": "Similiarity Test Pengajuan",
+                "parameters": [
+                    {
+                        "description": "Raw Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SimilarityRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/pengajuan/{id}": {
+            "get": {
+                "description": "Get Pengajuan By ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pengajuan"
+                ],
+                "summary": "Get Pengajuan By ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Pengajuan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Pengajuan"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update Pengajuan",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pengajuan"
+                ],
+                "summary": "Update Pengajuan",
+                "parameters": [
+                    {
+                        "description": "Raw Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.PengajuanUpdateRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Pengajuan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Pengajuan"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Pengajuan",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pengajuan"
+                ],
+                "summary": "Delete Pengajuan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Pengajuan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
                     }
                 }
             }
         }
     },
     "definitions": {
-        "models.AdminListResponse": {
+        "models.Admin": {
             "type": "object",
             "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
@@ -50,6 +641,439 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.AdminCreateRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.AdminDataResponse": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.AdminUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Dosen": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "jabatan": {
+                    "type": "string"
+                },
+                "kapasitas": {
+                    "type": "integer"
+                },
+                "kepakaran": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nidn": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "prodi": {
+                    "type": "string"
+                },
+                "total_mahasiswa": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.DosenCreateRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "jabatan": {
+                    "type": "string"
+                },
+                "kapasitas": {
+                    "type": "integer"
+                },
+                "kepakaran": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nidn": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "prodi": {
+                    "type": "string"
+                },
+                "total_mahasiswa": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.DosenDataResponse": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "jabatan": {
+                    "type": "string"
+                },
+                "kapasitas": {
+                    "type": "integer"
+                },
+                "kepakaran": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nidn": {
+                    "type": "string"
+                },
+                "prodi": {
+                    "type": "string"
+                },
+                "total_mahasiswa": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.DosenUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "jabatan": {
+                    "type": "string"
+                },
+                "kapasitas": {
+                    "type": "integer"
+                },
+                "kepakaran": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nidn": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "prodi": {
+                    "type": "string"
+                },
+                "total_mahasiswa": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Mahasiswa": {
+            "type": "object",
+            "properties": {
+                "angkatan": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nim": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "prodi": {
+                    "type": "string"
+                },
+                "sks": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.MahasiswaCreateRequest": {
+            "type": "object",
+            "properties": {
+                "angkatan": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nim": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "prodi": {
+                    "type": "string"
+                },
+                "sks": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.MahasiswaDataResponse": {
+            "type": "object",
+            "properties": {
+                "angkatan": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nim": {
+                    "type": "string"
+                },
+                "prodi": {
+                    "type": "string"
+                },
+                "sks": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.MahasiswaUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "angkatan": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nim": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "prodi": {
+                    "type": "string"
+                },
+                "sks": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Pengajuan": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "dospem1": {
+                    "$ref": "#/definitions/models.Dosen"
+                },
+                "dospem1_id": {
+                    "type": "integer"
+                },
+                "dospem2": {
+                    "$ref": "#/definitions/models.Dosen"
+                },
+                "dospem2_id": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "judul": {
+                    "type": "string"
+                },
+                "mahasiswa": {
+                    "$ref": "#/definitions/models.Mahasiswa"
+                },
+                "mahasiswa_id": {
+                    "type": "integer"
+                },
+                "peminatan": {
+                    "type": "string"
+                },
+                "rejected_note": {
+                    "type": "string"
+                },
+                "rumusan_masalah": {
+                    "type": "string"
+                },
+                "status_acc": {
+                    "type": "string"
+                },
+                "tempat_penelitian": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.PengajuanUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "dospem1_id": {
+                    "type": "integer"
+                },
+                "dospem2_id": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "judul": {
+                    "type": "string"
+                },
+                "mahasiswa_id": {
+                    "type": "integer"
+                },
+                "peminatan": {
+                    "type": "string"
+                },
+                "rejected_note": {
+                    "type": "string"
+                },
+                "rumusan_masalah": {
+                    "type": "string"
+                },
+                "status_acc": {
+                    "type": "string"
+                },
+                "tempat_penelitian": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SimilarityRequest": {
+            "type": "object",
+            "properties": {
+                "judul": {
                     "type": "string"
                 }
             }

@@ -1,7 +1,6 @@
 package database
 
 import (
-	// "github.com/Seyditz/project-skripsi/models"
 	"github.com/Seyditz/project-skripsi/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

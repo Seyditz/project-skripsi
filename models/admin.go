@@ -1,17 +1,34 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"time"
+)
 
 type Admin struct {
-	gorm.Model
-	Id       int    `json:"id" gorm:"primary_key"`
+	Id        int    `json:"id" gorm:"primary_key"`
+	Name      string `json:"name"`
+	Email     string `json:"email"`
+	Password  string `json:"password"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
+type AdminDataResponse struct {
+	Id        int    `json:"id" gorm:"primary_key"`
+	Name      string `json:"name"`
+	Email     string `json:"email"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
+type AdminCreateRequest struct {
 	Name     string `json:"name"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
-type AdminListResponse struct {
-	Id    int    `json:"id" gorm:"primary_key"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
+type AdminUpdateRequest struct {
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
