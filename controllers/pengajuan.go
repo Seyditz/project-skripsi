@@ -31,7 +31,7 @@ func GetAllPengajuan(c *gin.Context) {
 	}
 
 	// result := query.Model(&models.Pengajuan{}).Find(&pengajuans)
-	result := query.Find(&pengajuans)
+	result := query.Find(&pengajuans).Order("created_at asc")
 
 	if result.Error != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all pengajuans", "error": result.Error})
