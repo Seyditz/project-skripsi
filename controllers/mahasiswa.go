@@ -12,6 +12,7 @@ import (
 )
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Get All Mahasiswa
 // @Description Get All Mahasiswa
 // @Produce application/json
@@ -39,6 +40,7 @@ func GetAllMahasiswa(c *gin.Context) {
 }
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Create Mahasiswa
 // @Description Create Mahasiswa
 // @Produce application/json
@@ -102,6 +104,7 @@ func CreateMahasiswa(c *gin.Context) {
 }
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Update Mahasiswa
 // @Description Update Mahasiswa
 // @Produce application/json
@@ -194,6 +197,7 @@ func UpdateMahasiswa(c *gin.Context) {
 }
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Delete Mahasiswa
 // @Description Delete Mahasiswa
 // @Produce application/json
@@ -222,6 +226,7 @@ func DeleteMahasiswa(c *gin.Context) {
 }
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Get Mahasiswa By ID
 // @Description Get Mahasiswa By ID
 // @Produce application/json

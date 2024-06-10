@@ -326,6 +326,12 @@ paths:
   /admin:
     get:
       description: Get All Admins
+      parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -341,6 +347,11 @@ paths:
     post:
       description: Create Admins
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Raw Request Body
         in: body
         name: request
@@ -361,6 +372,11 @@ paths:
     delete:
       description: Delete Admins
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Admin ID
         in: path
         name: id
@@ -377,6 +393,11 @@ paths:
     get:
       description: Get Admin By ID
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Admin ID
         in: path
         name: id
@@ -395,6 +416,11 @@ paths:
     put:
       description: Update Admins
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Raw Request Body
         in: body
         name: request
@@ -480,6 +506,11 @@ paths:
     get:
       description: Get All Dosens
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: name
         in: query
         name: name
@@ -499,6 +530,11 @@ paths:
     post:
       description: Create Dosen
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Raw Request Body
         in: body
         name: request
@@ -519,6 +555,11 @@ paths:
     delete:
       description: Delete Dosen
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Dosen ID
         in: path
         name: id
@@ -535,6 +576,11 @@ paths:
     get:
       description: Get Dosen By ID
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Dosen ID
         in: path
         name: id
@@ -553,6 +599,11 @@ paths:
     put:
       description: Update Dosen
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Raw Request Body
         in: body
         name: request
@@ -578,6 +629,11 @@ paths:
     get:
       description: Get All Mahasiswa
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: name
         in: query
         name: name
@@ -597,6 +653,11 @@ paths:
     post:
       description: Create Mahasiswa
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Raw Request Body
         in: body
         name: request
@@ -617,6 +678,11 @@ paths:
     delete:
       description: Delete Mahasiswa
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Mahasiswa ID
         in: path
         name: id
@@ -633,6 +699,11 @@ paths:
     get:
       description: Get Mahasiswa By ID
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Mahasiswa ID
         in: path
         name: id
@@ -651,6 +722,11 @@ paths:
     put:
       description: Update Mahasiswa
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Raw Request Body
         in: body
         name: request
@@ -675,6 +751,12 @@ paths:
   /pengajuan:
     get:
       description: Get All Pengajuan
+      parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -691,6 +773,11 @@ paths:
     delete:
       description: Delete Pengajuan
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Pengajuan ID
         in: path
         name: id
@@ -707,6 +794,11 @@ paths:
     get:
       description: Get Pengajuan By ID
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Pengajuan ID
         in: path
         name: id
@@ -725,6 +817,11 @@ paths:
     put:
       description: Update Pengajuan
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Raw Request Body
         in: body
         name: request
@@ -750,6 +847,11 @@ paths:
     get:
       description: Get Pengajuan By Mahasiswa ID
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Mahasiswa ID
         in: path
         name: id
@@ -769,6 +871,11 @@ paths:
     post:
       description: Similiarity Test Pengajuan
       parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: Raw Request Body
         in: body
         name: request

@@ -12,6 +12,7 @@ import (
 )
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Get All Dosen
 // @Description Get All Dosens
 // @Produce application/json
@@ -39,6 +40,7 @@ func GetAllDosens(c *gin.Context) {
 }
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Create Dosen
 // @Description Create Dosen
 // @Produce application/json
@@ -122,6 +124,7 @@ func CreateDosen(c *gin.Context) {
 }
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Update Dosen
 // @Description Update Dosen
 // @Produce application/json
@@ -214,6 +217,7 @@ func UpdateDosen(c *gin.Context) {
 }
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Delete Dosen
 // @Description Delete Dosen
 // @Produce application/json
@@ -242,6 +246,7 @@ func DeleteDosen(c *gin.Context) {
 }
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Get Dosen By ID
 // @Description Get Dosen By ID
 // @Produce application/json

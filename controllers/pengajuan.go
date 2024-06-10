@@ -11,6 +11,7 @@ import (
 )
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Get All Pengajuan
 // @Description Get All Pengajuan
 // @Produce application/json
@@ -96,6 +97,7 @@ func CreatePengajuan(c *gin.Context) {
 }
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Update Pengajuan
 // @Description Update Pengajuan
 // @Produce application/json
@@ -162,6 +164,7 @@ func UpdatePengajuan(c *gin.Context) {
 }
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Delete Pengajuan
 // @Description Delete Pengajuan
 // @Produce application/json
@@ -190,6 +193,7 @@ func DeletePengajuan(c *gin.Context) {
 }
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Get Pengajuan By ID
 // @Description Get Pengajuan By ID
 // @Produce application/json
@@ -212,6 +216,7 @@ func GetPengajuanByID(c *gin.Context) {
 }
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Get Pengajuan By Mahasiswa ID
 // @Description Get Pengajuan By Mahasiswa ID
 // @Produce application/json
@@ -287,6 +292,7 @@ func similarityPercentage(s, t string) float64 {
 }
 
 // CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Similiarity Test Pengajuan
 // @Description Similiarity Test Pengajuan
 // @Produce application/json
