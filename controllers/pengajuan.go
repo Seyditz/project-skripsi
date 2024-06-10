@@ -291,6 +291,8 @@ func similarityPercentage(s, t string) float64 {
 	return 100.0 - (float64(distance) / float64(maxLength) * 100.0)
 }
 
+// aaa
+
 // CreateTags godoc
 // @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Similiarity Test Pengajuan
