@@ -83,7 +83,7 @@ func DosenLogin(c *gin.Context) {
 		Jabatan:   dosen.Jabatan,
 	}
 
-	token, err := utils.GenerateJWT(dosen.Email, []string{"dosen"})
+	token, err := utils.GenerateJWT(dosen.Email, []string{"dosen", "mahasiswa"})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
 		return
