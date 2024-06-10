@@ -32,3 +32,8 @@ type AdminUpdateRequest struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
+
+type AdminLoginRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}

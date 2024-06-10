@@ -37,6 +37,13 @@ definitions:
       updatedAt:
         type: string
     type: object
+  models.AdminLoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
   models.AdminUpdateRequest:
     properties:
       email:
@@ -123,6 +130,13 @@ definitions:
       total_mahasiswa:
         type: integer
       updatedAt:
+        type: string
+    type: object
+  models.DosenLoginRequest:
+    properties:
+      email:
+        type: string
+      password:
         type: string
     type: object
   models.DosenUpdateRequest:
@@ -213,6 +227,13 @@ definitions:
       sks:
         type: integer
       updatedAt:
+        type: string
+    type: object
+  models.MahasiswaLoginRequest:
+    properties:
+      email:
+        type: string
+      password:
         type: string
     type: object
   models.MahasiswaUpdateRequest:
@@ -395,6 +416,66 @@ paths:
       summary: Update Admin
       tags:
       - Admin
+  /auth/admin/login:
+    post:
+      description: Admin Login
+      parameters:
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.AdminLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+      summary: Admin Login
+      tags:
+      - Auth
+  /auth/dosen/login:
+    post:
+      description: Dosen Login
+      parameters:
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.DosenLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+      summary: Dosen Login
+      tags:
+      - Auth
+  /auth/mahasiswa/login:
+    post:
+      description: Mahasiswa Login
+      parameters:
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.MahasiswaLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+      summary: Mahasiswa Login
+      tags:
+      - Auth
   /dosen:
     get:
       description: Get All Dosens

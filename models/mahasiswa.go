@@ -58,3 +58,8 @@ type MahasiswaUpdateRequest struct {
 	SKS      int    `json:"sks"`
 	Image    string `json:"image"`
 }
+
+type MahasiswaLoginRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}

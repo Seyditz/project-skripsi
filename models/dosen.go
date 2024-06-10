@@ -66,3 +66,8 @@ type DosenUpdateRequest struct {
 	TotalMahasiswa int    `json:"total_mahasiswa"`
 	Image          string `json:"image"`
 }
+
+type DosenLoginRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}

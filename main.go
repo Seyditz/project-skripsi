@@ -49,6 +49,7 @@ func main() {
 	routes.MahasiswaRoutes(r)
 	routes.PengajuanRoutes(r)
 	routes.JudulRoutes(r)
+	routes.AuthRoutes(r)
 
 	port := os.Getenv("PORT")
 
