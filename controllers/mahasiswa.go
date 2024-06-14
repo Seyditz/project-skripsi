@@ -2,14 +2,12 @@ package controllers
 
 import (
 	"net/http"
-	"path/filepath"
 	"strconv"
 	"time"
 
 	"github.com/Seyditz/project-skripsi/database"
 	"github.com/Seyditz/project-skripsi/models"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -90,21 +88,21 @@ func CreateMahasiswa(c *gin.Context) {
 	input.Password = string(hashedPassword)
 
 	// Handle the image file
-	file, err := c.FormFile("image")
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Image is required"})
-		return
-	}
+	// file, err := c.FormFile("image")
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Image is required"})
+	// 	return
+	// }
 
 	// Create a unique filename using UUID
-	uniqueFileName := uuid.New().String() + filepath.Ext(file.Filename)
-	filePath := "./uploads/" + uniqueFileName
+	// uniqueFileName := uuid.New().String() + filepath.Ext(file.Filename)
+	// filePath := "./uploads/" + uniqueFileName
 
 	// Save the file to the server
-	if err := c.SaveUploadedFile(file, filePath); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
+	// if err := c.SaveUploadedFile(file, filePath); err != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	// 	return
+	// }
 
 	mahasiswa := models.Mahasiswa{
 		Name:     input.Name,
