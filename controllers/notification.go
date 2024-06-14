@@ -8,6 +8,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreateTags godoc
+// @Summary Create Notification
+// @Description Create Notifications
+// @Produce application/json
+// @Param request body models.MobileNotificationCreateRequest true "Raw Request Body"
+// @Tags Notification
+// @Success 200 {object} models.MobileNotification{}
+// @Router /notification [post]
 func CreateNotification(c *gin.Context) {
 	var input models.MobileNotificationCreateRequest
 
@@ -39,6 +47,14 @@ func CreateNotification(c *gin.Context) {
 	c.JSON(200, gin.H{"result": &mobileNotification})
 }
 
+// CreateTags godoc
+// @Summary Get Notification By ID
+// @Description Get Notification By ID
+// @Produce application/json
+// @Param id path int true "Notification ID"
+// @Tags Notification
+// @Success 200 {object} models.MobileNotification{}
+// @Router /notification/{id} [get]
 func GetNotificationbyId(c *gin.Context) {
 	// Get the notification ID from the URL parameters
 	notificationID := c.Param("id")

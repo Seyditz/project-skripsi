@@ -255,6 +255,26 @@ definitions:
       sks:
         type: integer
     type: object
+  models.MobileNotification:
+    properties:
+      data_pengajuan:
+        $ref: '#/definitions/models.Pengajuan'
+      data_pengajuan_id:
+        type: integer
+      id:
+        type: integer
+      message:
+        type: string
+    type: object
+  models.MobileNotificationCreateRequest:
+    properties:
+      data_pengajuan_id:
+        type: integer
+      id:
+        type: integer
+      message:
+        type: string
+    type: object
   models.Pengajuan:
     properties:
       createdAt:
@@ -748,6 +768,45 @@ paths:
       summary: Update Mahasiswa
       tags:
       - Mahasiswa
+  /notification:
+    post:
+      description: Create Notifications
+      parameters:
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.MobileNotificationCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MobileNotification'
+      summary: Create Notification
+      tags:
+      - Notification
+  /notification/{id}:
+    get:
+      description: Get Notification By ID
+      parameters:
+      - description: Notification ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MobileNotification'
+      summary: Get Notification By ID
+      tags:
+      - Notification
   /pengajuan:
     get:
       description: Get All Pengajuan

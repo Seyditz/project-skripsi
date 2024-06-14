@@ -654,6 +654,66 @@ const docTemplate = `{
                 }
             }
         },
+        "/notification": {
+            "post": {
+                "description": "Create Notifications",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Create Notification",
+                "parameters": [
+                    {
+                        "description": "Raw Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.MobileNotificationCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.MobileNotification"
+                        }
+                    }
+                }
+            }
+        },
+        "/notification/{id}": {
+            "get": {
+                "description": "Get Notification By ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Get Notification By ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Notification ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.MobileNotification"
+                        }
+                    }
+                }
+            }
+        },
         "/pengajuan": {
             "get": {
                 "description": "Get All Pengajuan",
@@ -1259,6 +1319,37 @@ const docTemplate = `{
                 },
                 "sks": {
                     "type": "integer"
+                }
+            }
+        },
+        "models.MobileNotification": {
+            "type": "object",
+            "properties": {
+                "data_pengajuan": {
+                    "$ref": "#/definitions/models.Pengajuan"
+                },
+                "data_pengajuan_id": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.MobileNotificationCreateRequest": {
+            "type": "object",
+            "properties": {
+                "data_pengajuan_id": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
                 }
             }
         },

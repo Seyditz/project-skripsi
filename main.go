@@ -50,6 +50,7 @@ func main() {
 	routes.PengajuanRoutes(r)
 	routes.JudulRoutes(r)
 	routes.AuthRoutes(r)
+	routes.NotificationRoutes(r)
 
 	port := os.Getenv("PORT")
 
