@@ -76,6 +76,10 @@ func CreateMahasiswa(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "password is required"})
 		return
 	}
+	if input.SKS <= 100 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "SKS minimum is 100"})
+		return
+	}
 
 	// Encrypt the password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
