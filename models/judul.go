@@ -1,6 +1,10 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type Judul struct {
 	gorm.Model
@@ -14,6 +18,8 @@ type Judul struct {
 	DosPem1          Dosen  `json:"dospem1" gorm:"foreignKey:DosPem1Id;references:Id"`
 	DosPem2Id        int    `json:"dospem2_id"`
 	DosPem2          Dosen  `json:"dospem2" gorm:"foreignKey:DosPem2Id;references:Id"`
+	CreatedAt        time.Time
+	UpdatedAt        time.Time
 }
 
 type JudulCreateRequest struct {

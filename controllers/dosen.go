@@ -104,14 +104,15 @@ func CreateDosen(c *gin.Context) {
 	input.Password = string(hashedPassword)
 
 	dosen := models.Dosen{
-		Name:      input.Name,
-		Nidn:      input.Nidn,
-		Email:     input.Email,
-		Password:  input.Password,
-		Prodi:     input.Prodi,
-		Jabatan:   input.Jabatan,
-		Kepakaran: input.Kepakaran,
-		Kapasitas: input.Kapasitas,
+		Name:           input.Name,
+		Nidn:           input.Nidn,
+		Email:          input.Email,
+		Password:       input.Password,
+		Prodi:          input.Prodi,
+		Jabatan:        input.Jabatan,
+		Kepakaran:      input.Kepakaran,
+		Kapasitas:      input.Kapasitas,
+		TotalMahasiswa: 0,
 	}
 
 	// Create the dosen in the database
