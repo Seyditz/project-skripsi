@@ -38,3 +38,17 @@ func CreateNotification(c *gin.Context) {
 
 	c.JSON(200, gin.H{"result": &mobileNotification})
 }
+
+func GetNotificationbyId(c *gin.Context) {
+	// Get the notification ID from the URL parameters
+	notificationID := c.Param("id")
+
+	// Find the notification by ID
+	var notification models.MobileNotification
+	if result := database.DB.Model(&models.MobileNotification{}).First(&notification, notificationID); result.RowsAffected == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Notification not found"})
+		return
+	}
+
+	c.JSON(200, gin.H{"notification": &notification})
+}

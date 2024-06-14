@@ -12,3 +12,4 @@ type MobileNotificationCreateRequest struct {
 	Message         string `json:"message"`
 	DataPengajuanId int    `json:"data_pengajuan_id"`
 }
+
