@@ -14,6 +14,7 @@ import (
 // @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Get All Pengajuan
 // @Description Get All Pengajuan
+// @Param judul query string false "judul"
 // @Produce application/json
 // @Tags Pengajuan
 // @Success 200 {object} []models.Pengajuan{}

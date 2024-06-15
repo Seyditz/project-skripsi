@@ -32,6 +32,18 @@ const docTemplate = `{
                         "name": "Authorization",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "email",
+                        "name": "email",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -493,6 +505,12 @@ const docTemplate = `{
                         "description": "name",
                         "name": "name",
                         "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "nim",
+                        "name": "nim",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -655,6 +673,36 @@ const docTemplate = `{
             }
         },
         "/notification": {
+            "get": {
+                "description": "Get All Notifications",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Get All Notification",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.MobileNotification"
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "Create Notifications",
                 "produces": [
@@ -731,6 +779,12 @@ const docTemplate = `{
                         "name": "Authorization",
                         "in": "header",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "judul",
+                        "name": "judul",
+                        "in": "query"
                     }
                 ],
                 "responses": {

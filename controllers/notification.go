@@ -68,3 +68,37 @@ func GetNotificationbyId(c *gin.Context) {
 
 	c.JSON(200, gin.H{"notification": &notification})
 }
+
+// CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
+// @Summary Get All Notification
+// @Description Get All Notifications
+// @Produce application/json
+// @Tags Notification
+// @Success 200 {object} []models.MobileNotification{}
+// @Router /notification [get]
+func GetAllNotification(c *gin.Context) {
+	notifications := []models.MobileNotification{}
+
+	db := database.DB
+
+	name := c.Query("name")
+	email := c.Query("email")
+
+	// Build the query conditionally based on the parameters
+	if name != "" {
+		db = db.Where("name ILIKE ?", "%"+name+"%")
+	}
+	if email != "" {
+		db = db.Where("email ILIKE ?", "%"+email+"%")
+	}
+
+	// result := db.Find(&notifications)
+	result := db.Model(&[]models.MobileNotification{}).Find(&notifications)
+	if result.Error != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all notifications", "error": result.Error})
+		return
+	}
+
+	c.JSON(200, gin.H{"result": &notifications})
+}

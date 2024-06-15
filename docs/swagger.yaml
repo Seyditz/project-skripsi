@@ -352,6 +352,14 @@ paths:
         name: Authorization
         required: true
         type: string
+      - description: name
+        in: query
+        name: name
+        type: string
+      - description: email
+        in: query
+        name: email
+        type: string
       produces:
       - application/json
       responses:
@@ -658,6 +666,10 @@ paths:
         in: query
         name: name
         type: string
+      - description: nim
+        in: query
+        name: nim
+        type: string
       produces:
       - application/json
       responses:
@@ -769,6 +781,26 @@ paths:
       tags:
       - Mahasiswa
   /notification:
+    get:
+      description: Get All Notifications
+      parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.MobileNotification'
+            type: array
+      summary: Get All Notification
+      tags:
+      - Notification
     post:
       description: Create Notifications
       parameters:
@@ -815,6 +847,10 @@ paths:
         in: header
         name: Authorization
         required: true
+        type: string
+      - description: judul
+        in: query
+        name: judul
         type: string
       produces:
       - application/json

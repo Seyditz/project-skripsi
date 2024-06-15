@@ -17,6 +17,8 @@ import (
 // @Summary Get All Admin
 // @Description Get All Admins
 // @Produce application/json
+// @Param name query string false "name"
+// @Param email query string false "email"
 // @Tags Admin
 // @Success 200 {object} []models.AdminDataResponse{}
 // @Router /admin [get]

@@ -14,10 +14,11 @@ import (
 // CreateTags godoc
 // @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Get All Mahasiswa
+// @Param name query string false "name"
+// @Param nim query string false "nim"
 // @Description Get All Mahasiswa
 // @Produce application/json
 // @Tags Mahasiswa
-// @Param name query string false "name"
 // @Success 200 {object} []models.MahasiswaDataResponse{}
 // @Router /mahasiswa [get]
 func GetAllMahasiswa(c *gin.Context) {
@@ -25,9 +26,13 @@ func GetAllMahasiswa(c *gin.Context) {
 	db := database.DB
 
 	name := c.Query("name")
+	nim := c.Query("nim")
 
 	if name != "" {
 		db = db.Where("name ILIKE ?", "%"+name+"%")
+	}
+	if nim != "" {
+		db = db.Where("nim ILIKE ?", "%"+nim+"%")
 	}
 
 	result := db.Model(&models.Mahasiswa{}).Find(&mahasiswas)
