@@ -2,9 +2,11 @@ package controllers
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/Seyditz/project-skripsi/database"
 	"github.com/Seyditz/project-skripsi/models"
+	"github.com/Seyditz/project-skripsi/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -36,6 +38,7 @@ func CreateNotification(c *gin.Context) {
 	mobileNotification := models.MobileNotification{
 		Message:         input.Message,
 		DataPengajuanId: input.DataPengajuanId,
+		UserId:          input.UserId,
 	}
 
 	// Create the mobileNotification in the database
@@ -72,7 +75,7 @@ func GetNotificationbyId(c *gin.Context) {
 // CreateTags godoc
 // @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
 // @Summary Get All Notification
-// @Description Get All Notifications
+// @Description Get All Notification based on Id from auth
 // @Produce application/json
 // @Tags Notification
 // @Success 200 {object} []models.MobileNotification{}
@@ -82,19 +85,9 @@ func GetAllNotification(c *gin.Context) {
 
 	db := database.DB
 
-	name := c.Query("name")
-	email := c.Query("email")
+	claims := c.MustGet("claims").(*utils.Claims)
 
-	// Build the query conditionally based on the parameters
-	if name != "" {
-		db = db.Where("name ILIKE ?", "%"+name+"%")
-	}
-	if email != "" {
-		db = db.Where("email ILIKE ?", "%"+email+"%")
-	}
-
-	// result := db.Find(&notifications)
-	result := db.Model(&[]models.MobileNotification{}).Find(&notifications)
+	result := db.Model(&[]models.MobileNotification{}).Find(&notifications).Where("user_id ILIKE ?", "%"+strconv.Itoa(claims.UserId)+"%")
 	if result.Error != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all notifications", "error": result.Error})
 		return
