@@ -22,6 +22,8 @@ import (
 // @Success 200 {object} []models.MahasiswaDataResponse{}
 // @Router /mahasiswa [get]
 func GetAllMahasiswa(c *gin.Context) {
+	c.Header("Content-Type", "application/json")
+
 	mahasiswas := []models.MahasiswaDataResponse{}
 	db := database.DB
 

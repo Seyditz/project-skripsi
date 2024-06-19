@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
 
 	_ "github.com/Seyditz/project-skripsi/docs"
 	"github.com/gin-contrib/cors"
@@ -40,17 +39,17 @@ func main() {
 
 	r.Use(cors.Default())
 
-	config := cors.Config{
-		AllowOrigins:     []string{"https://foo.com", "https://bar.com", "http://localhost:3000"},
-		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
-		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
-		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true,
-		MaxAge:           12 * time.Hour,
-	}
+	// config := cors.Config{
+	// 	AllowOrigins:     []string{"https://foo.com", "https://bar.com", "http://localhost:3000"},
+	// 	AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
+	// 	AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization", "Access-Control-Allow-Origin", "X-Requested-With"},
+	// 	ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin"},
+	// 	AllowCredentials: true,
+	// 	MaxAge:           12 * time.Hour,
+	// }
 
 	// Apply the CORS middleware to the router
-	r.Use(cors.New(config))
+	// r.Use(cors.New(config))
 	// r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	//
 	r.GET("/ping", func(c *gin.Context) {
