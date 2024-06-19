@@ -9,7 +9,6 @@ import (
 
 	"github.com/Seyditz/project-skripsi/database"
 	"github.com/Seyditz/project-skripsi/routes"
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"
@@ -37,11 +36,11 @@ func main() {
 
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	r.Use(cors.Default())
+	// r.Use(cors.Default())
 
 	// r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	r.GET("/", func(c *gin.Context) {
+	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "Hello"})
 	})
 	routes.AdminRoutes(r)
