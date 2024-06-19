@@ -52,7 +52,7 @@ func main() {
 	// Apply the CORS middleware to the router
 	r.Use(cors.New(config))
 	// r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
+	//
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "Hello"})
 	})
