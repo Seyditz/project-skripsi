@@ -6,7 +6,8 @@ import (
 	"os"
 
 	_ "github.com/Seyditz/project-skripsi/docs"
-	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/gzip"
+	"github.com/google/uuid"
 
 	"github.com/Seyditz/project-skripsi/database"
 	"github.com/Seyditz/project-skripsi/routes"
@@ -23,6 +24,33 @@ import (
 // @host projectskripsi-fvwdncsc.b4a.run
 // @BasePath /
 // @schemes https http
+
+func CORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+		c.Writer.Header().Set("Access-Control-Max-Age", "86400")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Authorization, X-Requested-With, Accept")
+		c.Writer.Header().Set("Access-Control-Expose-Headers", "Content-Length")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(http.StatusOK)
+			return
+		}
+
+		c.Next()
+	}
+}
+
+func RequestIDMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		uuid := uuid.New()
+		c.Writer.Header().Set("X-Request-Id", uuid.String())
+		c.Next()
+	}
+}
+
 func main() {
 	//Load the .env file
 	err := godotenv.Load("config.env")
@@ -35,12 +63,10 @@ func main() {
 
 	r := gin.Default()
 
-	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
-	r.Use(cors.Default())
+	// r.Use(cors.Default())
 
 	// config := cors.Config{
-	// 	AllowOrigins:     []string{"https://foo.com", "https://bar.com", "http://localhost:3000"},
+	// 	AllowOrigins:     []string{"http://localhost:3000"},
 	// 	AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
 	// 	AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization", "Access-Control-Allow-Origin", "X-Requested-With"},
 	// 	ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin"},
@@ -49,7 +75,10 @@ func main() {
 	// }
 
 	// Apply the CORS middleware to the router
-	// r.Use(cors.New(config))
+	r.Use(CORSMiddleware())
+	r.Use(RequestIDMiddleware())
+	r.Use(gzip.Gzip(gzip.DefaultCompression))
+
 	// r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	//
 	r.GET("/ping", func(c *gin.Context) {
@@ -62,6 +91,8 @@ func main() {
 	routes.JudulRoutes(r)
 	routes.AuthRoutes(r)
 	routes.NotificationRoutes(r)
+
+	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	port := os.Getenv("PORT")
 
