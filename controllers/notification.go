@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"net/http"
-	"strconv"
+	"time"
 
 	"github.com/Seyditz/project-skripsi/database"
 	"github.com/Seyditz/project-skripsi/models"
@@ -39,6 +39,7 @@ func CreateNotification(c *gin.Context) {
 		Message:         input.Message,
 		DataPengajuanId: input.DataPengajuanId,
 		UserId:          input.UserId,
+		CreatedAt:       time.Now(),
 	}
 
 	// Create the mobileNotification in the database
@@ -87,7 +88,30 @@ func GetAllNotification(c *gin.Context) {
 
 	claims := c.MustGet("claims").(*utils.Claims)
 
-	result := db.Model(&[]models.MobileNotification{}).Find(&notifications).Where("user_id ILIKE ?", "%"+strconv.Itoa(claims.UserId)+"%")
+	// Use Preload to load the associated DataPengajuan
+	result := db.
+		Preload("DataPengajuan").
+		Preload("DataPengajuan.Mahasiswa").
+		Preload("DataPengajuan.DosPem1").
+		Preload("DataPengajuan.DosPem2").
+		Model(&[]models.MobileNotification{}).
+		Where("user_id = ?", claims.UserId).
+		Find(&notifications)
+	if result.Error != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all notifications", "error": result.Error})
+		return
+	}
+
+	c.JSON(200, gin.H{"result": &notifications})
+}
+
+func GetRealAllNotification(c *gin.Context) {
+	notifications := []models.MobileNotification{}
+
+	db := database.DB
+
+	// Use Preload to load the associated DataPengajuan
+	result := db.Preload("DataPengajuan").Find(&notifications)
 	if result.Error != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all notifications", "error": result.Error})
 		return

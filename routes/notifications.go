@@ -12,5 +12,6 @@ func NotificationRoutes(r *gin.Engine) {
 	notificationRoutes := r.Group("/notification", middleware.AuthMiddleware())
 	notificationRoutes.GET("/:id", utils.Authorize("mahasiswa"), controllers.GetNotificationbyId)
 	notificationRoutes.GET("/", utils.Authorize("mahasiswa"), controllers.GetAllNotification)
+	notificationRoutes.GET("/get-all", controllers.GetRealAllNotification)
 	notificationRoutes.POST("/", utils.Authorize("mahasiswa"), controllers.CreateNotification)
 }

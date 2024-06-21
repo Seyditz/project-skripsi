@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/Seyditz/project-skripsi/controllers"
 	_ "github.com/Seyditz/project-skripsi/docs"
 	"github.com/gin-contrib/gzip"
 	"github.com/google/uuid"
@@ -79,11 +80,17 @@ func main() {
 	r.Use(RequestIDMiddleware())
 	r.Use(gzip.Gzip(gzip.DefaultCompression))
 
+	log.Printf("Route: %+v/n", r)
+
 	// r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	//
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "Hello"})
 	})
+
+	testRoute := r.Group("/test")
+	testRoute.GET("/get-admin", controllers.GetAllAdmin)
+
 	routes.AdminRoutes(r)
 	routes.DosenRoutes(r)
 	routes.MahasiswaRoutes(r)
