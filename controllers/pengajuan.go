@@ -228,6 +228,7 @@ func GetPengajuanByID(c *gin.Context) {
 func GetPengajuanByMahasiswaID(c *gin.Context) {
 	// Get the Mahasiswa ID from the URL parameters
 	mahasiswaID := c.Param("id")
+	judul := c.Query("judul")
 
 	// Convert Mahasiswa ID to an integer (if necessary)
 	var id int
@@ -238,7 +239,13 @@ func GetPengajuanByMahasiswaID(c *gin.Context) {
 
 	// Find Pengajuan records by Mahasiswa ID
 	var pengajuan []models.Pengajuan
-	if result := database.DB.Where("mahasiswa_id = ?", id).Find(&pengajuan); result.RowsAffected == 0 {
+	query := database.DB.Where("mahasiswa_id = ?", id)
+
+	if judul != "" {
+		query = query.Where("judul ILIKE ?", "%"+judul+"%")
+	}
+
+	if result := query.Find(&pengajuan); result.RowsAffected == 0 {
 		message := fmt.Sprintf("Pengajuan not found at mahasiswa_id = %s", mahasiswaID)
 		c.JSON(http.StatusNotFound, gin.H{"error": message})
 		return
