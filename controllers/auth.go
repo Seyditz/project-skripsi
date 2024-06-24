@@ -44,7 +44,7 @@ func AdminLogin(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"token": token})
-}
+} //a
 
 // CreateTags godoc
 // @Summary Dosen Login
