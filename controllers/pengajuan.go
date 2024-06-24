@@ -245,7 +245,7 @@ func GetPengajuanByMahasiswaID(c *gin.Context) {
 		query = query.Where("judul ILIKE ?", "%"+judul+"%")
 	}
 
-	result := query.Find(&pengajuan)
+	result := query.Preload("DosPem1", models.DosenSafePreloadFunction).Preload("DosPem2", models.DosenSafePreloadFunction).Preload("Mahasiswa", models.MahasiswaSafePreloadFunction).Find(&pengajuan)
 
 	if result.Error != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all pengajuan by mahasiswa ID", "error": result.Error})
