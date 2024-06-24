@@ -11,6 +11,7 @@ func DosenRoutes(r *gin.Engine) {
 	mahasiswaRoutes := r.Group("/dosen", middleware.AuthMiddleware())
 	mahasiswaRoutes.GET("/", utils.Authorize("mahasiswa"), controllers.GetAllDosens)
 	mahasiswaRoutes.GET("/:id", utils.Authorize("mahasiswa"), controllers.GetDosenByID)
+	mahasiswaRoutes.GET("/mahasiswa-bimbingan/:id", utils.Authorize("dosen"), controllers.GetAllMahasiswaBimbingan)
 	mahasiswaRoutes.POST("/", utils.Authorize("admin"), controllers.CreateDosen)
 	mahasiswaRoutes.DELETE("/:id", utils.Authorize("admin"), controllers.DeleteDosen)
 	mahasiswaRoutes.PUT("/:id", utils.Authorize("dosen"), controllers.UpdateDosen)

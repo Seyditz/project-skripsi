@@ -95,7 +95,7 @@ func CreateDosen(c *gin.Context) {
 		return
 	}
 	// if input.MahasiswaBimbinganId == nil {
-	// 	input.MahasiswaBimbinganId = []int{}
+	// 	input.MahasiswaBimbinganId = utils.IntArray{}
 	// }
 
 	// Encrypt the password
@@ -116,11 +116,12 @@ func CreateDosen(c *gin.Context) {
 		Kepakaran:            input.Kepakaran,
 		Kapasitas:            input.Kapasitas,
 		MahasiswaBimbinganId: input.MahasiswaBimbinganId,
+		CreatedAt:            time.Now(),
 	}
 
 	// Create the dosen in the database
 	if result := database.DB.Create(&dosen); result.Error != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error(), "res": result})
 		return
 	}
 
@@ -270,4 +271,43 @@ func GetDosenByID(c *gin.Context) {
 	}
 
 	c.JSON(200, gin.H{"dosen": &dosen})
+}
+
+// CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
+// @Summary Get All Mahasiswa Bimbingan
+// @Param id path int true "Dosen ID"
+// @Description Get All Mahasiswa Bimbingan
+// @Produce application/json
+// @Tags Dosen
+// @Success 200 {object} models.DosenMahasiswaBimbinganResponse{}
+// @Router /dosen/mahasiswa-bimbingan/{id} [get]
+func GetAllMahasiswaBimbingan(c *gin.Context) {
+	var mahasiswaList []models.MahasiswaDataResponse
+	// // Get the dosen ID from the URL parameters
+	dosenID := c.Param("id")
+
+	// Find the dosen by ID
+	var dosen models.Dosen
+	if res := database.DB.First(&dosen, dosenID); res.RowsAffected == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Dosen not found"})
+		return
+	}
+
+	// Convert pq.Int64Array to []int
+	intArray := make([]int, len(dosen.MahasiswaBimbinganId))
+	for i, v := range dosen.MahasiswaBimbinganId {
+		intArray[i] = int(v)
+	}
+
+	result := database.DB.
+		Model(&models.Mahasiswa{}).
+		Where("id IN ?", intArray).
+		Find(&mahasiswaList)
+	if result.Error != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all mahasiswas", "error": result.Error})
+		return
+	}
+
+	c.JSON(200, gin.H{"mahasiswa_list": &mahasiswaList})
 }
