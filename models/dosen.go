@@ -69,7 +69,7 @@ type DosenUpdateRequest struct {
 }
 
 type DosenLoginRequest struct {
-	Email    string `json:"email"`
+	Nidn     string `json:"nidn"`
 	Password string `json:"password"`
 }
 

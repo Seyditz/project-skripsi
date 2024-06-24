@@ -56,20 +56,20 @@ func AdminLogin(c *gin.Context) {
 // @Router /auth/dosen/login [post]
 func DosenLogin(c *gin.Context) {
 	var dosen models.Dosen
-	var input models.Dosen
+	var input models.DosenLoginRequest
 
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if err := database.DB.Where("email = ?", input.Email).First(&dosen).Error; err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Email or password"})
+	if err := database.DB.Where("nidn = ?", input.Nidn).First(&dosen).Error; err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid NIDN or password"})
 		return
 	}
 
 	if err := bcrypt.CompareHashAndPassword([]byte(dosen.Password), []byte(input.Password)); err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Email or password"})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid NIDN or password"})
 		return
 	}
 
