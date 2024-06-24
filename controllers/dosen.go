@@ -94,6 +94,9 @@ func CreateDosen(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "kapasitas is required"})
 		return
 	}
+	if input.MahasiswaBimbinganId == nil {
+		input.MahasiswaBimbinganId = []int{}
+	} 
 
 	// Encrypt the password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
@@ -104,15 +107,15 @@ func CreateDosen(c *gin.Context) {
 	input.Password = string(hashedPassword)
 
 	dosen := models.Dosen{
-		Name:           input.Name,
-		Nidn:           input.Nidn,
-		Email:          input.Email,
-		Password:       input.Password,
-		Prodi:          input.Prodi,
-		Jabatan:        input.Jabatan,
-		Kepakaran:      input.Kepakaran,
-		Kapasitas:      input.Kapasitas,
-		TotalMahasiswa: 0,
+		Name:                 input.Name,
+		Nidn:                 input.Nidn,
+		Email:                input.Email,
+		Password:             input.Password,
+		Prodi:                input.Prodi,
+		Jabatan:              input.Jabatan,
+		Kepakaran:            input.Kepakaran,
+		Kapasitas:            input.Kapasitas,
+		MahasiswaBimbinganId: input.MahasiswaBimbinganId,
 	}
 
 	// Create the dosen in the database
