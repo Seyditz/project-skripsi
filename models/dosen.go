@@ -20,7 +20,7 @@ type Dosen struct {
 	Jabatan              string `json:"jabatan"`
 	Kepakaran            string `json:"kepakaran"`
 	Kapasitas            int    `json:"kapasitas"`
-	MahasiswaBimbinganId []int  `json:"mahasiswa_bimbingan_Id" gorm:"type:integer[]"`
+	MahasiswaBimbinganId []int  `json:"mahasiswa_bimbingan_id" gorm:"type:integer[]"`
 	Image                string `json:"image"`
 	CreatedAt            time.Time
 	UpdatedAt            time.Time
@@ -35,7 +35,7 @@ type DosenDataResponse struct {
 	Jabatan              string `json:"jabatan"`
 	Kepakaran            string `json:"kepakaran"`
 	Kapasitas            int    `json:"kapasitas"`
-	MahasiswaBimbinganId []int  `json:"mahasiswa_bimbingan_Id"`
+	MahasiswaBimbinganId []int  `json:"mahasiswa_bimbingan_id" gorm:"type:integer[]"`
 	Image                string `json:"image"`
 	CreatedAt            time.Time
 	UpdatedAt            time.Time
@@ -50,7 +50,7 @@ type DosenCreateRequest struct {
 	Jabatan              string `json:"jabatan"`
 	Kepakaran            string `json:"kepakaran"`
 	Kapasitas            int    `json:"kapasitas"`
-	MahasiswaBimbinganId []int  `json:"mahasiswa_bimbingan_Id"`
+	MahasiswaBimbinganId []int  `json:"mahasiswa_bimbingan_id" gorm:"type:integer[]"`
 	Image                string `json:"image"`
 }
 
@@ -63,7 +63,7 @@ type DosenUpdateRequest struct {
 	Jabatan              string `json:"jabatan"`
 	Kepakaran            string `json:"kepakaran"`
 	Kapasitas            int    `json:"kapasitas"`
-	MahasiswaBimbinganId []int  `json:"mahasiswa_bimbingan_Id"`
+	MahasiswaBimbinganId []int  `json:"mahasiswa_bimbingan_id" gorm:"type:integer[]"`
 	Image                string `json:"image"`
 }
 

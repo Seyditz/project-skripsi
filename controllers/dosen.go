@@ -94,9 +94,9 @@ func CreateDosen(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "kapasitas is required"})
 		return
 	}
-	if input.MahasiswaBimbinganId == nil {
-		input.MahasiswaBimbinganId = []int{}
-	} 
+	// if input.MahasiswaBimbinganId == nil {
+	// 	input.MahasiswaBimbinganId = []int{}
+	// }
 
 	// Encrypt the password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)

@@ -63,7 +63,7 @@ func DosenLogin(c *gin.Context) {
 		return
 	}
 
-	if err := database.DB.Where("nim = ?", input.Email).First(&dosen).Error; err != nil {
+	if err := database.DB.Where("email = ?", input.Email).First(&dosen).Error; err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Email or password"})
 		return
 	}
