@@ -245,9 +245,10 @@ func GetPengajuanByMahasiswaID(c *gin.Context) {
 		query = query.Where("judul ILIKE ?", "%"+judul+"%")
 	}
 
-	if result := query.Find(&pengajuan); result.RowsAffected == 0 {
-		message := fmt.Sprintf("Pengajuan not found at mahasiswa_id = %s", mahasiswaID)
-		c.JSON(http.StatusNotFound, gin.H{"error": message})
+	result := query.Find(&pengajuan)
+
+	if result.Error != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all pengajuan by mahasiswa ID", "error": result.Error})
 		return
 	}
 
