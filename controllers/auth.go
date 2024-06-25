@@ -37,13 +37,18 @@ func AdminLogin(c *gin.Context) {
 		return
 	}
 
+	adminDataRespnse := models.AdminDataResponse{
+		Name:  admin.Name,
+		Email: admin.Email,
+	}
+
 	token, err := utils.GenerateJWT(admin.Email, admin.Id, []string{"admin", "dosen", "mahasiswa"})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": token, "roles": []string{"admin", "dosen", "mahasiswa"}})
+	c.JSON(http.StatusOK, gin.H{"token": token, "data": adminDataRespnse, "roles": []string{"admin", "dosen", "mahasiswa"}})
 }
 
 // CreateTags godoc
