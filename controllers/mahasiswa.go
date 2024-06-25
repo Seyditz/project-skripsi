@@ -187,9 +187,6 @@ func UpdateMahasiswa(c *gin.Context) {
 	if input.SKS == 0 {
 		input.SKS = existingMahasiswa.SKS
 	}
-	if input.Image == "" {
-		input.Image = existingMahasiswa.Image
-	}
 
 	// If password is provided, encrypt it
 	if input.Password != "" {
@@ -212,7 +209,6 @@ func UpdateMahasiswa(c *gin.Context) {
 		Password:  input.Password,
 		Angkatan:  input.Angkatan,
 		SKS:       input.SKS,
-		Image:     input.Image,
 		UpdatedAt: time.Now(),
 	}
 

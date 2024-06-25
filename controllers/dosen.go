@@ -55,10 +55,19 @@ func GetAllDosens(c *gin.Context) {
 func CreateDosen(c *gin.Context) {
 	var input models.DosenCreateRequest
 
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
-		return
-	}
+	input.Name = c.PostForm("name")
+	input.Nidn = c.PostForm("nidn")
+	input.Email = c.PostForm("email")
+	input.Password = c.PostForm("password")
+	input.Prodi = c.PostForm("prodi")
+	input.Jabatan = c.PostForm("jabatan")
+	input.Kepakaran = c.PostForm("kepakaran")
+	input.Kapasitas, _ = strconv.Atoi(c.PostForm("kapasitas"))
+
+	// if err := c.ShouldBindJSON(&input); err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
 
 	var existingDosen models.Dosen
 	if result := database.DB.Where("nidn = ?", input.Nidn).First(&existingDosen); result.RowsAffected > 0 {

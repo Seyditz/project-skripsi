@@ -45,7 +45,6 @@ type MahasiswaCreateRequest struct {
 	Password string `json:"password"`
 	Angkatan int    `json:"angkatan"`
 	SKS      int    `json:"sks"`
-	Image    string `json:"image"`
 }
 
 type MahasiswaUpdateRequest struct {
@@ -56,7 +55,6 @@ type MahasiswaUpdateRequest struct {
 	Password string `json:"password"`
 	Angkatan int    `json:"angkatan"`
 	SKS      int    `json:"sks"`
-	Image    string `json:"image"`
 }
 
 type MahasiswaLoginRequest struct {

@@ -52,7 +52,6 @@ type DosenCreateRequest struct {
 	Kepakaran            string        `json:"kepakaran"`
 	Kapasitas            int           `json:"kapasitas"`
 	MahasiswaBimbinganId pq.Int64Array `json:"mahasiswa_bimbingan_id"`
-	Image                string        `json:"image"`
 }
 
 type DosenUpdateRequest struct {
@@ -65,7 +64,6 @@ type DosenUpdateRequest struct {
 	Kepakaran            string        `json:"kepakaran"`
 	Kapasitas            int           `json:"kapasitas"`
 	MahasiswaBimbinganId pq.Int64Array `json:"mahasiswa_bimbingan_id"`
-	Image                string        `json:"image"`
 }
 
 type DosenLoginRequest struct {
