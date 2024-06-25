@@ -57,8 +57,8 @@ func CreateDosen(c *gin.Context) {
 	}
 
 	var existingDosen models.Dosen
-	if result := database.DB.Where("email = ?", input.Email).First(&existingDosen); result.RowsAffected > 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "email already exists"})
+	if result := database.DB.Where("nidn = ?", input.Nidn).First(&existingDosen); result.RowsAffected > 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "NIDN already exists"})
 		return
 	}
 
