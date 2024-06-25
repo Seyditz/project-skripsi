@@ -93,9 +93,10 @@ func CreateAdmin(c *gin.Context) {
 	input.Password = string(hashedPassword)
 
 	admin := models.Admin{
-		Name:     input.Name,
-		Email:    input.Email,
-		Password: input.Password,
+		Name:      input.Name,
+		Email:     input.Email,
+		Password:  input.Password,
+		CreatedAt: time.Now(),
 	}
 
 	// Create the admin in the database

@@ -86,6 +86,7 @@ func CreatePengajuan(c *gin.Context) {
 		DosPem2Id:        input.DosPem2Id,
 		StatusAcc:        input.StatusAcc,
 		RejectedNote:     input.RejectedNote,
+		CreatedAt:        time.Now(),
 	}
 
 	// Create the pengajuan in the database
