@@ -7,6 +7,7 @@ import (
 
 	"github.com/Seyditz/project-skripsi/controllers"
 	_ "github.com/Seyditz/project-skripsi/docs"
+	"github.com/Seyditz/project-skripsi/utils"
 	"github.com/gin-contrib/gzip"
 	"github.com/google/uuid"
 
@@ -53,6 +54,11 @@ func RequestIDMiddleware() gin.HandlerFunc {
 }
 
 func main() {
+	//Initialize Firebase
+	if err := utils.InitializeFirebaseApp("./sijudul-610fb-firebase-adminsdk-l8p73-b57fec2eba.json"); err != nil {
+		panic(err)
+	}
+
 	//Load the .env file
 	err := godotenv.Load("config.env")
 	if err != nil {

@@ -1,12 +1,16 @@
 package controllers
 
 import (
+	"context"
+	"fmt"
 	"net/http"
+	"path/filepath"
 	"strconv"
 	"time"
 
 	"github.com/Seyditz/project-skripsi/database"
 	"github.com/Seyditz/project-skripsi/models"
+	"github.com/Seyditz/project-skripsi/utils"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -106,6 +110,21 @@ func CreateDosen(c *gin.Context) {
 	}
 	input.Password = string(hashedPassword)
 
+	// handle image upload
+	file, header, err := c.Request.FormFile("image")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to get file"})
+		return
+	}
+	defer file.Close()
+
+	fileName := fmt.Sprintf("%d_%s", time.Now().Unix(), filepath.Base(header.Filename))
+	imageUrl, err := utils.UploadFileToFirebase(context.Background(), "sijudul-610fb.appspot.com", file, fileName)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
 	dosen := models.Dosen{
 		Name:                 input.Name,
 		Nidn:                 input.Nidn,
@@ -117,6 +136,7 @@ func CreateDosen(c *gin.Context) {
 		Kapasitas:            input.Kapasitas,
 		MahasiswaBimbinganId: input.MahasiswaBimbinganId,
 		CreatedAt:            time.Now(),
+		Image:                imageUrl,
 	}
 
 	// Create the dosen in the database
