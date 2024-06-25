@@ -48,8 +48,6 @@ type PengajuanCreateRequest struct {
 	RumusanMasalah   string `json:"rumusan_masalah"`
 	DosPem1Id        int    `json:"dospem1_id"`
 	DosPem2Id        int    `json:"dospem2_id"`
-	StatusAcc        string `json:"status_acc"`
-	StatusAccKaprodi string `json:"status_acc_kaprodi"`
 	RejectedNote     string `json:"rejected_note"`
 }
 

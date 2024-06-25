@@ -85,7 +85,8 @@ func CreatePengajuan(c *gin.Context) {
 		RumusanMasalah:   input.RumusanMasalah,
 		DosPem1Id:        input.DosPem1Id,
 		DosPem2Id:        input.DosPem2Id,
-		StatusAcc:        input.StatusAcc,
+		StatusAcc:        "Pending",
+		StatusAccKaprodi: "Pending",
 		RejectedNote:     input.RejectedNote,
 		CreatedAt:        time.Now(),
 	}
@@ -150,6 +151,9 @@ func UpdatePengajuan(c *gin.Context) {
 	if input.StatusAcc == "" {
 		input.StatusAcc = existingPengajuan.StatusAcc
 	}
+	if input.StatusAccKaprodi == "" {
+		input.StatusAccKaprodi = existingPengajuan.StatusAccKaprodi
+	}
 
 	pengajuan := models.Pengajuan{
 		MahasiswaId:      input.MahasiswaId,
@@ -160,6 +164,7 @@ func UpdatePengajuan(c *gin.Context) {
 		DosPem1Id:        input.DosPem1Id,
 		DosPem2Id:        input.DosPem2Id,
 		StatusAcc:        input.StatusAcc,
+		StatusAccKaprodi: input.StatusAccKaprodi,
 		RejectedNote:     input.RejectedNote,
 		UpdatedAt:        time.Now(),
 	}
