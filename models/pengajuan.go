@@ -17,6 +17,7 @@ type Pengajuan struct {
 	DosPem2Id        int       `json:"dospem2_id"`
 	DosPem2          Dosen     `json:"dospem2" gorm:"foreignKey:DosPem2Id;references:Id"`
 	StatusAcc        string    `json:"status_acc"`
+	StatusAccKaprodi string    `json:"status_acc_kaprodi"`
 	RejectedNote     string    `json:"rejected_note"`
 	CreatedAt        time.Time
 	UpdatedAt        time.Time
@@ -32,6 +33,7 @@ type PengajuanDataResponse struct {
 	DosPem1          Dosen     `json:"dospem1" gorm:"foreignKey:DosPem1Id;references:Id"`
 	DosPem2          Dosen     `json:"dospem2" gorm:"foreignKey:DosPem2Id;references:Id"`
 	StatusAcc        string    `json:"status_acc"`
+	StatusAccKaprodi string    `json:"status_acc_kaprodi"`
 	RejectedNote     string    `json:"rejected_note"`
 	CreatedAt        time.Time
 	UpdatedAt        time.Time
@@ -47,6 +49,7 @@ type PengajuanCreateRequest struct {
 	DosPem1Id        int    `json:"dospem1_id"`
 	DosPem2Id        int    `json:"dospem2_id"`
 	StatusAcc        string `json:"status_acc"`
+	StatusAccKaprodi string `json:"status_acc_kaprodi"`
 	RejectedNote     string `json:"rejected_note"`
 }
 
@@ -59,6 +62,7 @@ type PengajuanUpdateRequest struct {
 	DosPem1Id        int    `json:"dospem1_id"`
 	DosPem2Id        int    `json:"dospem2_id"`
 	StatusAcc        string `json:"status_acc"`
+	StatusAccKaprodi string `json:"status_acc_kaprodi"`
 	RejectedNote     string `json:"rejected_note"`
 }
 
