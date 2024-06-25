@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/Seyditz/project-skripsi/database"
@@ -316,11 +317,14 @@ func similarityPercentage(s, t string) float64 {
 // @Produce application/json
 // @Param request body models.SimilarityRequest true "Raw Request Body"
 // @Tags Pengajuan
+// @Param id query string false "id"
 // @Success 200 {object} interface{}
 // @Router /pengajuan/similarity-test [post]
 func SimilartityTest(c *gin.Context) {
 	var pengajuans []models.Pengajuan
 	database.DB.Preload("Mahasiswa").Preload("DosPem1").Preload("DosPem2").Find(&pengajuans)
+
+	pengajuanId := c.Query("id")
 
 	var req models.SimilarityRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -334,6 +338,12 @@ func SimilartityTest(c *gin.Context) {
 	}
 
 	for _, pengajuan := range pengajuans {
+		if pengajuanId != "" {
+			id, _ := strconv.Atoi(pengajuanId)
+			if id == pengajuan.Id {
+				continue
+			}
+		}
 		similarity := similarityPercentage(judul, pengajuan.Judul)
 		if similarity > 60.0 {
 			c.JSON(http.StatusOK, gin.H{
