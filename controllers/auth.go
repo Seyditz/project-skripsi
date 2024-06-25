@@ -43,7 +43,7 @@ func AdminLogin(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": token})
+	c.JSON(http.StatusOK, gin.H{"token": token, "roles": []string{"admin", "dosen", "mahasiswa"}})
 }
 
 // CreateTags godoc
@@ -89,7 +89,7 @@ func DosenLogin(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": token, "data": dosenDataResponse})
+	c.JSON(http.StatusOK, gin.H{"token": token, "data": dosenDataResponse, "roles": []string{"dosen", "mahasiswa"}})
 } //ghhgghhg
 
 // CreateTags godoc
@@ -135,5 +135,5 @@ func MahasiswaLogin(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": token, "data": mahasiswaDataResponse})
+	c.JSON(http.StatusOK, gin.H{"token": token, "data": mahasiswaDataResponse, "roles": []string{"mahasiswa"}})
 }

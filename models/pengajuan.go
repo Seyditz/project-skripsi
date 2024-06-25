@@ -51,7 +51,6 @@ type PengajuanCreateRequest struct {
 }
 
 type PengajuanUpdateRequest struct {
-	Id               int    `json:"id" gorm:"primary_key"`
 	MahasiswaId      int    `json:"mahasiswa_id"`
 	Peminatan        string `json:"peminatan"`
 	Judul            string `json:"judul"`

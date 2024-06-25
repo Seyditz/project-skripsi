@@ -125,6 +125,9 @@ func UpdatePengajuan(c *gin.Context) {
 	}
 
 	// Validate required fields
+	if input.MahasiswaId == 0 {
+		input.MahasiswaId = existingPengajuan.MahasiswaId
+	}
 	if input.Peminatan == "" {
 		input.Peminatan = existingPengajuan.Peminatan
 	}
@@ -142,6 +145,9 @@ func UpdatePengajuan(c *gin.Context) {
 	}
 	if input.DosPem2Id == 0 {
 		input.DosPem2Id = existingPengajuan.DosPem2Id
+	}
+	if input.StatusAcc == "" {
+		input.StatusAcc = existingPengajuan.StatusAcc
 	}
 
 	pengajuan := models.Pengajuan{

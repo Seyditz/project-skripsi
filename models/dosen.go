@@ -8,7 +8,7 @@ import (
 )
 
 var DosenSafePreloadFunction = func(db *gorm.DB) *gorm.DB {
-	return db.Select("id, name, email, nidn, kapasitas, mahasiswa_bimbingan_id, prodi")
+	return db.Select("id, name, email, nidn, kapasitas, mahasiswa_bimbingan_id, prodi, jabatan, kepakaran")
 }
 
 type Dosen struct {
