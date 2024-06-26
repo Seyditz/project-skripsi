@@ -20,7 +20,7 @@ import (
 // @Produce application/json
 // @Tags Pengajuan
 // @Success 200 {object} []models.Pengajuan{}
-// @Router /pengajuan [get]
+// @Router /pengajuan/ [get]
 func GetAllPengajuan(c *gin.Context) {
 	// pengajuans := []models.PengajuanDataResponse{}
 	pengajuans := []models.Pengajuan{}
@@ -44,7 +44,15 @@ func GetAllPengajuan(c *gin.Context) {
 	c.JSON(200, gin.H{"result": &pengajuans})
 }
 
-// CreatePengajuan creates a new Pengajuan record in the database
+// CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
+// @Summary Create Pengajuan
+// @Description Create Pengajuan
+// @Produce application/json
+// @Param request body models.PengajuanCreateRequest true "Raw Request Body"
+// @Tags Pengajuan
+// @Success 200 {object} models.Pengajuan{}
+// @Router /mahasiswa [post]
 func CreatePengajuan(c *gin.Context) {
 	var input models.PengajuanCreateRequest
 	var dospem1 models.Dosen

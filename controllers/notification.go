@@ -80,7 +80,7 @@ func GetNotificationbyId(c *gin.Context) {
 // @Produce application/json
 // @Tags Notification
 // @Success 200 {object} []models.MobileNotification{}
-// @Router /notification [get]
+// @Router /notification/ [get]
 func GetAllNotification(c *gin.Context) {
 	notifications := []models.MobileNotification{}
 

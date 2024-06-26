@@ -24,7 +24,7 @@ import (
 // @Tags Dosen
 // @Param name query string false "name"
 // @Success 200 {object} []models.DosenDataResponse{}
-// @Router /dosen [get]
+// @Router /dosen/ [get]
 func GetAllDosens(c *gin.Context) {
 	dosens := []models.Dosen{}
 	db := database.DB

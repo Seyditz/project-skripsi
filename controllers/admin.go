@@ -21,7 +21,7 @@ import (
 // @Param email query string false "email"
 // @Tags Admin
 // @Success 200 {object} []models.AdminDataResponse{}
-// @Router /admin [get]
+// @Router /admin/ [get]
 func GetAllAdmin(c *gin.Context) {
 	admins := []models.AdminDataResponse{}
 

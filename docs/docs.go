@@ -16,6 +16,44 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/admin": {
+            "post": {
+                "description": "Create Admins",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Create Admin",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Raw Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.AdminCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Admin"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/": {
             "get": {
                 "description": "Get All Admins",
                 "produces": [
@@ -54,42 +92,6 @@ const docTemplate = `{
                             "items": {
                                 "$ref": "#/definitions/models.AdminDataResponse"
                             }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "Create Admins",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Admin"
-                ],
-                "summary": "Create Admin",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "Raw Request Body",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.AdminCreateRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.Admin"
                         }
                     }
                 }
@@ -299,42 +301,6 @@ const docTemplate = `{
             }
         },
         "/dosen": {
-            "get": {
-                "description": "Get All Dosens",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Dosen"
-                ],
-                "summary": "Get All Dosen",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "name",
-                        "name": "name",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.DosenDataResponse"
-                            }
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "Create Dosen",
                 "produces": [
@@ -367,6 +333,44 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.Dosen"
+                        }
+                    }
+                }
+            }
+        },
+        "/dosen/": {
+            "get": {
+                "description": "Get All Dosens",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dosen"
+                ],
+                "summary": "Get All Dosen",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.DosenDataResponse"
+                            }
                         }
                     }
                 }
@@ -519,6 +523,44 @@ const docTemplate = `{
             }
         },
         "/mahasiswa": {
+            "post": {
+                "description": "Create Pengajuan",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pengajuan"
+                ],
+                "summary": "Create Pengajuan",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Raw Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.PengajuanCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Pengajuan"
+                        }
+                    }
+                }
+            }
+        },
+        "/mahasiswa/": {
             "get": {
                 "description": "Get All Mahasiswa",
                 "produces": [
@@ -557,42 +599,6 @@ const docTemplate = `{
                             "items": {
                                 "$ref": "#/definitions/models.MahasiswaDataResponse"
                             }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "Create Mahasiswa",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Mahasiswa"
-                ],
-                "summary": "Create Mahasiswa",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "Raw Request Body",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.MahasiswaCreateRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.Mahasiswa"
                         }
                     }
                 }
@@ -709,6 +715,37 @@ const docTemplate = `{
             }
         },
         "/notification": {
+            "post": {
+                "description": "Create Notifications",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Create Notification",
+                "parameters": [
+                    {
+                        "description": "Raw Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.MobileNotificationCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.MobileNotification"
+                        }
+                    }
+                }
+            }
+        },
+        "/notification/": {
             "get": {
                 "description": "Get All Notification based on Id from auth",
                 "produces": [
@@ -735,35 +772,6 @@ const docTemplate = `{
                             "items": {
                                 "$ref": "#/definitions/models.MobileNotification"
                             }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "Create Notifications",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Notification"
-                ],
-                "summary": "Create Notification",
-                "parameters": [
-                    {
-                        "description": "Raw Request Body",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.MobileNotificationCreateRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.MobileNotification"
                         }
                     }
                 }
@@ -798,7 +806,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/pengajuan": {
+        "/pengajuan/": {
             "get": {
                 "description": "Get All Pengajuan",
                 "produces": [
@@ -1557,6 +1565,38 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.PengajuanCreateRequest": {
+            "type": "object",
+            "properties": {
+                "abstrak": {
+                    "type": "string"
+                },
+                "dospem1_id": {
+                    "type": "integer"
+                },
+                "dospem2_id": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "judul": {
+                    "type": "string"
+                },
+                "mahasiswa_id": {
+                    "type": "integer"
+                },
+                "peminatan": {
+                    "type": "string"
+                },
+                "rejected_note": {
+                    "type": "string"
+                },
+                "tempat_penelitian": {
                     "type": "string"
                 }
             }

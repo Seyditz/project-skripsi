@@ -325,6 +325,27 @@ definitions:
       updatedAt:
         type: string
     type: object
+  models.PengajuanCreateRequest:
+    properties:
+      abstrak:
+        type: string
+      dospem1_id:
+        type: integer
+      dospem2_id:
+        type: integer
+      id:
+        type: integer
+      judul:
+        type: string
+      mahasiswa_id:
+        type: integer
+      peminatan:
+        type: string
+      rejected_note:
+        type: string
+      tempat_penelitian:
+        type: string
+    type: object
   models.PengajuanUpdateRequest:
     properties:
       abstrak:
@@ -361,6 +382,31 @@ info:
   version: "1.0"
 paths:
   /admin:
+    post:
+      description: Create Admins
+      parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.AdminCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Admin'
+      summary: Create Admin
+      tags:
+      - Admin
+  /admin/:
     get:
       description: Get All Admins
       parameters:
@@ -387,30 +433,6 @@ paths:
               $ref: '#/definitions/models.AdminDataResponse'
             type: array
       summary: Get All Admin
-      tags:
-      - Admin
-    post:
-      description: Create Admins
-      parameters:
-      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: Raw Request Body
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/models.AdminCreateRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Admin'
-      summary: Create Admin
       tags:
       - Admin
   /admin/{id}:
@@ -548,30 +570,6 @@ paths:
       tags:
       - Auth
   /dosen:
-    get:
-      description: Get All Dosens
-      parameters:
-      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: name
-        in: query
-        name: name
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.DosenDataResponse'
-            type: array
-      summary: Get All Dosen
-      tags:
-      - Dosen
     post:
       description: Create Dosen
       parameters:
@@ -594,6 +592,31 @@ paths:
           schema:
             $ref: '#/definitions/models.Dosen'
       summary: Create Dosen
+      tags:
+      - Dosen
+  /dosen/:
+    get:
+      description: Get All Dosens
+      parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: name
+        in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.DosenDataResponse'
+            type: array
+      summary: Get All Dosen
       tags:
       - Dosen
   /dosen/{id}:
@@ -695,6 +718,31 @@ paths:
       tags:
       - Dosen
   /mahasiswa:
+    post:
+      description: Create Pengajuan
+      parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.PengajuanCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Pengajuan'
+      summary: Create Pengajuan
+      tags:
+      - Pengajuan
+  /mahasiswa/:
     get:
       description: Get All Mahasiswa
       parameters:
@@ -721,30 +769,6 @@ paths:
               $ref: '#/definitions/models.MahasiswaDataResponse'
             type: array
       summary: Get All Mahasiswa
-      tags:
-      - Mahasiswa
-    post:
-      description: Create Mahasiswa
-      parameters:
-      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: Raw Request Body
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/models.MahasiswaCreateRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Mahasiswa'
-      summary: Create Mahasiswa
       tags:
       - Mahasiswa
   /mahasiswa/{id}:
@@ -822,6 +846,26 @@ paths:
       tags:
       - Mahasiswa
   /notification:
+    post:
+      description: Create Notifications
+      parameters:
+      - description: Raw Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.MobileNotificationCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MobileNotification'
+      summary: Create Notification
+      tags:
+      - Notification
+  /notification/:
     get:
       description: Get All Notification based on Id from auth
       parameters:
@@ -840,25 +884,6 @@ paths:
               $ref: '#/definitions/models.MobileNotification'
             type: array
       summary: Get All Notification
-      tags:
-      - Notification
-    post:
-      description: Create Notifications
-      parameters:
-      - description: Raw Request Body
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/models.MobileNotificationCreateRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.MobileNotification'
-      summary: Create Notification
       tags:
       - Notification
   /notification/{id}:
@@ -880,7 +905,7 @@ paths:
       summary: Get Notification By ID
       tags:
       - Notification
-  /pengajuan:
+  /pengajuan/:
     get:
       description: Get All Pengajuan
       parameters:

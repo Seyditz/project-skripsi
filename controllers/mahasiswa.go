@@ -24,7 +24,7 @@ import (
 // @Produce application/json
 // @Tags Mahasiswa
 // @Success 200 {object} []models.MahasiswaDataResponse{}
-// @Router /mahasiswa [get]
+// @Router /mahasiswa/ [get]
 func GetAllMahasiswa(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 
