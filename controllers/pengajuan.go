@@ -55,7 +55,7 @@ func GetAllPengajuan(c *gin.Context) {
 // @Router /pengajuan [post]
 func CreatePengajuan(c *gin.Context) {
 	var input models.PengajuanCreateRequest
-	var existingPengajuan models.Pengajuan
+	// var existingPengajuan models.Pengajuan
 	var dospem1 models.Dosen
 	var dospem2 models.Dosen
 
@@ -88,12 +88,12 @@ func CreatePengajuan(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "dospem2 is required"})
 		return
 	}
-	if result := database.DB.Where("mahasiswa_id = ?", input.MahasiswaId).First(&existingPengajuan); result.RowsAffected > 0 {
-		if existingPengajuan.StatusAcc == "Pending" || existingPengajuan.StatusAcc == "Approved" || existingPengajuan.StatusAccKaprodi == "Pending" || existingPengajuan.StatusAccKaprodi == "Approved" {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Mahasiswa telah mengajukan Judul yang sudah pending/acc"})
-			return
-		}
-	}
+	// if result := database.DB.Where("mahasiswa_id = ?", input.MahasiswaId).First(&existingPengajuan); result.RowsAffected > 0 {
+	// 	if existingPengajuan.StatusAcc == "Pending" || existingPengajuan.StatusAcc == "Approved" || existingPengajuan.StatusAccKaprodi == "Pending" || existingPengajuan.StatusAccKaprodi == "Approved" {
+	// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Mahasiswa telah mengajukan Judul yang sudah pending/acc"})
+	// 		return
+	// 	}
+	// }
 	if result := database.DB.First(&dospem1, input.DosPem1Id); result.RowsAffected == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 1 doesn't exist"})
 		return
