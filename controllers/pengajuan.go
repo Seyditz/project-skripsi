@@ -344,7 +344,7 @@ func GetPengajuanByDosPem1Id(c *gin.Context) {
 
 	// Find Pengajuan records by DosPem1 ID
 	var pengajuan []models.Pengajuan
-	query := database.DB.Where("dospem1_id = ?", id)
+	query := database.DB.Where("dos_pem1_id = ?", id)
 
 	if judul != "" {
 		query = query.Where("judul ILIKE ?", "%"+judul+"%")
