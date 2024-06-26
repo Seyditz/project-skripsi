@@ -12,6 +12,7 @@ func PengajuanRoutes(r *gin.Engine) {
 	pengajuanRoutes.GET("/", utils.Authorize("mahasiswa"), controllers.GetAllPengajuan)
 	pengajuanRoutes.GET("/:id", utils.Authorize("mahasiswa"), controllers.GetPengajuanByID)
 	pengajuanRoutes.GET("/mahasiswa/:id", utils.Authorize("mahasiswa"), controllers.GetPengajuanByMahasiswaID)
+	pengajuanRoutes.GET("/dospem/:id", utils.Authorize("dosen"), controllers.GetPengajuanByDosPem1Id)
 	pengajuanRoutes.POST("/", utils.Authorize("mahasiswa"), controllers.CreatePengajuan)
 	pengajuanRoutes.POST("/similarity-test", utils.Authorize("mahasiswa"), controllers.SimilartityTest)
 	pengajuanRoutes.DELETE("/:id", utils.Authorize("mahasiswa"), controllers.DeletePengajuan)

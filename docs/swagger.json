@@ -834,6 +834,42 @@
                 }
             }
         },
+        "/pengajuan/dospem/{id}": {
+            "get": {
+                "description": "Get Pengajuan By Dospem ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pengajuan"
+                ],
+                "summary": "Get Pengajuan By Dospem ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Dospem ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Pengajuan"
+                        }
+                    }
+                }
+            }
+        },
         "/pengajuan/mahasiswa/{id}": {
             "get": {
                 "description": "Get Pengajuan By Mahasiswa ID",

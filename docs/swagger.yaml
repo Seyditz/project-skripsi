@@ -979,6 +979,30 @@ paths:
       summary: Update Pengajuan
       tags:
       - Pengajuan
+  /pengajuan/dospem/{id}:
+    get:
+      description: Get Pengajuan By Dospem ID
+      parameters:
+      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dospem ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Pengajuan'
+      summary: Get Pengajuan By Dospem ID
+      tags:
+      - Pengajuan
   /pengajuan/mahasiswa/{id}:
     get:
       description: Get Pengajuan By Mahasiswa ID

@@ -296,7 +296,7 @@ func GetPengajuanByMahasiswaID(c *gin.Context) {
 	mahasiswaID := c.Param("id")
 	judul := c.Query("judul")
 
-	// Convert Mahasiswa ID to an integer (if necessary)
+	// Convert Mahasiswa ID to an integer
 	var id int
 	if _, err := fmt.Sscanf(mahasiswaID, "%d", &id); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Mahasiswa ID"})
@@ -315,6 +315,45 @@ func GetPengajuanByMahasiswaID(c *gin.Context) {
 
 	if result.Error != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all pengajuan by mahasiswa ID", "error": result.Error})
+		return
+	}
+
+	c.JSON(200, gin.H{"result": pengajuan})
+}
+
+// CreateTags godoc
+// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
+// @Summary Get Pengajuan By Dospem ID
+// @Description Get Pengajuan By Dospem ID
+// @Produce application/json
+// @Param id path int true "Dospem ID"
+// @Tags Pengajuan
+// @Success 200 {object} models.Pengajuan{}
+// @Router /pengajuan/dospem/{id} [get]
+func GetPengajuanByDosPem1Id(c *gin.Context) {
+	// Get the DosPem1 ID from the URL parameters
+	dospem1ID := c.Param("id")
+	judul := c.Query("judul")
+
+	// Convert DosPem1 ID to an integer
+	var id int
+	if _, err := fmt.Sscanf(dospem1ID, "%d", &id); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid DosPem1 ID"})
+		return
+	}
+
+	// Find Pengajuan records by DosPem1 ID
+	var pengajuan []models.Pengajuan
+	query := database.DB.Where("dospem1_id = ?", id)
+
+	if judul != "" {
+		query = query.Where("judul ILIKE ?", "%"+judul+"%")
+	}
+
+	result := query.Preload("DosPem1", models.DosenSafePreloadFunction).Preload("DosPem2", models.DosenSafePreloadFunction).Preload("Mahasiswa", models.MahasiswaSafePreloadFunction).Find(&pengajuan)
+
+	if result.Error != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all pengajuan by DosPem1 ID", "error": result.Error})
 		return
 	}
 
