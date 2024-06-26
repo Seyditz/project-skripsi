@@ -3,6 +3,7 @@ module github.com/Seyditz/project-skripsi
 go 1.21.4
 
 require (
+	cloud.google.com/go/storage v1.41.0
 	firebase.google.com/go/v4 v4.14.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-contrib/gzip v0.0.6
@@ -27,7 +28,6 @@ require (
 	cloud.google.com/go/firestore v1.15.0 // indirect
 	cloud.google.com/go/iam v1.1.8 // indirect
 	cloud.google.com/go/longrunning v0.5.7 // indirect
-	cloud.google.com/go/storage v1.41.0 // indirect
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/MicahParks/keyfunc v1.9.0 // indirect
 	github.com/bytedance/sonic v1.11.9 // indirect
