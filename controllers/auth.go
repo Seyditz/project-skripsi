@@ -103,7 +103,7 @@ func DosenLogin(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": token, "data": dosenDataResponse, "roles": []string{"dosen", "mahasiswa"}})
+	c.JSON(http.StatusOK, gin.H{"token": token, "data": dosenDataResponse, "roles": roles})
 } //ghhgghhg
 
 // CreateTags godoc
