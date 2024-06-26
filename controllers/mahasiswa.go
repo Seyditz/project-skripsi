@@ -77,7 +77,7 @@ func CreateMahasiswa(c *gin.Context) {
 
 	var existingMahasiswa models.Mahasiswa
 	if result := database.DB.Where("nim = ?", input.NIM).First(&existingMahasiswa); result.RowsAffected > 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "email already exists"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "nim already exists"})
 		return
 	}
 
