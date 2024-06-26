@@ -229,6 +229,30 @@ func UpdateDosen(c *gin.Context) {
 		input.Password = existingDosen.Password
 	}
 
+	// Handle image upload
+	imageUrl := existingDosen.Image
+	file, header, err := c.Request.FormFile("image")
+	if err == nil {
+		defer file.Close()
+
+		// Delete the old image from Firebase Storage
+		if existingDosen.Image != "" {
+			err = utils.DeleteFileFromFirebase(context.Background(), "sijudul-610fb.appspot.com", existingDosen.Image)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+				return
+			}
+		}
+
+		// Upload the new image to Firebase Storage
+		fileName := fmt.Sprintf("%d_%s", time.Now().Unix(), filepath.Base(header.Filename))
+		imageUrl, err = utils.UploadFileToFirebase(context.Background(), "sijudul-610fb.appspot.com", file, fileName)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+	}
+
 	dosen := models.Dosen{
 		Name:      input.Name,
 		Nidn:      input.Nidn,
@@ -239,6 +263,7 @@ func UpdateDosen(c *gin.Context) {
 		Kepakaran: input.Kepakaran,
 		Kapasitas: input.Kapasitas,
 		UpdatedAt: time.Now(),
+		Image:     imageUrl,
 	}
 
 	// Update the dosen in the database

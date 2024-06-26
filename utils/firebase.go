@@ -54,3 +54,15 @@ func UploadFileToFirebase(ctx context.Context, bucketName string, file multipart
 	url := fmt.Sprintf("https://storage.googleapis.com/%s/%s", bucketName, fileName)
 	return url, nil
 }
+
+func DeleteFileFromFirebase(ctx context.Context, bucketName string, fileURL string) error {
+	bucket := storageClient.Bucket(bucketName)
+
+	objectName := fileURL[len(fmt.Sprintf("https://storage.googleapis.com/%s/", bucketName)):]
+	object := bucket.Object(objectName)
+	if err := object.Delete(ctx); err != nil {
+		return fmt.Errorf("error deleting file: %v", err)
+	}
+
+	return nil
+}
