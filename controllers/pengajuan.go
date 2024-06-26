@@ -87,6 +87,10 @@ func CreatePengajuan(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 2 doesn't exist"})
 		return
 	}
+	if len(dospem1.MahasiswaBimbinganId)+1 > dospem1.Kapasitas {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Kapasitas Dospem 1 sudah penuh, silahkan hubungi kaprodi jika ingin ditambahkan"})
+		return
+	}
 
 	pengajuan := models.Pengajuan{
 		MahasiswaId:      input.MahasiswaId,
