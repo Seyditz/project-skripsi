@@ -96,10 +96,10 @@ func CreateDosen(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "prodi is required"})
 		return
 	}
-	if input.Jabatan == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "jabatan is required"})
-		return
-	}
+	// if input.Jabatan == "" {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "jabatan is required"})
+	// 	return
+	// }
 	if input.Kepakaran == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "kepakaran is required"})
 		return
