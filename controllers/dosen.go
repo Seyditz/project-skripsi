@@ -172,8 +172,8 @@ func UpdateDosen(c *gin.Context) {
 	dosenID, _ := strconv.Atoi(c.Param("id"))
 
 	// Bind the JSON body to the dosen struct
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
+	if err := c.ShouldBind(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid form data"})
 		return
 	}
 
@@ -254,6 +254,7 @@ func UpdateDosen(c *gin.Context) {
 	}
 
 	dosen := models.Dosen{
+		Id:        existingDosen.Id,
 		Name:      input.Name,
 		Nidn:      input.Nidn,
 		Email:     input.Email,
