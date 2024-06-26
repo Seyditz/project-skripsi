@@ -8,6 +8,7 @@ import (
 
 	"github.com/Seyditz/project-skripsi/database"
 	"github.com/Seyditz/project-skripsi/models"
+	"github.com/Seyditz/project-skripsi/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -46,6 +47,8 @@ func GetAllPengajuan(c *gin.Context) {
 // CreatePengajuan creates a new Pengajuan record in the database
 func CreatePengajuan(c *gin.Context) {
 	var input models.PengajuanCreateRequest
+	var dospem1 models.Dosen
+	var dospem2 models.Dosen
 
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
@@ -76,6 +79,14 @@ func CreatePengajuan(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "dospem2 is required"})
 		return
 	}
+	if result := database.DB.First(&dospem1, input.DosPem1Id); result.RowsAffected == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 1 doesn't exist"})
+		return
+	}
+	if result := database.DB.First(&dospem2, input.DosPem2Id); result.RowsAffected == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 2 doesn't exist"})
+		return
+	}
 
 	pengajuan := models.Pengajuan{
 		MahasiswaId:      input.MahasiswaId,
@@ -87,12 +98,22 @@ func CreatePengajuan(c *gin.Context) {
 		DosPem2Id:        input.DosPem2Id,
 		StatusAcc:        "Pending",
 		StatusAccKaprodi: "Pending",
-		RejectedNote:     input.RejectedNote,
+		RejectedNote:     "",
 		CreatedAt:        time.Now(),
 	}
 
 	// Create the pengajuan in the database
 	if result := database.DB.Create(&pengajuan); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		return
+	}
+
+	// Add Mahasiswa to Dosen Mahasiswa Bimbingan List
+	dosenUpdatedData := models.Dosen{
+		MahasiswaBimbinganId: append(dospem1.MahasiswaBimbinganId, int64(input.MahasiswaId)),
+	}
+
+	if result := database.DB.Model(&models.Dosen{}).Where("id = ?", input.DosPem1Id).Updates(dosenUpdatedData); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 		return
 	}
@@ -113,6 +134,8 @@ func CreatePengajuan(c *gin.Context) {
 func UpdatePengajuan(c *gin.Context) {
 	var input models.Pengajuan
 	pengajuanID := c.Param("id")
+	var dospem1 models.Dosen
+	var dospem2 models.Dosen
 
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
@@ -154,6 +177,31 @@ func UpdatePengajuan(c *gin.Context) {
 	if input.StatusAccKaprodi == "" {
 		input.StatusAccKaprodi = existingPengajuan.StatusAccKaprodi
 	}
+	if result := database.DB.First(&dospem1, input.DosPem1Id); result.RowsAffected == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 1 doesn't exist"})
+		return
+	}
+	if result := database.DB.First(&dospem2, input.DosPem2Id); result.RowsAffected == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 2 doesn't exist"})
+		return
+	}
+	dospem1MahasiswaArray := dospem1.MahasiswaBimbinganId
+	// dospem2MahasiswaArray := dospem2.MahasiswaBimbinganId
+
+	if input.StatusAcc == "Rejected" || input.StatusAccKaprodi == "Rejected" {
+		dospem1MahasiswaArray = utils.RemoveInt64FromArray(dospem1MahasiswaArray, int64(existingPengajuan.MahasiswaId))
+		// utils.RemoveInt64FromArray(dospem2MahasiswaArray, int64(existingPengajuan.MahasiswaId))
+
+		// Add Mahasiswa to Dosen Mahasiswa Bimbingan List
+		dosenUpdatedData := models.Dosen{
+			MahasiswaBimbinganId: dospem1MahasiswaArray,
+		}
+
+		if result := database.DB.Model(&models.Dosen{}).Where("id = ?", existingPengajuan.DosPem1Id).Updates(dosenUpdatedData); result.Error != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+			return
+		}
+	}
 
 	pengajuan := models.Pengajuan{
 		MahasiswaId:      input.MahasiswaId,
@@ -168,6 +216,7 @@ func UpdatePengajuan(c *gin.Context) {
 		RejectedNote:     input.RejectedNote,
 		UpdatedAt:        time.Now(),
 	}
+
 	// Update the Pengajuan in the database
 	if result := database.DB.Model(&existingPengajuan).Updates(&pengajuan); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})

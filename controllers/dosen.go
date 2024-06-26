@@ -12,6 +12,7 @@ import (
 	"github.com/Seyditz/project-skripsi/models"
 	"github.com/Seyditz/project-skripsi/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -143,7 +144,7 @@ func CreateDosen(c *gin.Context) {
 		Jabatan:              input.Jabatan,
 		Kepakaran:            input.Kepakaran,
 		Kapasitas:            input.Kapasitas,
-		MahasiswaBimbinganId: input.MahasiswaBimbinganId,
+		MahasiswaBimbinganId: pq.Int64Array{},
 		CreatedAt:            time.Now(),
 		Image:                imageUrl,
 	}
@@ -254,17 +255,18 @@ func UpdateDosen(c *gin.Context) {
 	}
 
 	dosen := models.Dosen{
-		Id:        existingDosen.Id,
-		Name:      input.Name,
-		Nidn:      input.Nidn,
-		Email:     input.Email,
-		Password:  input.Password,
-		Prodi:     input.Prodi,
-		Jabatan:   input.Jabatan,
-		Kepakaran: input.Kepakaran,
-		Kapasitas: input.Kapasitas,
-		UpdatedAt: time.Now(),
-		Image:     imageUrl,
+		Id:                   existingDosen.Id,
+		Name:                 input.Name,
+		Nidn:                 input.Nidn,
+		Email:                input.Email,
+		Password:             input.Password,
+		Prodi:                input.Prodi,
+		Jabatan:              input.Jabatan,
+		Kepakaran:            input.Kepakaran,
+		Kapasitas:            input.Kapasitas,
+		MahasiswaBimbinganId: input.MahasiswaBimbinganId,
+		UpdatedAt:            time.Now(),
+		Image:                imageUrl,
 	}
 
 	// Update the dosen in the database
