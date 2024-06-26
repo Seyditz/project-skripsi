@@ -372,6 +372,42 @@ const docTemplate = `{
                 }
             }
         },
+        "/dosen/mahasiswa-bimbingan/{id}": {
+            "get": {
+                "description": "Get All Mahasiswa Bimbingan",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dosen"
+                ],
+                "summary": "Get All Mahasiswa Bimbingan",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Dosen ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DosenMahasiswaBimbinganResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/dosen/{id}": {
             "get": {
                 "description": "Get Dosen By ID",
@@ -674,7 +710,7 @@ const docTemplate = `{
         },
         "/notification": {
             "get": {
-                "description": "Get All Notifications",
+                "description": "Get All Notification based on Id from auth",
                 "produces": [
                     "application/json"
                 ],
@@ -862,6 +898,12 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.SimilarityRequest"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -1092,6 +1134,12 @@ const docTemplate = `{
                 "kepakaran": {
                     "type": "string"
                 },
+                "mahasiswa_bimbingan_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
                 "name": {
                     "type": "string"
                 },
@@ -1103,9 +1151,6 @@ const docTemplate = `{
                 },
                 "prodi": {
                     "type": "string"
-                },
-                "total_mahasiswa": {
-                    "type": "integer"
                 },
                 "updatedAt": {
                     "type": "string"
@@ -1118,9 +1163,6 @@ const docTemplate = `{
                 "email": {
                     "type": "string"
                 },
-                "image": {
-                    "type": "string"
-                },
                 "jabatan": {
                     "type": "string"
                 },
@@ -1129,6 +1171,12 @@ const docTemplate = `{
                 },
                 "kepakaran": {
                     "type": "string"
+                },
+                "mahasiswa_bimbingan_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 },
                 "name": {
                     "type": "string"
@@ -1141,9 +1189,6 @@ const docTemplate = `{
                 },
                 "prodi": {
                     "type": "string"
-                },
-                "total_mahasiswa": {
-                    "type": "integer"
                 }
             }
         },
@@ -1171,6 +1216,12 @@ const docTemplate = `{
                 "kepakaran": {
                     "type": "string"
                 },
+                "mahasiswa_bimbingan_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
                 "name": {
                     "type": "string"
                 },
@@ -1180,9 +1231,6 @@ const docTemplate = `{
                 "prodi": {
                     "type": "string"
                 },
-                "total_mahasiswa": {
-                    "type": "integer"
-                },
                 "updatedAt": {
                     "type": "string"
                 }
@@ -1191,7 +1239,7 @@ const docTemplate = `{
         "models.DosenLoginRequest": {
             "type": "object",
             "properties": {
-                "email": {
+                "nidn": {
                     "type": "string"
                 },
                 "password": {
@@ -1199,13 +1247,21 @@ const docTemplate = `{
                 }
             }
         },
+        "models.DosenMahasiswaBimbinganResponse": {
+            "type": "object",
+            "properties": {
+                "mahasiswa_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.MahasiswaDataResponse"
+                    }
+                }
+            }
+        },
         "models.DosenUpdateRequest": {
             "type": "object",
             "properties": {
                 "email": {
-                    "type": "string"
-                },
-                "image": {
                     "type": "string"
                 },
                 "jabatan": {
@@ -1217,6 +1273,12 @@ const docTemplate = `{
                 "kepakaran": {
                     "type": "string"
                 },
+                "mahasiswa_bimbingan_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
                 "name": {
                     "type": "string"
                 },
@@ -1228,9 +1290,6 @@ const docTemplate = `{
                 },
                 "prodi": {
                     "type": "string"
-                },
-                "total_mahasiswa": {
-                    "type": "integer"
                 }
             }
         },
@@ -1279,9 +1338,6 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "email": {
-                    "type": "string"
-                },
-                "image": {
                     "type": "string"
                 },
                 "name": {
@@ -1356,9 +1412,6 @@ const docTemplate = `{
                 "email": {
                     "type": "string"
                 },
-                "image": {
-                    "type": "string"
-                },
                 "name": {
                     "type": "string"
                 },
@@ -1379,6 +1432,9 @@ const docTemplate = `{
         "models.MobileNotification": {
             "type": "object",
             "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
                 "data_pengajuan": {
                     "$ref": "#/definitions/models.Pengajuan"
                 },
@@ -1390,6 +1446,9 @@ const docTemplate = `{
                 },
                 "message": {
                     "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
                 }
             }
         },
@@ -1404,12 +1463,21 @@ const docTemplate = `{
                 },
                 "message": {
                     "type": "string"
+                },
+                "status_pengajuan": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
                 }
             }
         },
         "models.Pengajuan": {
             "type": "object",
             "properties": {
+                "abstrak": {
+                    "type": "string"
+                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -1443,10 +1511,10 @@ const docTemplate = `{
                 "rejected_note": {
                     "type": "string"
                 },
-                "rumusan_masalah": {
+                "status_acc": {
                     "type": "string"
                 },
-                "status_acc": {
+                "status_acc_kaprodi": {
                     "type": "string"
                 },
                 "tempat_penelitian": {
@@ -1460,13 +1528,13 @@ const docTemplate = `{
         "models.PengajuanUpdateRequest": {
             "type": "object",
             "properties": {
+                "abstrak": {
+                    "type": "string"
+                },
                 "dospem1_id": {
                     "type": "integer"
                 },
                 "dospem2_id": {
-                    "type": "integer"
-                },
-                "id": {
                     "type": "integer"
                 },
                 "judul": {
@@ -1481,10 +1549,10 @@ const docTemplate = `{
                 "rejected_note": {
                     "type": "string"
                 },
-                "rumusan_masalah": {
+                "status_acc": {
                     "type": "string"
                 },
-                "status_acc": {
+                "status_acc_kaprodi": {
                     "type": "string"
                 },
                 "tempat_penelitian": {

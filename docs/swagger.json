@@ -370,6 +370,42 @@
                 }
             }
         },
+        "/dosen/mahasiswa-bimbingan/{id}": {
+            "get": {
+                "description": "Get All Mahasiswa Bimbingan",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dosen"
+                ],
+                "summary": "Get All Mahasiswa Bimbingan",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Dosen ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DosenMahasiswaBimbinganResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/dosen/{id}": {
             "get": {
                 "description": "Get Dosen By ID",
@@ -672,7 +708,7 @@
         },
         "/notification": {
             "get": {
-                "description": "Get All Notifications",
+                "description": "Get All Notification based on Id from auth",
                 "produces": [
                     "application/json"
                 ],
@@ -860,6 +896,12 @@
                         "schema": {
                             "$ref": "#/definitions/models.SimilarityRequest"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -1090,6 +1132,12 @@
                 "kepakaran": {
                     "type": "string"
                 },
+                "mahasiswa_bimbingan_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
                 "name": {
                     "type": "string"
                 },
@@ -1101,9 +1149,6 @@
                 },
                 "prodi": {
                     "type": "string"
-                },
-                "total_mahasiswa": {
-                    "type": "integer"
                 },
                 "updatedAt": {
                     "type": "string"
@@ -1116,9 +1161,6 @@
                 "email": {
                     "type": "string"
                 },
-                "image": {
-                    "type": "string"
-                },
                 "jabatan": {
                     "type": "string"
                 },
@@ -1127,6 +1169,12 @@
                 },
                 "kepakaran": {
                     "type": "string"
+                },
+                "mahasiswa_bimbingan_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 },
                 "name": {
                     "type": "string"
@@ -1139,9 +1187,6 @@
                 },
                 "prodi": {
                     "type": "string"
-                },
-                "total_mahasiswa": {
-                    "type": "integer"
                 }
             }
         },
@@ -1169,6 +1214,12 @@
                 "kepakaran": {
                     "type": "string"
                 },
+                "mahasiswa_bimbingan_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
                 "name": {
                     "type": "string"
                 },
@@ -1178,9 +1229,6 @@
                 "prodi": {
                     "type": "string"
                 },
-                "total_mahasiswa": {
-                    "type": "integer"
-                },
                 "updatedAt": {
                     "type": "string"
                 }
@@ -1189,7 +1237,7 @@
         "models.DosenLoginRequest": {
             "type": "object",
             "properties": {
-                "email": {
+                "nidn": {
                     "type": "string"
                 },
                 "password": {
@@ -1197,13 +1245,21 @@
                 }
             }
         },
+        "models.DosenMahasiswaBimbinganResponse": {
+            "type": "object",
+            "properties": {
+                "mahasiswa_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.MahasiswaDataResponse"
+                    }
+                }
+            }
+        },
         "models.DosenUpdateRequest": {
             "type": "object",
             "properties": {
                 "email": {
-                    "type": "string"
-                },
-                "image": {
                     "type": "string"
                 },
                 "jabatan": {
@@ -1215,6 +1271,12 @@
                 "kepakaran": {
                     "type": "string"
                 },
+                "mahasiswa_bimbingan_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
                 "name": {
                     "type": "string"
                 },
@@ -1226,9 +1288,6 @@
                 },
                 "prodi": {
                     "type": "string"
-                },
-                "total_mahasiswa": {
-                    "type": "integer"
                 }
             }
         },
@@ -1277,9 +1336,6 @@
                     "type": "integer"
                 },
                 "email": {
-                    "type": "string"
-                },
-                "image": {
                     "type": "string"
                 },
                 "name": {
@@ -1354,9 +1410,6 @@
                 "email": {
                     "type": "string"
                 },
-                "image": {
-                    "type": "string"
-                },
                 "name": {
                     "type": "string"
                 },
@@ -1377,6 +1430,9 @@
         "models.MobileNotification": {
             "type": "object",
             "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
                 "data_pengajuan": {
                     "$ref": "#/definitions/models.Pengajuan"
                 },
@@ -1388,6 +1444,9 @@
                 },
                 "message": {
                     "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
                 }
             }
         },
@@ -1402,12 +1461,21 @@
                 },
                 "message": {
                     "type": "string"
+                },
+                "status_pengajuan": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
                 }
             }
         },
         "models.Pengajuan": {
             "type": "object",
             "properties": {
+                "abstrak": {
+                    "type": "string"
+                },
                 "createdAt": {
                     "type": "string"
                 },
@@ -1441,10 +1509,10 @@
                 "rejected_note": {
                     "type": "string"
                 },
-                "rumusan_masalah": {
+                "status_acc": {
                     "type": "string"
                 },
-                "status_acc": {
+                "status_acc_kaprodi": {
                     "type": "string"
                 },
                 "tempat_penelitian": {
@@ -1458,13 +1526,13 @@
         "models.PengajuanUpdateRequest": {
             "type": "object",
             "properties": {
+                "abstrak": {
+                    "type": "string"
+                },
                 "dospem1_id": {
                     "type": "integer"
                 },
                 "dospem2_id": {
-                    "type": "integer"
-                },
-                "id": {
                     "type": "integer"
                 },
                 "judul": {
@@ -1479,10 +1547,10 @@
                 "rejected_note": {
                     "type": "string"
                 },
-                "rumusan_masalah": {
+                "status_acc": {
                     "type": "string"
                 },
-                "status_acc": {
+                "status_acc_kaprodi": {
                     "type": "string"
                 },
                 "tempat_penelitian": {
