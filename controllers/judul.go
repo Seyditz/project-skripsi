@@ -43,7 +43,7 @@ func CreateJudul(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "tempat penelitian is required"})
 		return
 	}
-	if input.RumusanMasalah == "" {
+	if input.Abstrak == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "rumusan masalah is required"})
 		return
 	}
@@ -61,7 +61,7 @@ func CreateJudul(c *gin.Context) {
 		Peminatan:        input.Peminatan,
 		Judul:            input.Judul,
 		TempatPenelitian: input.TempatPenelitian,
-		RumusanMasalah:   input.RumusanMasalah,
+		Abstrak:          input.Abstrak,
 		DosPem1Id:        input.DosPem1Id,
 		DosPem2Id:        input.DosPem2Id,
 	}
@@ -105,7 +105,7 @@ func UpdateJudul(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "tempat penelitian is required"})
 		return
 	}
-	if judul.RumusanMasalah == "" {
+	if judul.Abstrak == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "rumusan masalah is required"})
 		return
 	}

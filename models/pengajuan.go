@@ -11,7 +11,7 @@ type Pengajuan struct {
 	Peminatan        string    `json:"peminatan"`
 	Judul            string    `json:"judul"`
 	TempatPenelitian string    `json:"tempat_penelitian"`
-	RumusanMasalah   string    `json:"rumusan_masalah"`
+	Abstrak          string    `json:"abstrak"`
 	DosPem1Id        int       `json:"dospem1_id"`
 	DosPem1          Dosen     `json:"dospem1" gorm:"foreignKey:DosPem1Id;references:Id"`
 	DosPem2Id        int       `json:"dospem2_id"`
@@ -29,7 +29,7 @@ type PengajuanDataResponse struct {
 	Peminatan        string    `json:"peminatan"`
 	Judul            string    `json:"judul"`
 	TempatPenelitian string    `json:"tempat_penelitian"`
-	RumusanMasalah   string    `json:"rumusan_masalah"`
+	Abstrak          string    `json:"abstrak"`
 	DosPem1          Dosen     `json:"dospem1" gorm:"foreignKey:DosPem1Id;references:Id"`
 	DosPem2          Dosen     `json:"dospem2" gorm:"foreignKey:DosPem2Id;references:Id"`
 	StatusAcc        string    `json:"status_acc"`
@@ -45,7 +45,7 @@ type PengajuanCreateRequest struct {
 	Peminatan        string `json:"peminatan"`
 	Judul            string `json:"judul"`
 	TempatPenelitian string `json:"tempat_penelitian"`
-	RumusanMasalah   string `json:"rumusan_masalah"`
+	Abstrak          string `json:"abstrak"`
 	DosPem1Id        int    `json:"dospem1_id"`
 	DosPem2Id        int    `json:"dospem2_id"`
 	RejectedNote     string `json:"rejected_note"`
@@ -56,7 +56,7 @@ type PengajuanUpdateRequest struct {
 	Peminatan        string `json:"peminatan"`
 	Judul            string `json:"judul"`
 	TempatPenelitian string `json:"tempat_penelitian"`
-	RumusanMasalah   string `json:"rumusan_masalah"`
+	Abstrak          string `json:"abstrak"`
 	DosPem1Id        int    `json:"dospem1_id"`
 	DosPem2Id        int    `json:"dospem2_id"`
 	StatusAcc        string `json:"status_acc"`

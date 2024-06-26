@@ -64,7 +64,7 @@ func CreatePengajuan(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "tempat penelitian is required"})
 		return
 	}
-	if input.RumusanMasalah == "" {
+	if input.Abstrak == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "rumusan masalah is required"})
 		return
 	}
@@ -82,7 +82,7 @@ func CreatePengajuan(c *gin.Context) {
 		Peminatan:        input.Peminatan,
 		Judul:            input.Judul,
 		TempatPenelitian: input.TempatPenelitian,
-		RumusanMasalah:   input.RumusanMasalah,
+		Abstrak:          input.Abstrak,
 		DosPem1Id:        input.DosPem1Id,
 		DosPem2Id:        input.DosPem2Id,
 		StatusAcc:        "Pending",
@@ -139,8 +139,8 @@ func UpdatePengajuan(c *gin.Context) {
 	if input.TempatPenelitian == "" {
 		input.TempatPenelitian = existingPengajuan.TempatPenelitian
 	}
-	if input.RumusanMasalah == "" {
-		input.RumusanMasalah = existingPengajuan.RumusanMasalah
+	if input.Abstrak == "" {
+		input.Abstrak = existingPengajuan.Abstrak
 	}
 	if input.DosPem1Id == 0 {
 		input.DosPem1Id = existingPengajuan.DosPem1Id
@@ -160,7 +160,7 @@ func UpdatePengajuan(c *gin.Context) {
 		Peminatan:        input.Peminatan,
 		Judul:            input.Judul,
 		TempatPenelitian: input.TempatPenelitian,
-		RumusanMasalah:   input.RumusanMasalah,
+		Abstrak:          input.Abstrak,
 		DosPem1Id:        input.DosPem1Id,
 		DosPem2Id:        input.DosPem2Id,
 		StatusAcc:        input.StatusAcc,
