@@ -23,3 +23,5 @@ func Connect() {
 	// db.AutoMigrate(&models.MobileNotification{})
 	DB = db
 }
+
+//aa
