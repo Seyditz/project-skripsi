@@ -52,7 +52,7 @@ func GetAllPengajuan(c *gin.Context) {
 // @Param request body models.PengajuanCreateRequest true "Raw Request Body"
 // @Tags Pengajuan
 // @Success 200 {object} models.Pengajuan{}
-// @Router /mahasiswa [post]
+// @Router /pengajuan [post]
 func CreatePengajuan(c *gin.Context) {
 	var input models.PengajuanCreateRequest
 	var dospem1 models.Dosen
