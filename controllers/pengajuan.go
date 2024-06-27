@@ -215,58 +215,36 @@ func UpdatePengajuan(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 2 tidak ditemukan"})
 		return
 	}
-	dospem1MahasiswaArray := dospem1.MahasiswaBimbinganId
-	dospem2MahasiswaArray := dospem2.MahasiswaBimbinganId
-
-	// dospem2MahasiswaArray := dospem2.MahasiswaBimbinganId
 
 	if input.StatusAcc == "Rejected" || input.StatusAccKaprodi == "Rejected" {
-		dospem1MahasiswaArray = utils.RemoveInt64FromArray(dospem1MahasiswaArray, int64(existingPengajuan.MahasiswaId))
-		dospem2MahasiswaArray = utils.RemoveInt64FromArray(dospem2MahasiswaArray, int64(existingPengajuan.MahasiswaId))
-		// utils.RemoveInt64FromArray(dospem2MahasiswaArray, int64(existingPengajuan.MahasiswaId))
-
-		// Add Mahasiswa to Dosen Mahasiswa Bimbingan List
-		dospem1UpdatedData := models.Dosen{
-			MahasiswaBimbinganId: dospem1MahasiswaArray,
-		}
-		dospem2UpdatedData := models.Dosen{
-			MahasiswaBimbinganId: dospem2MahasiswaArray,
-		}
-
-		if result := database.DB.Model(&models.Dosen{}).Where("id = ?", existingPengajuan.DosPem1Id).Updates(dospem1UpdatedData); result.Error != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
-			return
-		}
-		if result := database.DB.Model(&models.Dosen{}).Where("id = ?", existingPengajuan.DosPem2Id).Updates(dospem2UpdatedData); result.Error != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
-			return
-		}
-	} else if input.DosPem1Id != existingPengajuan.DosPem1Id {
-		var newDospem1 models.Dosen
-		var newDospem2 models.Dosen
-
-		if result := database.DB.First(&newDospem1, input.DosPem1Id); result.RowsAffected == 0 {
-			c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 1 tidak ditemukan"})
-			return
-		}
-		if result := database.DB.First(&newDospem2, input.DosPem2Id); result.RowsAffected == 0 {
-			c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 2 tidak ditemukan"})
+		if err := utils.RemoveMahasiswaBimbinganFromDosen(existingPengajuan.MahasiswaId, existingPengajuan.DosPem1Id); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 
-		newDospem1UpdatedData := models.Dosen{
-			MahasiswaBimbinganId: append(newDospem1.MahasiswaBimbinganId, int64(input.MahasiswaId)),
-		}
-		newDospem2UpdatedData := models.Dosen{
-			MahasiswaBimbinganId: append(newDospem1.MahasiswaBimbinganId, int64(input.MahasiswaId)),
-		}
-
-		if result := database.DB.Model(&models.Dosen{}).Where("id = ?", input.DosPem1Id).Updates(newDospem1UpdatedData); result.Error != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		if err := utils.RemoveMahasiswaBimbinganFromDosen(existingPengajuan.MahasiswaId, existingPengajuan.DosPem2Id); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		if result := database.DB.Model(&models.Dosen{}).Where("id = ?", input.DosPem2Id).Updates(newDospem2UpdatedData); result.Error != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+	}
+	if input.DosPem1Id != existingPengajuan.DosPem1Id && (input.StatusAcc != "Rejected" || input.StatusAccKaprodi != "Rejected") {
+		if err := utils.RemoveMahasiswaBimbinganFromDosen(existingPengajuan.MahasiswaId, existingPengajuan.DosPem1Id); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		if err := utils.AddMahasiswaBimbinganToDosen(existingPengajuan.MahasiswaId, input.DosPem1Id); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+	}
+	if input.DosPem2Id != existingPengajuan.DosPem2Id && (input.StatusAcc != "Rejected" || input.StatusAccKaprodi != "Rejected") {
+		if err := utils.RemoveMahasiswaBimbinganFromDosen(existingPengajuan.MahasiswaId, existingPengajuan.DosPem2Id); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		if err := utils.AddMahasiswaBimbinganToDosen(existingPengajuan.MahasiswaId, input.DosPem2Id); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 
