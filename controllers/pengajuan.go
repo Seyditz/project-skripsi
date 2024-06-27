@@ -168,7 +168,7 @@ func UpdatePengajuan(c *gin.Context) {
 	var dospem2 models.Dosen
 
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
