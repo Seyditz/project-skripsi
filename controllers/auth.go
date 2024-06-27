@@ -104,7 +104,7 @@ func DosenLogin(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"token": token, "data": dosenDataResponse, "roles": roles})
-} //ghhgghhg
+}
 
 // CreateTags godoc
 // @Summary Mahasiswa Login

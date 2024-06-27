@@ -524,14 +524,14 @@ const docTemplate = `{
         },
         "/mahasiswa": {
             "post": {
-                "description": "Create Pengajuan",
+                "description": "Create Mahasiswa",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "Pengajuan"
+                    "Mahasiswa"
                 ],
-                "summary": "Create Pengajuan",
+                "summary": "Create Mahasiswa",
                 "parameters": [
                     {
                         "type": "string",
@@ -546,7 +546,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.PengajuanCreateRequest"
+                            "$ref": "#/definitions/models.MahasiswaCreateRequest"
                         }
                     }
                 ],
@@ -554,7 +554,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Pengajuan"
+                            "$ref": "#/definitions/models.Mahasiswa"
                         }
                     }
                 }
@@ -801,6 +801,44 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.MobileNotification"
+                        }
+                    }
+                }
+            }
+        },
+        "/pengajuan": {
+            "post": {
+                "description": "Create Pengajuan",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pengajuan"
+                ],
+                "summary": "Create Pengajuan",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Raw Request Body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.PengajuanCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Pengajuan"
                         }
                     }
                 }
