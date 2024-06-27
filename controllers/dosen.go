@@ -64,10 +64,12 @@ func CreateDosen(c *gin.Context) {
 	input.Jabatan = c.PostForm("jabatan")
 	input.Kepakaran = c.PostForm("kepakaran")
 	input.Kapasitas, _ = strconv.Atoi(c.PostForm("kapasitas"))
+	input.Gelar = c.PostForm("gelar")
+	input.Kepakaran = c.PostForm("kepakaran")
 
 	input.TanggalLahir, _ = time.Parse("2006-01-02", c.PostForm("tanggal_lahir"))
-	input.Gelar = pq.StringArray(c.PostFormArray("gelar"))
-	input.JenjangAkademik = pq.StringArray(c.PostFormArray("jenjang_akademik"))
+	// input.Gelar = pq.StringArray(c.PostFormArray("gelar"))
+	// input.JenjangAkademik = pq.StringArray(c.PostFormArray("jenjang_akademik"))
 
 	// if err := c.ShouldBindJSON(&input); err != nil {
 	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
