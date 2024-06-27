@@ -95,15 +95,19 @@ func CreatePengajuan(c *gin.Context) {
 	// 	}
 	// }
 	if result := database.DB.First(&dospem1, input.DosPem1Id); result.RowsAffected == 0 {
-		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 1 doesn't exist"})
+		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 1 tidak ada"})
 		return
 	}
 	if result := database.DB.First(&dospem2, input.DosPem2Id); result.RowsAffected == 0 {
-		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 2 doesn't exist"})
+		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 2 tidak ada"})
 		return
 	}
 	if len(dospem1.MahasiswaBimbinganId)+1 > dospem1.Kapasitas {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Kapasitas Dospem 1 sudah penuh, silahkan hubungi kaprodi jika ingin ditambahkan"})
+		return
+	}
+	if len(dospem1.MahasiswaBimbinganId)+1 > dospem2.Kapasitas {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Kapasitas Dospem 2 sudah penuh, silahkan hubungi kaprodi jika ingin ditambahkan"})
 		return
 	}
 
@@ -128,11 +132,18 @@ func CreatePengajuan(c *gin.Context) {
 	}
 
 	// Add Mahasiswa to Dosen Mahasiswa Bimbingan List
-	dosenUpdatedData := models.Dosen{
+	dospem1UpdatedData := models.Dosen{
 		MahasiswaBimbinganId: append(dospem1.MahasiswaBimbinganId, int64(input.MahasiswaId)),
 	}
+	dospem2UpdatedData := models.Dosen{
+		MahasiswaBimbinganId: append(dospem2.MahasiswaBimbinganId, int64(input.MahasiswaId)),
+	}
 
-	if result := database.DB.Model(&models.Dosen{}).Where("id = ?", input.DosPem1Id).Updates(dosenUpdatedData); result.Error != nil {
+	if result := database.DB.Model(&models.Dosen{}).Where("id = ?", input.DosPem1Id).Updates(dospem1UpdatedData); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		return
+	}
+	if result := database.DB.Model(&models.Dosen{}).Where("id = ?", input.DosPem2Id).Updates(dospem2UpdatedData); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 		return
 	}
@@ -197,29 +208,68 @@ func UpdatePengajuan(c *gin.Context) {
 		input.StatusAccKaprodi = existingPengajuan.StatusAccKaprodi
 	}
 	if result := database.DB.First(&dospem1, input.DosPem1Id); result.RowsAffected == 0 {
-		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 1 doesn't exist"})
+		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 1 tidak ditemukan"})
 		return
 	}
 	if result := database.DB.First(&dospem2, input.DosPem2Id); result.RowsAffected == 0 {
-		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 2 doesn't exist"})
+		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 2 tidak ditemukan"})
 		return
 	}
 	dospem1MahasiswaArray := dospem1.MahasiswaBimbinganId
+	dospem2MahasiswaArray := dospem2.MahasiswaBimbinganId
+
 	// dospem2MahasiswaArray := dospem2.MahasiswaBimbinganId
 
 	if input.StatusAcc == "Rejected" || input.StatusAccKaprodi == "Rejected" {
 		dospem1MahasiswaArray = utils.RemoveInt64FromArray(dospem1MahasiswaArray, int64(existingPengajuan.MahasiswaId))
+		dospem2MahasiswaArray = utils.RemoveInt64FromArray(dospem2MahasiswaArray, int64(existingPengajuan.MahasiswaId))
 		// utils.RemoveInt64FromArray(dospem2MahasiswaArray, int64(existingPengajuan.MahasiswaId))
 
 		// Add Mahasiswa to Dosen Mahasiswa Bimbingan List
-		dosenUpdatedData := models.Dosen{
+		dospem1UpdatedData := models.Dosen{
 			MahasiswaBimbinganId: dospem1MahasiswaArray,
 		}
+		dospem2UpdatedData := models.Dosen{
+			MahasiswaBimbinganId: dospem2MahasiswaArray,
+		}
 
-		if result := database.DB.Model(&models.Dosen{}).Where("id = ?", existingPengajuan.DosPem1Id).Updates(dosenUpdatedData); result.Error != nil {
+		if result := database.DB.Model(&models.Dosen{}).Where("id = ?", existingPengajuan.DosPem1Id).Updates(dospem1UpdatedData); result.Error != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 			return
 		}
+		if result := database.DB.Model(&models.Dosen{}).Where("id = ?", existingPengajuan.DosPem2Id).Updates(dospem2UpdatedData); result.Error != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+			return
+		}
+	} else if input.DosPem1Id != existingPengajuan.DosPem1Id {
+		var newDospem1 models.Dosen
+		var newDospem2 models.Dosen
+
+		if result := database.DB.First(&newDospem1, input.DosPem1Id); result.RowsAffected == 0 {
+			c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 1 tidak ditemukan"})
+			return
+		}
+		if result := database.DB.First(&newDospem2, input.DosPem2Id); result.RowsAffected == 0 {
+			c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 2 tidak ditemukan"})
+			return
+		}
+
+		newDospem1UpdatedData := models.Dosen{
+			MahasiswaBimbinganId: append(newDospem1.MahasiswaBimbinganId, int64(input.MahasiswaId)),
+		}
+		newDospem2UpdatedData := models.Dosen{
+			MahasiswaBimbinganId: append(newDospem1.MahasiswaBimbinganId, int64(input.MahasiswaId)),
+		}
+
+		if result := database.DB.Model(&models.Dosen{}).Where("id = ?", input.DosPem1Id).Updates(newDospem1UpdatedData); result.Error != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+			return
+		}
+		if result := database.DB.Model(&models.Dosen{}).Where("id = ?", input.DosPem2Id).Updates(newDospem2UpdatedData); result.Error != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+			return
+		}
+
 	}
 
 	pengajuan := models.Pengajuan{
@@ -459,7 +509,7 @@ func SimilartityTest(c *gin.Context) {
 		similarity := similarityPercentage(judul, pengajuan.Judul)
 		if similarity > 60.0 {
 			c.JSON(http.StatusOK, gin.H{
-				"message":    "Similar title found",
+				"message":    "Judul serupa ditemukan",
 				"similar":    pengajuan.Judul,
 				"similarity": similarity,
 			})
@@ -467,5 +517,5 @@ func SimilartityTest(c *gin.Context) {
 		}
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "No similar title found with similarity > 60%"})
+	c.JSON(http.StatusOK, gin.H{"message": "Tidak ditemukan judul yang memiliki kesamaan diatas 60%"})
 }

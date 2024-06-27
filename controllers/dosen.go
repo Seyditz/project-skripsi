@@ -65,6 +65,10 @@ func CreateDosen(c *gin.Context) {
 	input.Kepakaran = c.PostForm("kepakaran")
 	input.Kapasitas, _ = strconv.Atoi(c.PostForm("kapasitas"))
 
+	input.TanggalLahir, _ = time.Parse("2006-01-02", c.PostForm("tanggal_lahir"))
+	input.Gelar = pq.StringArray(c.PostFormArray("gelar"))
+	input.JenjangAkademik = pq.StringArray(c.PostFormArray("jenjang_akademik"))
+
 	// if err := c.ShouldBindJSON(&input); err != nil {
 	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	// 	return
@@ -145,6 +149,9 @@ func CreateDosen(c *gin.Context) {
 		Kepakaran:            input.Kepakaran,
 		Kapasitas:            input.Kapasitas,
 		MahasiswaBimbinganId: pq.Int64Array{},
+		Gelar:                input.Gelar,
+		JenjangAkademik:      input.JenjangAkademik,
+		TanggalLahir:         input.TanggalLahir,
 		CreatedAt:            time.Now(),
 		Image:                imageUrl,
 	}
