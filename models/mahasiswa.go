@@ -46,31 +46,31 @@ type MahasiswaDataResponse struct {
 }
 
 type MahasiswaCreateRequest struct {
-	Name         string    `json:"name"`
-	NIM          string    `json:"nim"`
-	Email        string    `json:"email"`
-	Prodi        string    `json:"prodi"`
-	Password     string    `json:"password"`
-	Angkatan     int       `json:"angkatan"`
-	TempatLahir  string    `json:"tempat_lahir"`
-	TanggalLahir time.Time `json:"tanggal_lahir"`
-	SKS          int       `json:"sks"`
-	JenisKelamin string    `json:"jenis_kelamin"`
-	Agama        string    `json:"agama"`
+	Name         string `json:"name"`
+	NIM          string `json:"nim"`
+	Email        string `json:"email"`
+	Prodi        string `json:"prodi"`
+	Password     string `json:"password"`
+	Angkatan     int    `json:"angkatan"`
+	TempatLahir  string `json:"tempat_lahir"`
+	TanggalLahir string `json:"tanggal_lahir"`
+	SKS          int    `json:"sks"`
+	JenisKelamin string `json:"jenis_kelamin"`
+	Agama        string `json:"agama"`
 }
 
 type MahasiswaUpdateRequest struct {
-	Name         string    `json:"name"`
-	NIM          string    `json:"nim"`
-	Email        string    `json:"email"`
-	Prodi        string    `json:"prodi"`
-	Password     string    `json:"password"`
-	Angkatan     int       `json:"angkatan"`
-	TempatLahir  string    `json:"tempat_lahir"`
-	TanggalLahir time.Time `json:"tanggal_lahir"`
-	SKS          int       `json:"sks"`
-	JenisKelamin string    `json:"jenis_kelamin"`
-	Agama        string    `json:"agama"`
+	Name         string `json:"name"`
+	NIM          string `json:"nim"`
+	Email        string `json:"email"`
+	Prodi        string `json:"prodi"`
+	Password     string `json:"password"`
+	Angkatan     int    `json:"angkatan"`
+	TempatLahir  string `json:"tempat_lahir"`
+	TanggalLahir string `json:"tanggal_lahir"`
+	SKS          int    `json:"sks"`
+	JenisKelamin string `json:"jenis_kelamin"`
+	Agama        string `json:"agama"`
 }
 
 type MahasiswaLoginRequest struct {
