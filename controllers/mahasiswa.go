@@ -172,7 +172,7 @@ func UpdateMahasiswa(c *gin.Context) {
 		return
 	}
 
-	tanggalLahir, _ := time.Parse("2006-01-02", c.PostForm("tanggal_lahir"))
+	tanggalLahir, _ := time.Parse("0000-00-00", c.PostForm("tanggal_lahir"))
 
 	// Check if the email field is provided and if it's different from the current mahasiswa's email
 	var existingMahasiswa models.Mahasiswa

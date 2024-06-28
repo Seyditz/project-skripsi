@@ -67,7 +67,8 @@ func CreateDosen(c *gin.Context) {
 	input.Gelar = c.PostForm("gelar")
 	input.Kepakaran = c.PostForm("kepakaran")
 
-	input.TanggalLahir, _ = time.Parse("2006-01-02", c.PostForm("tanggal_lahir"))
+	input.TanggalLahir, _ = time.Parse("0000-00-00", c.PostForm("tanggal_lahir"))
+
 	// input.Gelar = pq.StringArray(c.PostFormArray("gelar"))
 	// input.JenjangAkademik = pq.StringArray(c.PostFormArray("jenjang_akademik"))
 
