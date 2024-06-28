@@ -172,6 +172,8 @@ func UpdateMahasiswa(c *gin.Context) {
 		return
 	}
 
+	tanggalLahir, _ := time.Parse("2006-01-02", c.PostForm("tanggal_lahir"))
+
 	// Check if the email field is provided and if it's different from the current mahasiswa's email
 	var existingMahasiswa models.Mahasiswa
 	if result := database.DB.First(&existingMahasiswa, mahasiswaID); result.RowsAffected == 0 {
@@ -246,16 +248,20 @@ func UpdateMahasiswa(c *gin.Context) {
 	}
 
 	mahasiswa := models.Mahasiswa{
-		Id:        existingMahasiswa.Id,
-		Name:      input.Name,
-		NIM:       input.NIM,
-		Email:     input.Email,
-		Prodi:     input.Prodi,
-		Password:  input.Password,
-		Angkatan:  input.Angkatan,
-		SKS:       input.SKS,
-		UpdatedAt: time.Now(),
-		Image:     imageUrl,
+		Id:           existingMahasiswa.Id,
+		Name:         input.Name,
+		NIM:          input.NIM,
+		Email:        input.Email,
+		Prodi:        input.Prodi,
+		Password:     input.Password,
+		Angkatan:     input.Angkatan,
+		TempatLahir:  input.TempatLahir,
+		TanggalLahir: tanggalLahir,
+		Agama:        input.Agama,
+		JenisKelamin: input.JenisKelamin,
+		SKS:          input.SKS,
+		UpdatedAt:    time.Now(),
+		Image:        imageUrl,
 	}
 
 	// Update the mahasiswa in the database
