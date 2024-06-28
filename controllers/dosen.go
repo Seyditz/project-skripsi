@@ -65,7 +65,9 @@ func CreateDosen(c *gin.Context) {
 	input.Kepakaran = c.PostForm("kepakaran")
 	input.Kapasitas, _ = strconv.Atoi(c.PostForm("kapasitas"))
 	input.Gelar = c.PostForm("gelar")
+	input.NoTelp = c.PostForm("no_telp")
 	input.Kepakaran = c.PostForm("kepakaran")
+	input.JenjangAkademik = c.PostForm("jenjang_akademik")
 
 	input.TanggalLahir, _ = time.Parse("0000-00-00", c.PostForm("tanggal_lahir"))
 
@@ -155,6 +157,7 @@ func CreateDosen(c *gin.Context) {
 		Gelar:                input.Gelar,
 		JenjangAkademik:      input.JenjangAkademik,
 		TanggalLahir:         input.TanggalLahir,
+		NoTelp:               input.NoTelp,
 		CreatedAt:            time.Now(),
 		Image:                imageUrl,
 	}
@@ -226,6 +229,15 @@ func UpdateDosen(c *gin.Context) {
 	if input.Kapasitas == 0 {
 		input.Kapasitas = existingDosen.Kapasitas
 	}
+	if input.Gelar == "" {
+		input.Gelar = existingDosen.Gelar
+	}
+	if input.JenjangAkademik == "" {
+		input.JenjangAkademik = existingDosen.JenjangAkademik
+	}
+	if input.NoTelp == "" {
+		input.NoTelp = existingDosen.NoTelp
+	}
 
 	// If password is provided, encrypt it
 	if input.Password != "" {
@@ -275,6 +287,10 @@ func UpdateDosen(c *gin.Context) {
 		Kepakaran:            input.Kepakaran,
 		Kapasitas:            input.Kapasitas,
 		MahasiswaBimbinganId: input.MahasiswaBimbinganId,
+		Gelar:                input.Gelar,
+		TanggalLahir:         input.TanggalLahir,
+		JenjangAkademik:      input.JenjangAkademik,
+		NoTelp:               input.NoTelp,
 		UpdatedAt:            time.Now(),
 		Image:                imageUrl,
 	}

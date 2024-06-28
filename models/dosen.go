@@ -25,6 +25,7 @@ type Dosen struct {
 	Image                string        `json:"image"`
 	Gelar                string        `json:"gelar"`
 	JenjangAkademik      string        `json:"jenjang_akademik"`
+	NoTelp               string        `json:"no_telp"`
 	TanggalLahir         time.Time     `json:"tanggal_lahir"`
 	CreatedAt            time.Time
 	UpdatedAt            time.Time
@@ -42,6 +43,7 @@ type DosenDataResponse struct {
 	MahasiswaBimbinganId pq.Int64Array `json:"mahasiswa_bimbingan_id"`
 	Image                string        `json:"image"`
 	Gelar                string        `json:"gelar"`
+	NoTelp               string        `json:"no_telp"`
 	JenjangAkademik      string        `json:"jenjang_akademik"`
 	TanggalLahir         time.Time     `json:"tanggal_lahir"`
 	CreatedAt            time.Time
@@ -59,6 +61,7 @@ type DosenCreateRequest struct {
 	Kapasitas            int           `json:"kapasitas"`
 	Gelar                string        `json:"gelar"`
 	JenjangAkademik      string        `json:"jenjang_akademik"`
+	NoTelp               string        `json:"no_telp"`
 	TanggalLahir         time.Time     `json:"tanggal_lahir"`
 	MahasiswaBimbinganId pq.Int64Array `json:"mahasiswa_bimbingan_id"`
 }
@@ -73,6 +76,7 @@ type DosenUpdateRequest struct {
 	Kepakaran            string        `json:"kepakaran"`
 	Kapasitas            int           `json:"kapasitas"`
 	Gelar                string        `json:"gelar"`
+	NoTelp               string        `json:"no_telp"`
 	JenjangAkademik      string        `json:"jenjang_akademik"`
 	TanggalLahir         time.Time     `json:"tanggal_lahir"`
 	MahasiswaBimbinganId pq.Int64Array `json:"mahasiswa_bimbingan_id"`

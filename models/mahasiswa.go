@@ -20,6 +20,7 @@ type Mahasiswa struct {
 	Angkatan     int       `json:"angkatan"`
 	SKS          int       `json:"sks"`
 	Image        string    `json:"image"`
+	NoTelp       string    `json:"no_telp"`
 	TempatLahir  string    `json:"tempat_lahir"`
 	TanggalLahir time.Time `json:"tanggal_lahir"`
 	JenisKelamin string    `json:"jenis_kelamin"`
@@ -37,6 +38,7 @@ type MahasiswaDataResponse struct {
 	Angkatan     int       `json:"angkatan"`
 	SKS          int       `json:"sks"`
 	Image        string    `json:"image"`
+	NoTelp       string    `json:"no_telp"`
 	TempatLahir  string    `json:"tempat_lahir"`
 	TanggalLahir time.Time `json:"tanggal_lahir"`
 	JenisKelamin string    `json:"jenis_kelamin"`
@@ -53,6 +55,7 @@ type MahasiswaCreateRequest struct {
 	Password     string `json:"password"`
 	Angkatan     int    `json:"angkatan"`
 	TempatLahir  string `json:"tempat_lahir"`
+	NoTelp       string `json:"no_telp"`
 	TanggalLahir string `json:"tanggal_lahir"`
 	SKS          int    `json:"sks"`
 	JenisKelamin string `json:"jenis_kelamin"`
@@ -66,6 +69,7 @@ type MahasiswaUpdateRequest struct {
 	Prodi        string `json:"prodi"`
 	Password     string `json:"password"`
 	Angkatan     int    `json:"angkatan"`
+	NoTelp       string `json:"no_telp"`
 	TempatLahir  string `json:"tempat_lahir"`
 	TanggalLahir string `json:"tanggal_lahir"`
 	SKS          int    `json:"sks"`
