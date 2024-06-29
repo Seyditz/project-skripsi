@@ -261,6 +261,7 @@ func UpdateMahasiswa(c *gin.Context) {
 		Agama:        input.Agama,
 		JenisKelamin: input.JenisKelamin,
 		SKS:          input.SKS,
+		NoTelp:       input.NoTelp,
 		UpdatedAt:    time.Now(),
 		Image:        imageUrl,
 	}
