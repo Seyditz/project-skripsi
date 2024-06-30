@@ -295,6 +295,16 @@ func DeletePengajuan(c *gin.Context) {
 		return
 	}
 
+	if err := utils.RemoveMahasiswaBimbinganFromDosen(pengajuan.MahasiswaId, pengajuan.DosPem1Id); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := utils.RemoveMahasiswaBimbinganFromDosen(pengajuan.MahasiswaId, pengajuan.DosPem2Id); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
 	// Delete the Pengajuan from the database
 	if result := database.DB.Delete(&pengajuan); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
