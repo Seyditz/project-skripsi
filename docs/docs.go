@@ -1201,6 +1201,9 @@ const docTemplate = `{
                 "email": {
                     "type": "string"
                 },
+                "gelar": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
@@ -1208,6 +1211,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "jabatan": {
+                    "type": "string"
+                },
+                "jenjang_akademik": {
                     "type": "string"
                 },
                 "kapasitas": {
@@ -1228,10 +1234,16 @@ const docTemplate = `{
                 "nidn": {
                     "type": "string"
                 },
+                "no_telp": {
+                    "type": "string"
+                },
                 "password": {
                     "type": "string"
                 },
                 "prodi": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
                     "type": "string"
                 },
                 "updatedAt": {
@@ -1245,7 +1257,13 @@ const docTemplate = `{
                 "email": {
                     "type": "string"
                 },
+                "gelar": {
+                    "type": "string"
+                },
                 "jabatan": {
+                    "type": "string"
+                },
+                "jenjang_akademik": {
                     "type": "string"
                 },
                 "kapasitas": {
@@ -1266,10 +1284,16 @@ const docTemplate = `{
                 "nidn": {
                     "type": "string"
                 },
+                "no_telp": {
+                    "type": "string"
+                },
                 "password": {
                     "type": "string"
                 },
                 "prodi": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
                     "type": "string"
                 }
             }
@@ -1283,6 +1307,9 @@ const docTemplate = `{
                 "email": {
                     "type": "string"
                 },
+                "gelar": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
@@ -1290,6 +1317,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "jabatan": {
+                    "type": "string"
+                },
+                "jenjang_akademik": {
                     "type": "string"
                 },
                 "kapasitas": {
@@ -1310,7 +1340,13 @@ const docTemplate = `{
                 "nidn": {
                     "type": "string"
                 },
+                "no_telp": {
+                    "type": "string"
+                },
                 "prodi": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
                     "type": "string"
                 },
                 "updatedAt": {
@@ -1346,7 +1382,13 @@ const docTemplate = `{
                 "email": {
                     "type": "string"
                 },
+                "gelar": {
+                    "type": "string"
+                },
                 "jabatan": {
+                    "type": "string"
+                },
+                "jenjang_akademik": {
                     "type": "string"
                 },
                 "kapasitas": {
@@ -1367,10 +1409,16 @@ const docTemplate = `{
                 "nidn": {
                     "type": "string"
                 },
+                "no_telp": {
+                    "type": "string"
+                },
                 "password": {
                     "type": "string"
                 },
                 "prodi": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
                     "type": "string"
                 }
             }
@@ -1378,6 +1426,9 @@ const docTemplate = `{
         "models.Mahasiswa": {
             "type": "object",
             "properties": {
+                "agama": {
+                    "type": "string"
+                },
                 "angkatan": {
                     "type": "integer"
                 },
@@ -1393,10 +1444,16 @@ const docTemplate = `{
                 "image": {
                     "type": "string"
                 },
+                "jenis_kelamin": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 },
                 "nim": {
+                    "type": "string"
+                },
+                "no_telp": {
                     "type": "string"
                 },
                 "password": {
@@ -1407,6 +1464,12 @@ const docTemplate = `{
                 },
                 "sks": {
                     "type": "integer"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tempat_lahir": {
+                    "type": "string"
                 },
                 "updatedAt": {
                     "type": "string"
@@ -1416,16 +1479,25 @@ const docTemplate = `{
         "models.MahasiswaCreateRequest": {
             "type": "object",
             "properties": {
+                "agama": {
+                    "type": "string"
+                },
                 "angkatan": {
                     "type": "integer"
                 },
                 "email": {
                     "type": "string"
                 },
+                "jenis_kelamin": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 },
                 "nim": {
+                    "type": "string"
+                },
+                "no_telp": {
                     "type": "string"
                 },
                 "password": {
@@ -1436,12 +1508,21 @@ const docTemplate = `{
                 },
                 "sks": {
                     "type": "integer"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tempat_lahir": {
+                    "type": "string"
                 }
             }
         },
         "models.MahasiswaDataResponse": {
             "type": "object",
             "properties": {
+                "agama": {
+                    "type": "string"
+                },
                 "angkatan": {
                     "type": "integer"
                 },
@@ -1457,10 +1538,16 @@ const docTemplate = `{
                 "image": {
                     "type": "string"
                 },
+                "jenis_kelamin": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 },
                 "nim": {
+                    "type": "string"
+                },
+                "no_telp": {
                     "type": "string"
                 },
                 "prodi": {
@@ -1468,6 +1555,12 @@ const docTemplate = `{
                 },
                 "sks": {
                     "type": "integer"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tempat_lahir": {
+                    "type": "string"
                 },
                 "updatedAt": {
                     "type": "string"
@@ -1488,16 +1581,25 @@ const docTemplate = `{
         "models.MahasiswaUpdateRequest": {
             "type": "object",
             "properties": {
+                "agama": {
+                    "type": "string"
+                },
                 "angkatan": {
                     "type": "integer"
                 },
                 "email": {
                     "type": "string"
                 },
+                "jenis_kelamin": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 },
                 "nim": {
+                    "type": "string"
+                },
+                "no_telp": {
                     "type": "string"
                 },
                 "password": {
@@ -1508,6 +1610,12 @@ const docTemplate = `{
                 },
                 "sks": {
                     "type": "integer"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tempat_lahir": {
+                    "type": "string"
                 }
             }
         },

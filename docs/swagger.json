@@ -1199,6 +1199,9 @@
                 "email": {
                     "type": "string"
                 },
+                "gelar": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
@@ -1206,6 +1209,9 @@
                     "type": "string"
                 },
                 "jabatan": {
+                    "type": "string"
+                },
+                "jenjang_akademik": {
                     "type": "string"
                 },
                 "kapasitas": {
@@ -1226,10 +1232,16 @@
                 "nidn": {
                     "type": "string"
                 },
+                "no_telp": {
+                    "type": "string"
+                },
                 "password": {
                     "type": "string"
                 },
                 "prodi": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
                     "type": "string"
                 },
                 "updatedAt": {
@@ -1243,7 +1255,13 @@
                 "email": {
                     "type": "string"
                 },
+                "gelar": {
+                    "type": "string"
+                },
                 "jabatan": {
+                    "type": "string"
+                },
+                "jenjang_akademik": {
                     "type": "string"
                 },
                 "kapasitas": {
@@ -1264,10 +1282,16 @@
                 "nidn": {
                     "type": "string"
                 },
+                "no_telp": {
+                    "type": "string"
+                },
                 "password": {
                     "type": "string"
                 },
                 "prodi": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
                     "type": "string"
                 }
             }
@@ -1281,6 +1305,9 @@
                 "email": {
                     "type": "string"
                 },
+                "gelar": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
@@ -1288,6 +1315,9 @@
                     "type": "string"
                 },
                 "jabatan": {
+                    "type": "string"
+                },
+                "jenjang_akademik": {
                     "type": "string"
                 },
                 "kapasitas": {
@@ -1308,7 +1338,13 @@
                 "nidn": {
                     "type": "string"
                 },
+                "no_telp": {
+                    "type": "string"
+                },
                 "prodi": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
                     "type": "string"
                 },
                 "updatedAt": {
@@ -1344,7 +1380,13 @@
                 "email": {
                     "type": "string"
                 },
+                "gelar": {
+                    "type": "string"
+                },
                 "jabatan": {
+                    "type": "string"
+                },
+                "jenjang_akademik": {
                     "type": "string"
                 },
                 "kapasitas": {
@@ -1365,10 +1407,16 @@
                 "nidn": {
                     "type": "string"
                 },
+                "no_telp": {
+                    "type": "string"
+                },
                 "password": {
                     "type": "string"
                 },
                 "prodi": {
+                    "type": "string"
+                },
+                "tanggal_lahir": {
                     "type": "string"
                 }
             }
@@ -1376,6 +1424,9 @@
         "models.Mahasiswa": {
             "type": "object",
             "properties": {
+                "agama": {
+                    "type": "string"
+                },
                 "angkatan": {
                     "type": "integer"
                 },
@@ -1391,10 +1442,16 @@
                 "image": {
                     "type": "string"
                 },
+                "jenis_kelamin": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 },
                 "nim": {
+                    "type": "string"
+                },
+                "no_telp": {
                     "type": "string"
                 },
                 "password": {
@@ -1405,6 +1462,12 @@
                 },
                 "sks": {
                     "type": "integer"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tempat_lahir": {
+                    "type": "string"
                 },
                 "updatedAt": {
                     "type": "string"
@@ -1414,16 +1477,25 @@
         "models.MahasiswaCreateRequest": {
             "type": "object",
             "properties": {
+                "agama": {
+                    "type": "string"
+                },
                 "angkatan": {
                     "type": "integer"
                 },
                 "email": {
                     "type": "string"
                 },
+                "jenis_kelamin": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 },
                 "nim": {
+                    "type": "string"
+                },
+                "no_telp": {
                     "type": "string"
                 },
                 "password": {
@@ -1434,12 +1506,21 @@
                 },
                 "sks": {
                     "type": "integer"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tempat_lahir": {
+                    "type": "string"
                 }
             }
         },
         "models.MahasiswaDataResponse": {
             "type": "object",
             "properties": {
+                "agama": {
+                    "type": "string"
+                },
                 "angkatan": {
                     "type": "integer"
                 },
@@ -1455,10 +1536,16 @@
                 "image": {
                     "type": "string"
                 },
+                "jenis_kelamin": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 },
                 "nim": {
+                    "type": "string"
+                },
+                "no_telp": {
                     "type": "string"
                 },
                 "prodi": {
@@ -1466,6 +1553,12 @@
                 },
                 "sks": {
                     "type": "integer"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tempat_lahir": {
+                    "type": "string"
                 },
                 "updatedAt": {
                     "type": "string"
@@ -1486,16 +1579,25 @@
         "models.MahasiswaUpdateRequest": {
             "type": "object",
             "properties": {
+                "agama": {
+                    "type": "string"
+                },
                 "angkatan": {
                     "type": "integer"
                 },
                 "email": {
                     "type": "string"
                 },
+                "jenis_kelamin": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 },
                 "nim": {
+                    "type": "string"
+                },
+                "no_telp": {
                     "type": "string"
                 },
                 "password": {
@@ -1506,6 +1608,12 @@
                 },
                 "sks": {
                     "type": "integer"
+                },
+                "tanggal_lahir": {
+                    "type": "string"
+                },
+                "tempat_lahir": {
+                    "type": "string"
                 }
             }
         },

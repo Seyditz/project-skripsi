@@ -59,11 +59,15 @@ definitions:
         type: string
       email:
         type: string
+      gelar:
+        type: string
       id:
         type: integer
       image:
         type: string
       jabatan:
+        type: string
+      jenjang_akademik:
         type: string
       kapasitas:
         type: integer
@@ -77,9 +81,13 @@ definitions:
         type: string
       nidn:
         type: string
+      no_telp:
+        type: string
       password:
         type: string
       prodi:
+        type: string
+      tanggal_lahir:
         type: string
       updatedAt:
         type: string
@@ -88,7 +96,11 @@ definitions:
     properties:
       email:
         type: string
+      gelar:
+        type: string
       jabatan:
+        type: string
+      jenjang_akademik:
         type: string
       kapasitas:
         type: integer
@@ -102,9 +114,13 @@ definitions:
         type: string
       nidn:
         type: string
+      no_telp:
+        type: string
       password:
         type: string
       prodi:
+        type: string
+      tanggal_lahir:
         type: string
     type: object
   models.DosenDataResponse:
@@ -113,11 +129,15 @@ definitions:
         type: string
       email:
         type: string
+      gelar:
+        type: string
       id:
         type: integer
       image:
         type: string
       jabatan:
+        type: string
+      jenjang_akademik:
         type: string
       kapasitas:
         type: integer
@@ -131,7 +151,11 @@ definitions:
         type: string
       nidn:
         type: string
+      no_telp:
+        type: string
       prodi:
+        type: string
+      tanggal_lahir:
         type: string
       updatedAt:
         type: string
@@ -154,7 +178,11 @@ definitions:
     properties:
       email:
         type: string
+      gelar:
+        type: string
       jabatan:
+        type: string
+      jenjang_akademik:
         type: string
       kapasitas:
         type: integer
@@ -168,13 +196,19 @@ definitions:
         type: string
       nidn:
         type: string
+      no_telp:
+        type: string
       password:
         type: string
       prodi:
         type: string
+      tanggal_lahir:
+        type: string
     type: object
   models.Mahasiswa:
     properties:
+      agama:
+        type: string
       angkatan:
         type: integer
       createdAt:
@@ -185,9 +219,13 @@ definitions:
         type: integer
       image:
         type: string
+      jenis_kelamin:
+        type: string
       name:
         type: string
       nim:
+        type: string
+      no_telp:
         type: string
       password:
         type: string
@@ -195,18 +233,28 @@ definitions:
         type: string
       sks:
         type: integer
+      tanggal_lahir:
+        type: string
+      tempat_lahir:
+        type: string
       updatedAt:
         type: string
     type: object
   models.MahasiswaCreateRequest:
     properties:
+      agama:
+        type: string
       angkatan:
         type: integer
       email:
         type: string
+      jenis_kelamin:
+        type: string
       name:
         type: string
       nim:
+        type: string
+      no_telp:
         type: string
       password:
         type: string
@@ -214,9 +262,15 @@ definitions:
         type: string
       sks:
         type: integer
+      tanggal_lahir:
+        type: string
+      tempat_lahir:
+        type: string
     type: object
   models.MahasiswaDataResponse:
     properties:
+      agama:
+        type: string
       angkatan:
         type: integer
       createdAt:
@@ -227,14 +281,22 @@ definitions:
         type: integer
       image:
         type: string
+      jenis_kelamin:
+        type: string
       name:
         type: string
       nim:
+        type: string
+      no_telp:
         type: string
       prodi:
         type: string
       sks:
         type: integer
+      tanggal_lahir:
+        type: string
+      tempat_lahir:
+        type: string
       updatedAt:
         type: string
     type: object
@@ -247,13 +309,19 @@ definitions:
     type: object
   models.MahasiswaUpdateRequest:
     properties:
+      agama:
+        type: string
       angkatan:
         type: integer
       email:
         type: string
+      jenis_kelamin:
+        type: string
       name:
         type: string
       nim:
+        type: string
+      no_telp:
         type: string
       password:
         type: string
@@ -261,6 +329,10 @@ definitions:
         type: string
       sks:
         type: integer
+      tanggal_lahir:
+        type: string
+      tempat_lahir:
+        type: string
     type: object
   models.MobileNotification:
     properties:
