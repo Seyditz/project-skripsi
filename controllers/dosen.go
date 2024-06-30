@@ -157,7 +157,7 @@ func CreateDosen(c *gin.Context) {
 		Gelar:                input.Gelar,
 		JenjangAkademik:      input.JenjangAkademik,
 		TanggalLahir:         input.TanggalLahir,
-		NoTelp:               input.NoTelp,
+		NoTelp: input.NoTelp,
 		CreatedAt:            time.Now(),
 		Image:                imageUrl,
 	}
