@@ -15,12 +15,9 @@ type Record struct {
 	Title string `xml:",chardata"`
 }
 
-// FetchTitles fetches titles from the OAI-PMH endpoint and returns them as a slice of strings
 func FetchTitles() ([]string, error) {
-	// URL OAI-PMH endpoint
 	url := "http://repository.upnvj.ac.id/cgi/oai2?verb=ListRecords&metadataPrefix=oai_dc"
 
-	// Make HTTP GET request
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch data: %v", err)

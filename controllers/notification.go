@@ -10,14 +10,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// CreateTags godoc
-// @Summary Create Notification
-// @Description Create Notifications
-// @Produce application/json
-// @Param request body models.MobileNotificationCreateRequest true "Raw Request Body"
-// @Tags Notification
-// @Success 200 {object} models.MobileNotification{}
-// @Router /notification [post]
 func CreateNotification(c *gin.Context) {
 	var input models.MobileNotificationCreateRequest
 
@@ -51,14 +43,6 @@ func CreateNotification(c *gin.Context) {
 	c.JSON(200, gin.H{"result": &mobileNotification})
 }
 
-// CreateTags godoc
-// @Summary Get Notification By ID
-// @Description Get Notification By ID
-// @Produce application/json
-// @Param id path int true "Notification ID"
-// @Tags Notification
-// @Success 200 {object} models.MobileNotification{}
-// @Router /notification/{id} [get]
 func GetNotificationbyId(c *gin.Context) {
 	// Get the notification ID from the URL parameters
 	notificationID := c.Param("id")
@@ -73,14 +57,6 @@ func GetNotificationbyId(c *gin.Context) {
 	c.JSON(200, gin.H{"notification": &notification})
 }
 
-// CreateTags godoc
-// @param Authorization header string true "example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs"
-// @Summary Get All Notification
-// @Description Get All Notification based on Id from auth
-// @Produce application/json
-// @Tags Notification
-// @Success 200 {object} []models.MobileNotification{}
-// @Router /notification/ [get]
 func GetAllNotification(c *gin.Context) {
 	notifications := []models.MobileNotification{}
 

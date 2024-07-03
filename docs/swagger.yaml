@@ -334,34 +334,6 @@ definitions:
       tempat_lahir:
         type: string
     type: object
-  models.MobileNotification:
-    properties:
-      createdAt:
-        type: string
-      data_pengajuan:
-        $ref: '#/definitions/models.Pengajuan'
-      data_pengajuan_id:
-        type: integer
-      id:
-        type: integer
-      message:
-        type: string
-      user_id:
-        type: integer
-    type: object
-  models.MobileNotificationCreateRequest:
-    properties:
-      data_pengajuan_id:
-        type: integer
-      id:
-        type: integer
-      message:
-        type: string
-      status_pengajuan:
-        type: string
-      user_id:
-        type: integer
-    type: object
   models.Pengajuan:
     properties:
       abstrak:
@@ -917,66 +889,6 @@ paths:
       summary: Update Mahasiswa
       tags:
       - Mahasiswa
-  /notification:
-    post:
-      description: Create Notifications
-      parameters:
-      - description: Raw Request Body
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/models.MobileNotificationCreateRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.MobileNotification'
-      summary: Create Notification
-      tags:
-      - Notification
-  /notification/:
-    get:
-      description: Get All Notification based on Id from auth
-      parameters:
-      - description: 'example : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc2MDk3NDQsImlzcyI6IkJTRC1MSU5LIn0.DGqDz0YWO3RiqWUFOywVYkSOyImc3fDRtX9SvGpkINs'
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.MobileNotification'
-            type: array
-      summary: Get All Notification
-      tags:
-      - Notification
-  /notification/{id}:
-    get:
-      description: Get Notification By ID
-      parameters:
-      - description: Notification ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.MobileNotification'
-      summary: Get Notification By ID
-      tags:
-      - Notification
   /pengajuan:
     post:
       description: Create Pengajuan
