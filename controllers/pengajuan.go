@@ -75,7 +75,7 @@ func CreatePengajuan(c *gin.Context) {
 	if input.TempatPenelitian == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "tempat penelitian is required"})
 		return
-	}
+	} //a
 	if input.Abstrak == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "rumusan masalah is required"})
 		return
