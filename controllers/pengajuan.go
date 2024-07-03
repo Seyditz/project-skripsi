@@ -88,11 +88,12 @@ func CreatePengajuan(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "dospem2 is required"})
 		return
 	}
-	if result := database.DB.Where("mahasiswa_id = ?", input.MahasiswaId).First(&existingPengajuan); result.RowsAffected > 0 {
-		if existingPengajuan.StatusAcc == "Pending" || existingPengajuan.StatusAcc == "Approved" || existingPengajuan.StatusAccKaprodi == "Pending" || existingPengajuan.StatusAccKaprodi == "Approved" {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Mahasiswa telah mengajukan Judul yang sudah pending/acc"})
-			return
-		}
+	if result := database.DB.
+		Where("mahasiswa_id = ?", input.MahasiswaId).
+		Where("(status_acc = ? OR status_acc = ?)", "Pending", "Approved").
+		Where("(status_acc_kaprodi = ? OR status_acc_kaprodi = ?)", "Pending", "Approved").First(&existingPengajuan); result.RowsAffected > 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Mahasiswa telah mengajukan Judul yang sudah pending/acc"})
+		return
 	}
 	if result := database.DB.First(&dospem1, input.DosPem1Id); result.RowsAffected == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"error": "DosPem 1 tidak ada"})
