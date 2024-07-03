@@ -44,6 +44,17 @@ definitions:
       password:
         type: string
     type: object
+  models.AdminLoginResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.AdminDataResponse'
+      roles:
+        items:
+          type: string
+        type: array
+      token:
+        type: string
+    type: object
   models.AdminUpdateRequest:
     properties:
       email:
@@ -165,6 +176,17 @@ definitions:
       nidn:
         type: string
       password:
+        type: string
+    type: object
+  models.DosenLoginResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.DosenDataResponse'
+      roles:
+        items:
+          type: string
+        type: array
+      token:
         type: string
     type: object
   models.DosenMahasiswaBimbinganResponse:
@@ -305,6 +327,17 @@ definitions:
       email:
         type: string
       password:
+        type: string
+    type: object
+  models.MahasiswaLoginResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.MahasiswaDataResponse'
+      roles:
+        items:
+          type: string
+        type: array
+      token:
         type: string
     type: object
   models.MahasiswaUpdateRequest:
@@ -569,7 +602,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: object
+            $ref: '#/definitions/models.AdminLoginResponse'
       summary: Admin Login
       tags:
       - Auth
@@ -589,7 +622,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: object
+            $ref: '#/definitions/models.DosenLoginResponse'
       summary: Dosen Login
       tags:
       - Auth
@@ -609,7 +642,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: object
+            $ref: '#/definitions/models.MahasiswaLoginResponse'
       summary: Mahasiswa Login
       tags:
       - Auth

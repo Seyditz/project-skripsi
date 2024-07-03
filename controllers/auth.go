@@ -16,7 +16,7 @@ import (
 // @Produce application/json
 // @Param request body models.AdminLoginRequest true "Raw Request Body"
 // @Tags Auth
-// @Success 200 {object} interface{}
+// @Success 200 {object} models.AdminLoginResponse
 // @Router /auth/admin/login [post]
 func AdminLogin(c *gin.Context) {
 	var admin models.Admin
@@ -48,7 +48,13 @@ func AdminLogin(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": token, "data": adminDataRespnse, "roles": []string{"admin", "dosen", "mahasiswa"}})
+	loginResponse := models.AdminLoginResponse{
+		Data:  adminDataRespnse,
+		Roles: []string{"admin", "dosen", "mahasiswa"},
+		Token: token,
+	}
+
+	c.JSON(http.StatusOK, gin.H{"token": loginResponse.Token, "data": loginResponse.Data, "roles": loginResponse.Roles})
 }
 
 // CreateTags godoc
@@ -57,7 +63,7 @@ func AdminLogin(c *gin.Context) {
 // @Produce application/json
 // @Param request body models.DosenLoginRequest true "Raw Request Body"
 // @Tags Auth
-// @Success 200 {object} interface{}
+// @Success 200 {object} models.DosenLoginResponse
 // @Router /auth/dosen/login [post]
 func DosenLogin(c *gin.Context) {
 	var dosen models.Dosen
@@ -112,7 +118,7 @@ func DosenLogin(c *gin.Context) {
 // @Produce application/json
 // @Param request body models.MahasiswaLoginRequest true "Raw Request Body"
 // @Tags Auth
-// @Success 200 {object} interface{}
+// @Success 200 {object} models.MahasiswaLoginResponse
 // @Router /auth/mahasiswa/login [post]
 func MahasiswaLogin(c *gin.Context) {
 	var mahasiswa models.Mahasiswa

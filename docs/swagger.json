@@ -230,7 +230,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object"
+                            "$ref": "#/definitions/models.AdminLoginResponse"
                         }
                     }
                 }
@@ -261,7 +261,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object"
+                            "$ref": "#/definitions/models.DosenLoginResponse"
                         }
                     }
                 }
@@ -292,7 +292,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object"
+                            "$ref": "#/definitions/models.MahasiswaLoginResponse"
                         }
                     }
                 }
@@ -1084,6 +1084,23 @@
                 }
             }
         },
+        "models.AdminLoginResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.AdminDataResponse"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
         "models.AdminUpdateRequest": {
             "type": "object",
             "properties": {
@@ -1267,6 +1284,23 @@
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.DosenLoginResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.DosenDataResponse"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "token": {
                     "type": "string"
                 }
             }
@@ -1480,6 +1514,23 @@
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.MahasiswaLoginResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.MahasiswaDataResponse"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "token": {
                     "type": "string"
                 }
             }

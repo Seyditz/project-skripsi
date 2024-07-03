@@ -81,3 +81,9 @@ type MahasiswaLoginRequest struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
+
+type MahasiswaLoginResponse struct {
+	Data  MahasiswaDataResponse `json:"data"`
+	Roles []string              `json:"roles"`
+	Token string                `json:"token"`
+}

@@ -90,3 +90,9 @@ type DosenLoginRequest struct {
 type DosenMahasiswaBimbinganResponse struct {
 	MahasiswaList []MahasiswaDataResponse `json:"mahasiswa_list"`
 }
+
+type DosenLoginResponse struct {
+	Data  DosenDataResponse `json:"data"`
+	Roles []string          `json:"roles"`
+	Token string            `json:"token"`
+}
