@@ -508,7 +508,7 @@ func SimilartityTest(c *gin.Context) {
 				"similarity": similarity,
 			})
 			return
-		}
+		} //a
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Tidak ditemukan judul yang memiliki kesamaan diatas 60%"})
