@@ -477,7 +477,7 @@ func SimilartityTest(c *gin.Context) {
 	database.DB.Preload("Mahasiswa").Preload("DosPem1").Preload("DosPem2").Find(&pengajuans)
 	repoJudul, err := utils.FetchTitles()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Error dari repository UPNVJ, silahkan dicoba beberapa saat lagi."})
 		return
 	}
 
@@ -520,7 +520,7 @@ func SimilartityTest(c *gin.Context) {
 		if similarity > 60.0 {
 			c.JSON(http.StatusOK, gin.H{
 				"message":    "Judul serupa ditemukan",
-				"similar":    judul,
+				"similar":    judulRepo,
 				"similarity": similarity,
 			})
 			return
