@@ -497,6 +497,9 @@ func SimilartityTest(c *gin.Context) {
 				continue
 			}
 		}
+		if pengajuan.StatusAcc != "Rejected" {
+			continue
+		}
 		similarity := similarityPercentage(judul, pengajuan.Judul)
 		if similarity > 60.0 {
 			c.JSON(http.StatusOK, gin.H{
