@@ -13,4 +13,5 @@ func JudulRoutes(r *gin.Engine) {
 	judulRoutes.POST("/", controllers.CreateJudul)
 	judulRoutes.DELETE("/:id", controllers.DeleteJudul)
 	judulRoutes.PUT("/:id", controllers.UpdateJudul)
+	judulRoutes.GET("/titles", controllers.FetchTitles)
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/Seyditz/project-skripsi/database"
@@ -474,6 +475,11 @@ func similarityPercentage(s, t string) float64 {
 func SimilartityTest(c *gin.Context) {
 	var pengajuans []models.Pengajuan
 	database.DB.Preload("Mahasiswa").Preload("DosPem1").Preload("DosPem2").Find(&pengajuans)
+	repoJudul, err := utils.FetchTitles()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	pengajuanId := c.Query("id")
 
@@ -498,11 +504,23 @@ func SimilartityTest(c *gin.Context) {
 		if pengajuan.StatusAcc != "Rejected" {
 			continue
 		}
-		similarity := similarityPercentage(judul, pengajuan.Judul)
+		similarity := similarityPercentage(strings.ToLower(judul), strings.ToLower(pengajuan.Judul))
 		if similarity > 60.0 {
 			c.JSON(http.StatusOK, gin.H{
 				"message":    "Judul serupa ditemukan",
 				"similar":    pengajuan.Judul,
+				"similarity": similarity,
+			})
+			return
+		}
+	}
+
+	for _, judul := range repoJudul {
+		similarity := similarityPercentage(strings.ToLower(judul), strings.ToLower(judul))
+		if similarity > 60.0 {
+			c.JSON(http.StatusOK, gin.H{
+				"message":    "Judul serupa ditemukan",
+				"similar":    judul,
 				"similarity": similarity,
 			})
 			return

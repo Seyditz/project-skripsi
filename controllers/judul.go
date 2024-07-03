@@ -1,7 +1,9 @@
 package controllers
 
 import (
+	"encoding/xml"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/Seyditz/project-skripsi/database"
@@ -47,14 +49,6 @@ func CreateJudul(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "rumusan masalah is required"})
 		return
 	}
-	if input.DosPem1Id == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "dospem1 is required"})
-		return
-	}
-	if input.DosPem2Id == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "dospem2 is required"})
-		return
-	}
 
 	judul := models.Judul{
 		MahasiswaId:      input.MahasiswaId,
@@ -62,8 +56,6 @@ func CreateJudul(c *gin.Context) {
 		Judul:            input.Judul,
 		TempatPenelitian: input.TempatPenelitian,
 		Abstrak:          input.Abstrak,
-		DosPem1Id:        input.DosPem1Id,
-		DosPem2Id:        input.DosPem2Id,
 	}
 
 	// Create the judul in the database
@@ -107,14 +99,6 @@ func UpdateJudul(c *gin.Context) {
 	}
 	if judul.Abstrak == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "rumusan masalah is required"})
-		return
-	}
-	if judul.DosPem1Id == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "dospem1 is required"})
-		return
-	}
-	if judul.DosPem2Id == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "dospem2 is required"})
 		return
 	}
 
@@ -184,4 +168,49 @@ func GetJudulByMahasiswaID(c *gin.Context) {
 	}
 
 	c.JSON(200, gin.H{"result": juduls})
+}
+
+type Record struct {
+	Title string `xml:"metadata>dc>title"`
+}
+
+type OAIResponse struct {
+	Records []Record `xml:"ListRecords>record"`
+}
+
+func FetchTitles(c *gin.Context) {
+	// URL OAI-PMH endpoint
+	url := "http://repository.upnvj.ac.id/cgi/oai2?verb=ListRecords&metadataPrefix=oai_dc"
+
+	// Make HTTP GET request
+	resp, err := http.Get(url)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch data"})
+		return
+	}
+	defer resp.Body.Close()
+
+	// Read the response body
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response body"})
+		return
+	}
+
+	// Parse XML response
+	var oaiResponse OAIResponse
+	err = xml.Unmarshal(body, &oaiResponse)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to parse XML"})
+		return
+	}
+
+	// Extract titles
+	var titles []string
+	for _, record := range oaiResponse.Records {
+		titles = append(titles, record.Title)
+	}
+
+	// Return titles as JSON
+	c.JSON(http.StatusOK, gin.H{"titles": titles})
 }
