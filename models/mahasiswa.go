@@ -7,7 +7,7 @@ import (
 )
 
 var MahasiswaSafePreloadFunction = func(db *gorm.DB) *gorm.DB {
-	return db.Select("id, name, email, nim, prodi, angkatan, sks, image")
+	return db.Select("id, name, email, nim, prodi, angkatan, sks, image, agama, jenis_kelamin, no_telp")
 }
 
 type Mahasiswa struct {
