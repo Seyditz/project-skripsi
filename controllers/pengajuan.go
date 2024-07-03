@@ -515,8 +515,8 @@ func SimilartityTest(c *gin.Context) {
 		}
 	}
 
-	for _, judul := range repoJudul {
-		similarity := similarityPercentage(strings.ToLower(judul), strings.ToLower(judul))
+	for _, judulRepo := range repoJudul {
+		similarity := similarityPercentage(strings.ToLower(judul), strings.ToLower(judulRepo))
 		if similarity > 60.0 {
 			c.JSON(http.StatusOK, gin.H{
 				"message":    "Judul serupa ditemukan",
