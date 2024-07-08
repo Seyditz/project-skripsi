@@ -99,7 +99,7 @@ func CreateMahasiswa(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "password is required"})
 		return
 	}
-	if input.SKS <= 100 {
+	if input.SKS <= 120 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "SKS minimum is 100"})
 		return
 	}
