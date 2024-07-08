@@ -100,7 +100,7 @@ func CreateMahasiswa(c *gin.Context) {
 		return
 	}
 	if input.SKS <= 120 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "SKS minimum is 100"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "SKS minimum is 120"})
 		return
 	}
 
