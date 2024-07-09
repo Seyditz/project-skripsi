@@ -505,7 +505,7 @@ func SimilartityTest(c *gin.Context) {
 			continue
 		}
 		similarity := similarityPercentage(strings.ToLower(judul), strings.ToLower(pengajuan.Judul))
-		if similarity > 60.0 {
+		if similarity > 30.0 {
 			c.JSON(http.StatusOK, gin.H{
 				"message":    "Judul serupa ditemukan",
 				"similar":    pengajuan.Judul,
@@ -517,7 +517,7 @@ func SimilartityTest(c *gin.Context) {
 
 	for _, judulRepo := range repoJudul {
 		similarity := similarityPercentage(strings.ToLower(judul), strings.ToLower(judulRepo))
-		if similarity > 60.0 {
+		if similarity > 30.0 {
 			c.JSON(http.StatusOK, gin.H{
 				"message":    "Judul serupa ditemukan",
 				"similar":    judulRepo,
@@ -529,5 +529,5 @@ func SimilartityTest(c *gin.Context) {
 
 	peminatan := utils.ClassifyTitle(judul)
 
-	c.JSON(http.StatusOK, gin.H{"message": "Tidak ditemukan judul yang memiliki kesamaan diatas 60%", "peminatan": peminatan})
+	c.JSON(http.StatusOK, gin.H{"message": "Tidak ditemukan judul yang memiliki kesamaan diatas 30%", "peminatan": peminatan})
 }
