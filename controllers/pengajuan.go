@@ -121,6 +121,7 @@ func CreatePengajuan(c *gin.Context) {
 		Abstrak:          input.Abstrak,
 		DosPem1Id:        input.DosPem1Id,
 		DosPem2Id:        input.DosPem2Id,
+		Metode:           input.Metode,
 		StatusAcc:        "Pending",
 		StatusAccKaprodi: "Pending",
 		RejectedNote:     "",
@@ -265,6 +266,7 @@ func UpdatePengajuan(c *gin.Context) {
 		StatusAcc:        input.StatusAcc,
 		StatusAccKaprodi: input.StatusAccKaprodi,
 		RejectedNote:     input.RejectedNote,
+		Metode:           input.Metode,
 		UpdatedAt:        time.Now(),
 	}
 

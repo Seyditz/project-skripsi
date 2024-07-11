@@ -1,6 +1,7 @@
 package database
 
 import (
+	"github.com/Seyditz/project-skripsi/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -14,12 +15,12 @@ func Connect() {
 		panic(err)
 	}
 
-	// db.AutoMigrate(&models.Admin{})
-	// db.AutoMigrate(&models.Dosen{})
-	// db.AutoMigrate(&models.Mahasiswa{})
-	// db.AutoMigrate(&models.Pengajuan{})
-	// db.AutoMigrate(&models.Judul{})
-	// db.AutoMigrate(&models.MobileNotification{})
+	db.AutoMigrate(&models.Admin{})
+	db.AutoMigrate(&models.Dosen{})
+	db.AutoMigrate(&models.Mahasiswa{})
+	db.AutoMigrate(&models.Pengajuan{})
+	db.AutoMigrate(&models.Judul{})
+	db.AutoMigrate(&models.MobileNotification{})
 	DB = db
 }
 

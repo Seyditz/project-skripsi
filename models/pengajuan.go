@@ -19,6 +19,7 @@ type Pengajuan struct {
 	StatusAcc        string    `json:"status_acc"`
 	StatusAccKaprodi string    `json:"status_acc_kaprodi"`
 	RejectedNote     string    `json:"rejected_note"`
+	Metode           string    `json:"metode"`
 	CreatedAt        time.Time
 	UpdatedAt        time.Time
 }
@@ -35,6 +36,7 @@ type PengajuanDataResponse struct {
 	StatusAcc        string    `json:"status_acc"`
 	StatusAccKaprodi string    `json:"status_acc_kaprodi"`
 	RejectedNote     string    `json:"rejected_note"`
+	Metode           string    `json:"metode"`
 	CreatedAt        time.Time
 	UpdatedAt        time.Time
 }
@@ -48,6 +50,7 @@ type PengajuanCreateRequest struct {
 	Abstrak          string `json:"abstrak"`
 	DosPem1Id        int    `json:"dospem1_id"`
 	DosPem2Id        int    `json:"dospem2_id"`
+	Metode           string `json:"metode"`
 	RejectedNote     string `json:"rejected_note"`
 }
 
@@ -61,6 +64,7 @@ type PengajuanUpdateRequest struct {
 	DosPem2Id        int    `json:"dospem2_id"`
 	StatusAcc        string `json:"status_acc"`
 	StatusAccKaprodi string `json:"status_acc_kaprodi"`
+	Metode           string `json:"metode"`
 	RejectedNote     string `json:"rejected_note"`
 }
 
