@@ -103,7 +103,6 @@ func main() {
 	routes.PengajuanRoutes(r)
 	routes.JudulRoutes(r)
 	routes.AuthRoutes(r)
-	routes.NotificationRoutes(r)
 
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
