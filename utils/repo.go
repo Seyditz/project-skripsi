@@ -25,20 +25,17 @@ func FetchTitles() ([]string, error) {
 	}
 	defer resp.Body.Close()
 
-	// Read the response body
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read response body: %v", err)
 	}
 
-	// Parse XML response
 	var oaiResponse OAIResponse
 	err = xml.Unmarshal(body, &oaiResponse)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse XML: %v", err)
 	}
 
-	// Extract titles
 	var titles []string
 	for _, record := range oaiResponse.Records {
 		titles = append(titles, record.Title)
