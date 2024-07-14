@@ -21,19 +21,19 @@ func FetchTitles() ([]string, error) {
 
 	resp, err := http.Get(url)
 	if err != nil {
-		return nil, fmt.Errorf("failed to fetch data: %v", err)
+		return nil, fmt.Errorf("gagal mengambil data: %v", err)
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read response body: %v", err)
+		return nil, fmt.Errorf("gagal membaca respons: %v", err)
 	}
 
 	var oaiResponse OAIResponse
 	err = xml.Unmarshal(body, &oaiResponse)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse XML: %v", err)
+		return nil, fmt.Errorf("tidak dapat parsing XML: %v", err)
 	}
 
 	var titles []string
