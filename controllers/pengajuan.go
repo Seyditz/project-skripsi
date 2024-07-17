@@ -477,7 +477,7 @@ func similarityPercentage(s, t string) float64 {
 func SimilartityTest(c *gin.Context) {
 	var pengajuans []models.Pengajuan
 	database.DB.Preload("Mahasiswa").Preload("DosPem1").Preload("DosPem2").Find(&pengajuans)
-	repoJudul, err := utils.FetchTitles()
+	repoJudul, err := utils.GetRepoTitlesFromDatabase()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Error dari repository UPNVJ, silahkan dicoba beberapa saat lagi."})
 		return

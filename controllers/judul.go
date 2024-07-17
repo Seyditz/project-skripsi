@@ -1,13 +1,12 @@
 package controllers
 
 import (
-	"encoding/xml"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 
 	"github.com/Seyditz/project-skripsi/database"
 	"github.com/Seyditz/project-skripsi/models"
+	"github.com/Seyditz/project-skripsi/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -179,38 +178,52 @@ type OAIResponse struct {
 }
 
 func FetchTitles(c *gin.Context) {
-	// URL OAI-PMH endpoint
-	url := "http://repository.upnvj.ac.id/cgi/oai2?verb=ListRecords&metadataPrefix=oai_dc"
-
-	// Make HTTP GET request
-	resp, err := http.Get(url)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch data"})
-		return
+	titles, err := utils.FetchTitles()
+	titleRepo := models.Title{
+		Titles: titles,
 	}
-	defer resp.Body.Close()
 
-	// Read the response body
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response body"})
+	if result := database.DB.Create(&titleRepo); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 		return
 	}
 
-	// Parse XML response
-	var oaiResponse OAIResponse
-	err = xml.Unmarshal(body, &oaiResponse)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to parse XML"})
-		return
-	}
-
-	// Extract titles
-	var titles []string
-	for _, record := range oaiResponse.Records {
-		titles = append(titles, record.Title)
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
 	// Return titles as JSON
-	c.JSON(http.StatusOK, gin.H{"titles": titles})
+	c.JSON(http.StatusOK, gin.H{"titles": titleRepo, "message": "memindahkan title dari repository ke database berhasil"})
+}
+
+func DeleteTitles(c *gin.Context) {
+	// Get the Title ID from the URL parameters
+	titleID := c.Param("id")
+
+	// Find the Title by ID
+	var title models.Title
+	if result := database.DB.First(&title, titleID); result.RowsAffected == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Title not found"})
+		return
+	}
+
+	// Delete the Title from the database
+	if result := database.DB.Delete(&title); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		return
+	}
+
+	c.JSON(200, gin.H{"message": "TitleArray deleted successfully"})
+}
+
+func GetTitles(c *gin.Context) {
+	juduls := []models.Title{}
+	result := database.DB.Find(&juduls)
+
+	if result.Error != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Could not get all juduls", "error": result.Error})
+		return
+	}
+
+	c.JSON(200, gin.H{"result": &juduls})
 }

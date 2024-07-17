@@ -6,42 +6,83 @@ import (
 	"io"
 	"net/http"
 	"strings"
+
+	"github.com/Seyditz/project-skripsi/database"
+	"github.com/Seyditz/project-skripsi/models"
 )
 
 type OAIResponse struct {
-	Records []Record `xml:"ListRecords>record>metadata>dc>title"`
+	Records         []Record        `xml:"ListRecords>record"`
+	ResumptionToken ResumptionToken `xml:"ListRecords>resumptionToken"`
+}
+type Record struct {
+	Metadata Metadata `xml:"metadata>dc"`
 }
 
-type Record struct {
-	Title string `xml:",chardata"`
+type Metadata struct {
+	Title     string   `xml:"title"`
+	Publisher string   `xml:"publisher"`
+	Subject   []string `xml:"subject"`
+}
+
+type ResumptionToken struct {
+	Value string `xml:",chardata"`
 }
 
 func FetchTitles() ([]string, error) {
-	url := "http://repository.upnvj.ac.id/cgi/oai2?verb=ListRecords&metadataPrefix=oai_dc"
-
-	resp, err := http.Get(url)
-	if err != nil {
-		return nil, fmt.Errorf("gagal mengambil data: %v", err)
-	}
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("gagal membaca respons: %v", err)
-	}
-
-	var oaiResponse OAIResponse
-	err = xml.Unmarshal(body, &oaiResponse)
-	if err != nil {
-		return nil, fmt.Errorf("tidak dapat parsing XML: %v", err)
-	}
-
+	baseURL := "http://repository.upnvj.ac.id/cgi/oai2?verb=ListRecords&metadataPrefix=oai_dc"
 	var titles []string
-	for _, record := range oaiResponse.Records {
-		titles = append(titles, record.Title)
+
+	for {
+		resp, err := http.Get(baseURL)
+		if err != nil {
+			return nil, fmt.Errorf("gagal mengambil data: %v", err)
+		}
+		defer resp.Body.Close()
+
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return nil, fmt.Errorf("gagal membaca respons: %v", err)
+		}
+
+		var oaiResponse OAIResponse
+		err = xml.Unmarshal(body, &oaiResponse)
+		if err != nil {
+			return nil, fmt.Errorf("tidak dapat parsing XML: %v", err)
+		}
+
+		for _, record := range oaiResponse.Records {
+			for _, subject := range record.Metadata.Subject {
+				if strings.Contains(strings.ToLower(subject), "computer science") {
+					titles = append(titles, record.Metadata.Title)
+					break
+				}
+			}
+		}
+
+		// break
+
+		if oaiResponse.ResumptionToken.Value == "" {
+			break
+		}
+
+		baseURL = "http://repository.upnvj.ac.id/cgi/oai2?verb=ListRecords&resumptionToken=" + oaiResponse.ResumptionToken.Value
 	}
 
 	return titles, nil
+}
+
+func GetRepoTitlesFromDatabase() ([]string, error) {
+	var repoJudul []models.Title
+	database.DB.Find(&repoJudul)
+
+	if result := database.DB.Find(&repoJudul); result.RowsAffected == 0 {
+		return nil, fmt.Errorf("tidak bisa fetching judul")
+	}
+
+	juduls := repoJudul[1].Titles
+
+	return juduls, nil
 }
 
 var softwareEngineerKeywords = []string{
