@@ -522,6 +522,19 @@ const docTemplate = `{
                 }
             }
         },
+        "/judul/titles-get": {
+            "get": {
+                "description": "Get Repository Titles",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Judul"
+                ],
+                "summary": "Get Repository Titles",
+                "responses": {}
+            }
+        },
         "/mahasiswa": {
             "post": {
                 "description": "Create Mahasiswa",
@@ -1611,6 +1624,9 @@ const docTemplate = `{
                 "mahasiswa_id": {
                     "type": "integer"
                 },
+                "metode": {
+                    "type": "string"
+                },
                 "peminatan": {
                     "type": "string"
                 },
@@ -1652,6 +1668,9 @@ const docTemplate = `{
                 "mahasiswa_id": {
                     "type": "integer"
                 },
+                "metode": {
+                    "type": "string"
+                },
                 "peminatan": {
                     "type": "string"
                 },
@@ -1680,6 +1699,9 @@ const docTemplate = `{
                 },
                 "mahasiswa_id": {
                     "type": "integer"
+                },
+                "metode": {
+                    "type": "string"
                 },
                 "peminatan": {
                     "type": "string"

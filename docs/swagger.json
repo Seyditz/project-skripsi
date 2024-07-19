@@ -520,6 +520,19 @@
                 }
             }
         },
+        "/judul/titles-get": {
+            "get": {
+                "description": "Get Repository Titles",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Judul"
+                ],
+                "summary": "Get Repository Titles",
+                "responses": {}
+            }
+        },
         "/mahasiswa": {
             "post": {
                 "description": "Create Mahasiswa",
@@ -1609,6 +1622,9 @@
                 "mahasiswa_id": {
                     "type": "integer"
                 },
+                "metode": {
+                    "type": "string"
+                },
                 "peminatan": {
                     "type": "string"
                 },
@@ -1650,6 +1666,9 @@
                 "mahasiswa_id": {
                     "type": "integer"
                 },
+                "metode": {
+                    "type": "string"
+                },
                 "peminatan": {
                     "type": "string"
                 },
@@ -1678,6 +1697,9 @@
                 },
                 "mahasiswa_id": {
                     "type": "integer"
+                },
+                "metode": {
+                    "type": "string"
                 },
                 "peminatan": {
                     "type": "string"

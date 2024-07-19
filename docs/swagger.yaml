@@ -389,6 +389,8 @@ definitions:
         $ref: '#/definitions/models.Mahasiswa'
       mahasiswa_id:
         type: integer
+      metode:
+        type: string
       peminatan:
         type: string
       rejected_note:
@@ -416,6 +418,8 @@ definitions:
         type: string
       mahasiswa_id:
         type: integer
+      metode:
+        type: string
       peminatan:
         type: string
       rejected_note:
@@ -435,6 +439,8 @@ definitions:
         type: string
       mahasiswa_id:
         type: integer
+      metode:
+        type: string
       peminatan:
         type: string
       rejected_note:
@@ -794,6 +800,15 @@ paths:
       summary: Get All Mahasiswa Bimbingan
       tags:
       - Dosen
+  /judul/titles-get:
+    get:
+      description: Get Repository Titles
+      produces:
+      - application/json
+      responses: {}
+      summary: Get Repository Titles
+      tags:
+      - Judul
   /mahasiswa:
     post:
       description: Create Mahasiswa

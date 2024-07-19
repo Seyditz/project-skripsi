@@ -216,6 +216,12 @@ func DeleteTitles(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "TitleArray deleted successfully"})
 }
 
+// CreateTags godoc
+// @Summary Get Repository Titles
+// @Description Get Repository Titles
+// @Produce application/json
+// @Tags Judul
+// @Router /judul/titles-get [get]
 func GetTitles(c *gin.Context) {
 	juduls := []models.Title{}
 	result := database.DB.Find(&juduls)
